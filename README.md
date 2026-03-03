@@ -131,10 +131,10 @@ Une extension possible serait un modèle de régression pour estimer la contribu
 
 Plusieurs projets abordent des questions similaires :
 
-- **F1 Dashboards** – plateforme de visualisations interactives pour explorer les données F1, notamment des comparaisons de performances pilotes, classements et statistiques historiques. https://f1dashboards.com/ :contentReference[oaicite:0]{index=0}
-- **F1 BigData** – base de données complète avec statistiques historiques et visualisations de l’évolution des classements pilotes et constructeurs au fil des saisons. https://www.bigdataf1.com/ :contentReference[oaicite:1]{index=1}
-- **F1 Dash (télémetry/visualisation open-source)** – dashboards interactifs basés sur les données de timing et télémétrie permettant d’analyser la performance technique des voitures et des pilotes. https://github.com/FraserTarbet/F1Dash :contentReference[oaicite:2]{index=2}
-- **Formula-Telemetry** – plateforme interactive de visualisation de données de télémétrie (vitesse, RPM, secteurs, trajectoires) permettant d’analyser la performance technique des voitures en course. https://formula-telemetry.com :contentReference[oaicite:3]{index=3}
+- **F1 Dashboards** – plateforme de visualisations interactives pour explorer les données F1, notamment des comparaisons de performances pilotes, classements et statistiques historiques. https://f1dashboards.com/
+- **F1 BigData** – base de données complète avec statistiques historiques et visualisations de l’évolution des classements pilotes et constructeurs au fil des saisons. https://www.bigdataf1.com/
+- **F1 Dash (télémetry/visualisation open-source)** – dashboards interactifs basés sur les données de timing et télémétrie permettant d’analyser la performance technique des voitures et des pilotes. https://github.com/FraserTarbet/F1Dash
+- **Formula-Telemetry** – plateforme interactive de visualisation de données de télémétrie (vitesse, RPM, secteurs, trajectoires) permettant d’analyser la performance technique des voitures en course. https://formula-telemetry.com
 
 ## 🏁 Conclusion
 

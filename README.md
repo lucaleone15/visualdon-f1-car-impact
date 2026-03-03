@@ -116,5 +116,4 @@ mais à explorer une tension fondamentale en Formule 1 :
 
 🏎️ La voiture ou le pilote ?
 
-La réponse se situe probablement entre les deux —
-et les données permettent de mieux comprendre cet équilibre.
+La réponse se situe probablement entre les deux et les données permettent de mieux comprendre cet équilibre.

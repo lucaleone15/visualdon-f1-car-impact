@@ -125,7 +125,10 @@ Une extension possible serait un modèle de régression pour estimer la contribu
 - Bar chart → comparaison pilote vs coéquipier
 - Scatter plot → performance pilote vs performance équipe
 - Line chart → évolution avant/après transfert
-- Heatmap → performance pilote × équipe
+
+### Wireframe
+
+Lien vers le wireframe : https://www.figma.com/design/CtcadGRihLOY82J6DKIoWF/VisualDon---Wireframes?node-id=0-1&t=JtOPZ7YNRoSSGoph-1
 
 ## 📚 Références
 

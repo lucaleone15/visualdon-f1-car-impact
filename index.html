@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F1 — La Machine ou l'Homme ?</title>
+  <link rel="icon" type="image/x-icon" href="asset/img/F1-01.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,700;0,900;1,300;1,700&family=Barlow:wght@300;400;500&family=Courier+Prime:ital,wght@0,400;1,400&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="src/style.css">
+</head>
+
+<body>
+
+  <div id="progress-bar"></div>
+  <div id="cursor-dot"></div>
+
+  <!-- ══════════ INTRO ══════════ -->
+  <section id="intro" class="chapter chapter-intro">
+    <canvas id="intro-canvas"></canvas>
+    <div class="intro-content">
+      <div class="intro-eyebrow">Formule 1 · 2000–2024 · 86 pilotes · 26 000 résultats</div>
+      <h1 class="intro-title">
+        <span class="tl">LA MACHINE</span>
+        <span class="tl tl-accent">OU</span>
+        <span class="tl">L'HOMME ?</span>
+      </h1>
+      <p class="intro-sub">Une histoire en données sur la frontière la plus floue du sport moderne.</p>
+      <div class="scroll-cue">
+        <div class="sc-line"></div>
+        <span>Défiler</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CHAPTER 1 — Duo ══════════ -->
+  <section id="ch1" class="chapter chapter-scroll">
+    <div class="sticky-wrap">
+      <div class="sticky-vis">
+        <svg id="svg-ch1" class="full-svg"></svg>
+        <div id="ann1" class="annotation"></div>
+      </div>
+    </div>
+    <div class="steps-wrap">
+      <div class="step" data-chapter="1" data-idx="0">
+        <div class="step-inner">
+          <div class="step-tag">01 / Méthode</div>
+          <h2>Même voiture.</h2>
+          <p>En F1, deux équipiers partagent <strong>le même châssis, le même moteur, la même stratégie</strong>. Si
+            leurs résultats diffèrent — c'est le pilote. Chez Red Bull, l'écart moyen entre équipiers est de
+            <strong>+4,3 pts/course</strong>. Et <strong>8 champions du monde sur 9</strong> ont systématiquement dominé
+            leur coéquipier.
+          </p>
+        </div>
+      </div>
+      <div class="step" data-chapter="1" data-idx="1">
+        <div class="step-inner">
+          <div class="step-tag">02 / Duels par saison</div>
+          <h2>Chaque équipe, chaque année</h2>
+          <p>Chaque rayon = une équipe. Gros point = le dominant, rouge = le battu. Utilisez les boutons en haut pour
+            changer d'année.</p>
+        </div>
+      </div>
+      <div class="step" data-chapter="1" data-idx="2">
+        <div class="step-inner">
+          <div class="step-tag">03 / Records</div>
+          <h2>Les dominations absolues</h2>
+          <p>Top 15 des écarts 2000–2024. Verstappen–Pérez : <strong>+12,3 pts/course</strong>. Vettel–Webber :
+            <strong>+10,4 pts/course</strong>. Même voiture.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CHAPTER 2 — Drama VER vs PER ══════════ -->
+  <section id="ch2" class="chapter chapter-drama">
+    <canvas id="drama-canvas"></canvas>
+    <div class="drama-content">
+      <div class="drama-year">2023</div>
+      <div class="drama-teams">
+        <div class="drama-driver" id="dd-ver">
+          <div class="dd-name">VERSTAPPEN</div>
+          <div class="dd-bar-wrap">
+            <div class="dd-bar" id="bar-ver"></div>
+          </div>
+          <div class="dd-pts" id="pts-ver">0</div>
+          <div class="dd-sub">pts / course</div>
+        </div>
+        <div class="drama-vs">VS</div>
+        <div class="drama-driver" id="dd-per">
+          <div class="dd-name">PÉREZ</div>
+          <div class="dd-bar-wrap">
+            <div class="dd-bar" id="bar-per"></div>
+          </div>
+          <div class="dd-pts" id="pts-per">0</div>
+          <div class="dd-sub">pts / course</div>
+        </div>
+      </div>
+      <div class="drama-caption" id="drama-caption">La même voiture. Red Bull RB19.</div>
+      <div class="drama-scroll-hint">↓ continuez</div>
+    </div>
+  </section>
+
+  <!-- ══════════ CHAPTER 3 — Trajectoires ══════════ -->
+  <section id="ch3" class="chapter chapter-interactive">
+    <div class="ch3-header">
+      <div class="ch-eyebrow">Chapitre 3 — Trajectoires</div>
+      <h2>Trajectoires de carrière</h2>
+      <p>Chaque ligne = un pilote. L'axe Y = son <strong>écart à son coéquipier</strong>, saison par saison. Au-dessus
+        de zéro : il domine. Les tirets verticaux : changements d'équipe.</p>
+    </div>
+    <div id="ch3-selector" class="driver-selector"></div>
+    <div id="ch3-vis" class="vis-container">
+      <svg id="svg-ch3" class="full-svg"></svg>
+    </div>
+    <div id="ch3-callout" class="callout-box"></div>
+    <div id="ch3-tooltip" class="hover-tooltip"></div>
+  </section>
+
+  <!-- ══════════ CHAPTER 4 — Grand Scatter ══════════ -->
+  <section id="ch4" class="chapter chapter-scroll">
+    <div class="sticky-wrap">
+      <div class="sticky-vis">
+        <svg id="svg-ch4" class="full-svg"></svg>
+      </div>
+    </div>
+    <div class="steps-wrap">
+      <div class="step" data-chapter="4" data-idx="0">
+        <div class="step-inner">
+          <div class="step-tag">01 / Vue globale</div>
+          <h2>Voiture vs Pilote</h2>
+          <p>Chaque point = une saison. <strong>X</strong> = force de l'équipe. <strong>Y</strong> = part du pilote
+            au-dessus de son équipier.</p>
+        </div>
+      </div>
+      <div class="step" data-chapter="4" data-idx="1">
+        <div class="step-inner">
+          <div class="step-tag">02 / Champions</div>
+          <h2>La zone des champions</h2>
+          <p>En haut à droite : bonne voiture <em>et</em> pilote dominant. Hamilton 2020, Verstappen 2023, Schumacher
+            2002.</p>
+        </div>
+      </div>
+      <div class="step" data-chapter="4" data-idx="2">
+        <div class="step-inner">
+          <div class="step-tag">03 / Miracles</div>
+          <h2>Les miracles</h2>
+          <p>En haut à gauche : petite voiture, grand pilote. Alonso 2012 chez Ferrari. Un résultat impossible… sur le
+            papier.</p>
+        </div>
+      </div>
+      <div class="step" data-chapter="4" data-idx="3">
+        <div class="step-inner">
+          <div class="step-tag">04 / Révélation</div>
+          <h2>Alonso — 18 saisons sur 20</h2>
+          <p>Peu importe la voiture, Alonso est presque toujours <em>au-dessus</em>. Ferrari, McLaren-Honda, Alpine. Le
+            même résultat.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════ SIMULATEUR ══════════ -->
+  <section id="ch-sim" class="chapter chapter-sim">
+    <div class="sim-bg-text">SIMULATEUR</div>
+    <div class="sim-wrap">
+
+      <div class="sim-header">
+        <div class="sim-eyebrow">Expérience interactive · Données 2010–2024</div>
+        <h2 class="sim-title">Construis ton Champion</h2>
+        <p class="sim-subtitle">Choisis une voiture et un pilote. On simule ton score contre le champion réel de cette
+          saison.</p>
+      </div>
+
+      <!-- SÉLECTEURS -->
+      <div class="sim-selectors">
+
+        <!-- Année -->
+        <div class="sim-sel-group">
+          <div class="sim-sel-label">Saison</div>
+          <div class="sim-sel-scroll" id="sel-year">
+            <!-- filled by JS -->
+          </div>
+        </div>
+
+        <!-- Voiture -->
+        <div class="sim-sel-group sim-sel-group--car">
+          <div class="sim-sel-label">Voiture <span class="sim-sel-sub">— pts/course de l'équipe</span></div>
+          <div class="sim-sel-scroll" id="sel-car">
+            <!-- filled by JS -->
+          </div>
+        </div>
+
+        <!-- Pilote -->
+        <div class="sim-sel-group sim-sel-group--driver">
+          <div class="sim-sel-label">Pilote <span class="sim-sel-sub">— pts vs pilote médian du peloton</span></div>
+          <div class="sim-sel-scroll" id="sel-driver">
+            <!-- filled by JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RÉSULTAT SIMULÉ -->
+      <div class="sim-result" id="sim-result">
+
+        <div class="sim-calc" id="sim-calc">
+          <div class="sim-calc-row">
+            <div class="sim-calc-item">
+              <div class="sim-calc-label">Base voiture</div>
+              <div class="sim-calc-num" id="calc-car">—</div>
+              <div class="sim-calc-unit">pts / course</div>
+            </div>
+            <div class="sim-calc-op">+</div>
+            <div class="sim-calc-item">
+              <div class="sim-calc-label">Bonus pilote <span style="opacity:0.5;font-size:0.45rem">(±6 max)</span></div>
+              <div class="sim-calc-num" id="calc-driver">—</div>
+              <div class="sim-calc-unit">pts / course</div>
+            </div>
+            <div class="sim-calc-op">=</div>
+            <div class="sim-calc-item sim-calc-item--total">
+              <div class="sim-calc-label">Ton duo</div>
+              <div class="sim-calc-num" id="calc-total">—</div>
+              <div class="sim-calc-unit">pts / course</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Barre de comparaison avec le vrai champion -->
+        <div class="sim-vs" id="sim-vs">
+          <div class="sim-vs-row">
+            <div class="sim-vs-label" id="svl-left">Ton duo</div>
+            <div class="sim-vs-track">
+              <div class="sim-vs-bar sim-vs-bar--user" id="svb-user"></div>
+              <div class="sim-vs-bar sim-vs-bar--champ" id="svb-champ"></div>
+            </div>
+            <div class="sim-vs-label" id="svl-right">Champion</div>
+          </div>
+          <div class="sim-verdict" id="sim-verdict"></div>
+        </div>
+
+        <!-- Podium animé -->
+        <div class="sim-podium" id="sim-podium">
+          <div class="sim-podium-col" id="pod-2">
+            <div class="sim-pod-name" id="pod-2-name">—</div>
+            <div class="sim-pod-bar" id="pod-2-bar"></div>
+            <div class="sim-pod-pts" id="pod-2-pts">—</div>
+            <div class="sim-pod-rank">2</div>
+          </div>
+          <div class="sim-podium-col sim-podium-col--first" id="pod-1">
+            <div class="sim-pod-name" id="pod-1-name">—</div>
+            <div class="sim-pod-bar" id="pod-1-bar"></div>
+            <div class="sim-pod-pts" id="pod-1-pts">—</div>
+            <div class="sim-pod-rank">1</div>
+          </div>
+          <div class="sim-podium-col" id="pod-3">
+            <div class="sim-pod-name" id="pod-3-name">—</div>
+            <div class="sim-pod-bar" id="pod-3-bar"></div>
+            <div class="sim-pod-pts" id="pod-3-pts">—</div>
+            <div class="sim-pod-rank">3</div>
+          </div>
+        </div>
+
+        <div class="sim-insight" id="sim-insight"></div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FINALE ══════════ -->
+  <section id="ch5" class="chapter chapter-finale">
+    <div class="finale-wrap">
+
+      <!-- HEADLINE ANIMÉ -->
+      <div class="finale-headline">
+        <div class="fh-eyebrow">LE VERDICT DES DONNÉES</div>
+        <h2 class="fh-title">
+          <span class="fh-line" id="fh-l1">La voiture</span>
+          <span class="fh-op">+</span>
+          <span class="fh-line fh-line--accent" id="fh-l2">Le pilote</span>
+          <span class="fh-op">=</span>
+          <span class="fh-line fh-line--gold" id="fh-l3">La F1</span>
+        </h2>
+        <p class="fh-sub">Ni l'un sans l'autre.</p>
+      </div>
+
+      <!-- SPLIT BAR — cinématique -->
+      <div class="finale-split" id="finale-split">
+        <div class="fs-track">
+          <div class="fs-segment fs-car" id="fs-car">
+            <div class="fs-pct" id="fs-pct-car">0%</div>
+            <div class="fs-label">LA VOITURE</div>
+          </div>
+          <div class="fs-segment fs-pilot" id="fs-pilot">
+            <div class="fs-pct" id="fs-pct-pilot">0%</div>
+            <div class="fs-label">LE PILOTE</div>
+          </div>
+        </div>
+        <p class="fs-note">236 duels analysés · 2000–2024 · données FIA</p>
+      </div>
+
+      <!-- 3 CAS EMBLÉMATIQUES -->
+      <div class="finale-cases">
+
+        <div class="fc-case">
+          <div class="fc-driver" style="color:#ff8000">ALONSO</div>
+          <div class="fc-meta">20 saisons · 7 équipes différentes</div>
+          <div class="fc-number" style="color:#ff8000">18<span>/20</span></div>
+          <p class="fc-text">saisons où il domine son coéquipier — <strong>peu importe la voiture.</strong></p>
+          <div class="fc-badge fc-badge--gold">TALENT ABSOLU</div>
+        </div>
+
+        <div class="fc-case fc-case--center">
+          <div class="fc-driver" style="color:#3671c6">VERSTAPPEN</div>
+          <div class="fc-meta">2023 · Red Bull RB19</div>
+          <div class="fc-number" style="color:#3671c6">+12.3<span>pts/course</span></div>
+          <p class="fc-text">d'écart sur Pérez. <strong>La même voiture.</strong> Sans équivalent depuis 25 ans.</p>
+          <div class="fc-badge fc-badge--blue">DOMINATEUR</div>
+        </div>
+
+        <div class="fc-case">
+          <div class="fc-driver" style="color:#64c4ff">BOTTAS</div>
+          <div class="fc-meta">Williams 2016 → Mercedes 2017</div>
+          <div class="fc-number" style="color:#64c4ff">+11.2<span>pts/course</span></div>
+          <p class="fc-text">de plus après son transfert Williams → Mercedes. <strong>Même pilote, autre
+              machine.</strong></p>
+          <div class="fc-badge fc-badge--teal">MACHINE-DÉPENDANT</div>
+        </div>
+
+      </div>
+
+      <!-- PHRASE CHOC -->
+      <div class="finale-manifesto">
+        <div class="fm-bar"></div>
+        <blockquote class="fm-quote">
+          La voiture fixe le <em>plafond</em>.<br>
+          Le pilote détermine <em>jusqu'où tu t'en approches</em>.
+        </blockquote>
+        <div class="fm-bar"></div>
+      </div>
+
+      <!-- CHIFFRES FINAUX -->
+      <div class="finale-stats">
+        <div class="fst-item" id="fst-1">
+          <div class="fst-n">78%</div>
+          <div class="fst-l">des duels coéquipiers<br>ont un vainqueur clair</div>
+        </div>
+        <div class="fst-sep">·</div>
+        <div class="fst-item" id="fst-2">
+          <div class="fst-n">86</div>
+          <div class="fst-l">pilotes analysés<br>2000–2024</div>
+        </div>
+        <div class="fst-sep">·</div>
+        <div class="fst-item" id="fst-3">
+          <div class="fst-n">236</div>
+          <div class="fst-l">duels coéquipiers<br>décortiqués</div>
+        </div>
+      </div>
+
+      <div class="finale-credit">Source : Ergast API · Kaggle F1 Dataset · FIA officielle 2000–2024</div>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+  <script src="src/charts.js"></script>
+  <script src="src/loader.js"></script>
+
+  <!-- FLOATING TABLE OF CONTENTS -->
+  <nav id="toc-float" aria-label="Table des matières">
+    <button id="toc-toggle" aria-label="Menu sections">
+      <span class="toc-icon">☰</span>
+    </button>
+    <ul id="toc-list" hidden>
+      <li><a href="#intro" data-section="intro">
+          <span class="toc-num">01</span>
+          <span class="toc-label">Introduction</span>
+        </a></li>
+      <li><a href="#ch1" data-section="ch1">
+          <span class="toc-num">02</span>
+          <span class="toc-label">Duels coéquipiers</span>
+        </a></li>
+      <li><a href="#ch2" data-section="ch2">
+          <span class="toc-num">03</span>
+          <span class="toc-label">Verstappen vs Pérez</span>
+        </a></li>
+      <li><a href="#ch3" data-section="ch3">
+          <span class="toc-num">04</span>
+          <span class="toc-label">Trajectoires de carrière</span>
+        </a></li>
+      <li><a href="#ch4" data-section="ch4">
+          <span class="toc-num">05</span>
+          <span class="toc-label">Vue d'ensemble</span>
+        </a></li>
+      <li><a href="#ch-sim" data-section="ch-sim">
+          <span class="toc-num">06</span>
+          <span class="toc-label">Simulateur</span>
+        </a></li>
+      <li><a href="#ch5" data-section="ch5">
+          <span class="toc-num">07</span>
+          <span class="toc-label">Conclusion</span>
+        </a></li>
+    </ul>
+  </nav>
+</body>
+
+</html>

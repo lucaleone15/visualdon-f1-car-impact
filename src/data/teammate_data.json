@@ -1,0 +1,2126 @@
+[
+  {
+    "year": 2008,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "Lewis Hamilton",
+    "d2": "Heikki Kovalainen",
+    "d1_ppr": 5.44,
+    "d2_ppr": 2.94
+  },
+  {
+    "year": 2008,
+    "constructor": "BMW Sauber",
+    "constructorId": "2",
+    "d1": "Nick Heidfeld",
+    "d2": "Robert Kubica",
+    "d1_ppr": 3.33,
+    "d2_ppr": 4.17
+  },
+  {
+    "year": 2008,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "Nico Rosberg",
+    "d2": "Kazuki Nakajima",
+    "d1_ppr": 0.94,
+    "d2_ppr": 0.5
+  },
+  {
+    "year": 2008,
+    "constructor": "Renault",
+    "constructorId": "4",
+    "d1": "Fernando Alonso",
+    "d2": "Nelson Piquet Jr.",
+    "d1_ppr": 3.39,
+    "d2_ppr": 1.06
+  },
+  {
+    "year": 2008,
+    "constructor": "Toro Rosso",
+    "constructorId": "5",
+    "d1": "Sébastien Bourdais",
+    "d2": "Sebastian Vettel",
+    "d1_ppr": 0.22,
+    "d2_ppr": 1.94
+  },
+  {
+    "year": 2008,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Kimi Räikkönen",
+    "d2": "Felipe Massa",
+    "d1_ppr": 4.17,
+    "d2_ppr": 5.39
+  },
+  {
+    "year": 2008,
+    "constructor": "Toyota",
+    "constructorId": "7",
+    "d1": "Timo Glock",
+    "d2": "Jarno Trulli",
+    "d1_ppr": 1.39,
+    "d2_ppr": 1.72
+  },
+  {
+    "year": 2008,
+    "constructor": "Red Bull",
+    "constructorId": "9",
+    "d1": "David Coulthard",
+    "d2": "Mark Webber",
+    "d1_ppr": 0.44,
+    "d2_ppr": 1.17
+  },
+  {
+    "year": 2008,
+    "constructor": "Force India",
+    "constructorId": "10",
+    "d1": "Adrian Sutil",
+    "d2": "Giancarlo Fisichella",
+    "d1_ppr": 0,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2008,
+    "constructor": "Honda",
+    "constructorId": "11",
+    "d1": "Jenson Button",
+    "d2": "Rubens Barrichello",
+    "d1_ppr": 0.17,
+    "d2_ppr": 0.61
+  },
+  {
+    "year": 2007,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Kimi Räikkönen",
+    "d2": "Felipe Massa",
+    "d1_ppr": 6.47,
+    "d2_ppr": 5.53
+  },
+  {
+    "year": 2007,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "Fernando Alonso",
+    "d2": "Lewis Hamilton",
+    "d1_ppr": 6.41,
+    "d2_ppr": 6.41
+  },
+  {
+    "year": 2007,
+    "constructor": "BMW Sauber",
+    "constructorId": "2",
+    "d1": "Nick Heidfeld",
+    "d2": "Robert Kubica",
+    "d1_ppr": 3.59,
+    "d2_ppr": 2.44
+  },
+  {
+    "year": 2007,
+    "constructor": "Renault",
+    "constructorId": "4",
+    "d1": "Giancarlo Fisichella",
+    "d2": "Heikki Kovalainen",
+    "d1_ppr": 1.24,
+    "d2_ppr": 1.76
+  },
+  {
+    "year": 2007,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "Nico Rosberg",
+    "d2": "Alexander Wurz",
+    "d1_ppr": 1.18,
+    "d2_ppr": 0.81
+  },
+  {
+    "year": 2007,
+    "constructor": "Toyota",
+    "constructorId": "7",
+    "d1": "Ralf Schumacher",
+    "d2": "Jarno Trulli",
+    "d1_ppr": 0.29,
+    "d2_ppr": 0.47
+  },
+  {
+    "year": 2007,
+    "constructor": "Honda",
+    "constructorId": "11",
+    "d1": "Rubens Barrichello",
+    "d2": "Jenson Button",
+    "d1_ppr": 0,
+    "d2_ppr": 0.35
+  },
+  {
+    "year": 2007,
+    "constructor": "Super Aguri",
+    "constructorId": "8",
+    "d1": "Takuma Sato",
+    "d2": "Anthony Davidson",
+    "d1_ppr": 0.24,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2007,
+    "constructor": "Red Bull",
+    "constructorId": "9",
+    "d1": "Mark Webber",
+    "d2": "David Coulthard",
+    "d1_ppr": 0.59,
+    "d2_ppr": 0.82
+  },
+  {
+    "year": 2006,
+    "constructor": "Renault",
+    "constructorId": "4",
+    "d1": "Fernando Alonso",
+    "d2": "Giancarlo Fisichella",
+    "d1_ppr": 7.44,
+    "d2_ppr": 4
+  },
+  {
+    "year": 2006,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Michael Schumacher",
+    "d2": "Felipe Massa",
+    "d1_ppr": 6.72,
+    "d2_ppr": 4.44
+  },
+  {
+    "year": 2006,
+    "constructor": "Honda",
+    "constructorId": "11",
+    "d1": "Jenson Button",
+    "d2": "Rubens Barrichello",
+    "d1_ppr": 3.11,
+    "d2_ppr": 1.67
+  },
+  {
+    "year": 2006,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "Mark Webber",
+    "d2": "Nico Rosberg",
+    "d1_ppr": 0.39,
+    "d2_ppr": 0.22
+  },
+  {
+    "year": 2006,
+    "constructor": "Red Bull",
+    "constructorId": "9",
+    "d1": "Christian Klien",
+    "d2": "David Coulthard",
+    "d1_ppr": 0.13,
+    "d2_ppr": 0.78
+  },
+  {
+    "year": 2006,
+    "constructor": "Toro Rosso",
+    "constructorId": "5",
+    "d1": "Vitantonio Liuzzi",
+    "d2": "Scott Speed",
+    "d1_ppr": 0.06,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2006,
+    "constructor": "Toyota",
+    "constructorId": "7",
+    "d1": "Ralf Schumacher",
+    "d2": "Jarno Trulli",
+    "d1_ppr": 1.11,
+    "d2_ppr": 0.83
+  },
+  {
+    "year": 2006,
+    "constructor": "MF1",
+    "constructorId": "13",
+    "d1": "Tiago Monteiro",
+    "d2": "Christijan Albers",
+    "d1_ppr": 0,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2005,
+    "constructor": "Renault",
+    "constructorId": "4",
+    "d1": "Giancarlo Fisichella",
+    "d2": "Fernando Alonso",
+    "d1_ppr": 3.05,
+    "d2_ppr": 7
+  },
+  {
+    "year": 2005,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Rubens Barrichello",
+    "d2": "Michael Schumacher",
+    "d1_ppr": 2,
+    "d2_ppr": 3.26
+  },
+  {
+    "year": 2005,
+    "constructor": "Red Bull",
+    "constructorId": "9",
+    "d1": "David Coulthard",
+    "d2": "Christian Klien",
+    "d1_ppr": 1.26,
+    "d2_ppr": 0.6
+  },
+  {
+    "year": 2005,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "Juan Pablo Montoya",
+    "d2": "Kimi Räikkönen",
+    "d1_ppr": 3.53,
+    "d2_ppr": 5.89
+  },
+  {
+    "year": 2005,
+    "constructor": "Toyota",
+    "constructorId": "7",
+    "d1": "Jarno Trulli",
+    "d2": "Ralf Schumacher",
+    "d1_ppr": 2.26,
+    "d2_ppr": 2.5
+  },
+  {
+    "year": 2005,
+    "constructor": "Sauber",
+    "constructorId": "15",
+    "d1": "Felipe Massa",
+    "d2": "Jacques Villeneuve",
+    "d1_ppr": 0.58,
+    "d2_ppr": 0.47
+  },
+  {
+    "year": 2005,
+    "constructor": "BAR",
+    "constructorId": "16",
+    "d1": "Jenson Button",
+    "d2": "Takuma Sato",
+    "d1_ppr": 2.18,
+    "d2_ppr": 0.06
+  },
+  {
+    "year": 2005,
+    "constructor": "Jordan",
+    "constructorId": "17",
+    "d1": "Narain Karthikeyan",
+    "d2": "Tiago Monteiro",
+    "d1_ppr": 0.26,
+    "d2_ppr": 0.37
+  },
+  {
+    "year": 2004,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Michael Schumacher",
+    "d2": "Rubens Barrichello",
+    "d1_ppr": 8.22,
+    "d2_ppr": 6.33
+  },
+  {
+    "year": 2004,
+    "constructor": "Renault",
+    "constructorId": "4",
+    "d1": "Fernando Alonso",
+    "d2": "Jarno Trulli",
+    "d1_ppr": 3.28,
+    "d2_ppr": 3.07
+  },
+  {
+    "year": 2004,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "Ralf Schumacher",
+    "d2": "Juan Pablo Montoya",
+    "d1_ppr": 2,
+    "d2_ppr": 3.22
+  },
+  {
+    "year": 2004,
+    "constructor": "BAR",
+    "constructorId": "16",
+    "d1": "Jenson Button",
+    "d2": "Takuma Sato",
+    "d1_ppr": 4.72,
+    "d2_ppr": 1.89
+  },
+  {
+    "year": 2004,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "David Coulthard",
+    "d2": "Kimi Räikkönen",
+    "d1_ppr": 1.33,
+    "d2_ppr": 2.5
+  },
+  {
+    "year": 2004,
+    "constructor": "Sauber",
+    "constructorId": "15",
+    "d1": "Giancarlo Fisichella",
+    "d2": "Felipe Massa",
+    "d1_ppr": 1.22,
+    "d2_ppr": 0.67
+  },
+  {
+    "year": 2004,
+    "constructor": "Jaguar",
+    "constructorId": "19",
+    "d1": "Christian Klien",
+    "d2": "Mark Webber",
+    "d1_ppr": 0.17,
+    "d2_ppr": 0.39
+  },
+  {
+    "year": 2004,
+    "constructor": "Jordan",
+    "constructorId": "17",
+    "d1": "Giorgio Pantano",
+    "d2": "Nick Heidfeld",
+    "d1_ppr": 0,
+    "d2_ppr": 0.17
+  },
+  {
+    "year": 2004,
+    "constructor": "Minardi",
+    "constructorId": "18",
+    "d1": "Gianmaria Bruni",
+    "d2": "Zsolt Baumgartner",
+    "d1_ppr": 0,
+    "d2_ppr": 0.06
+  },
+  {
+    "year": 2003,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "David Coulthard",
+    "d2": "Kimi Räikkönen",
+    "d1_ppr": 3.19,
+    "d2_ppr": 5.69
+  },
+  {
+    "year": 2003,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "Juan Pablo Montoya",
+    "d2": "Ralf Schumacher",
+    "d1_ppr": 5.13,
+    "d2_ppr": 3.87
+  },
+  {
+    "year": 2003,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Michael Schumacher",
+    "d2": "Rubens Barrichello",
+    "d1_ppr": 5.81,
+    "d2_ppr": 4.06
+  },
+  {
+    "year": 2003,
+    "constructor": "Renault",
+    "constructorId": "4",
+    "d1": "Jarno Trulli",
+    "d2": "Fernando Alonso",
+    "d1_ppr": 2.06,
+    "d2_ppr": 3.44
+  },
+  {
+    "year": 2003,
+    "constructor": "Sauber",
+    "constructorId": "15",
+    "d1": "Heinz-Harald Frentzen",
+    "d2": "Nick Heidfeld",
+    "d1_ppr": 0.81,
+    "d2_ppr": 0.38
+  },
+  {
+    "year": 2003,
+    "constructor": "BAR",
+    "constructorId": "16",
+    "d1": "Jacques Villeneuve",
+    "d2": "Jenson Button",
+    "d1_ppr": 0.4,
+    "d2_ppr": 1.06
+  },
+  {
+    "year": 2003,
+    "constructor": "Jordan",
+    "constructorId": "17",
+    "d1": "Giancarlo Fisichella",
+    "d2": "Ralph Firman",
+    "d1_ppr": 0.75,
+    "d2_ppr": 0.07
+  },
+  {
+    "year": 2003,
+    "constructor": "Toyota",
+    "constructorId": "7",
+    "d1": "Olivier Panis",
+    "d2": "Cristiano da Matta",
+    "d1_ppr": 0.38,
+    "d2_ppr": 0.63
+  },
+  {
+    "year": 2002,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Michael Schumacher",
+    "d2": "Rubens Barrichello",
+    "d1_ppr": 8.47,
+    "d2_ppr": 4.53
+  },
+  {
+    "year": 2002,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "Juan Pablo Montoya",
+    "d2": "Ralf Schumacher",
+    "d1_ppr": 2.94,
+    "d2_ppr": 2.47
+  },
+  {
+    "year": 2002,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "Kimi Räikkönen",
+    "d2": "David Coulthard",
+    "d1_ppr": 1.41,
+    "d2_ppr": 2.41
+  },
+  {
+    "year": 2002,
+    "constructor": "Jaguar",
+    "constructorId": "19",
+    "d1": "Eddie Irvine",
+    "d2": "Pedro de la Rosa",
+    "d1_ppr": 0.47,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2002,
+    "constructor": "Minardi",
+    "constructorId": "18",
+    "d1": "Mark Webber",
+    "d2": "Alex Yoong",
+    "d1_ppr": 0.12,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2002,
+    "constructor": "Toyota",
+    "constructorId": "7",
+    "d1": "Mika Salo",
+    "d2": "Allan McNish",
+    "d1_ppr": 0.12,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2002,
+    "constructor": "BAR",
+    "constructorId": "16",
+    "d1": "Jacques Villeneuve",
+    "d2": "Olivier Panis",
+    "d1_ppr": 0.24,
+    "d2_ppr": 0.18
+  },
+  {
+    "year": 2002,
+    "constructor": "Arrows",
+    "constructorId": "21",
+    "d1": "Heinz-Harald Frentzen",
+    "d2": "Enrique Bernoldi",
+    "d1_ppr": 0.17,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2002,
+    "constructor": "Jordan",
+    "constructorId": "17",
+    "d1": "Takuma Sato",
+    "d2": "Giancarlo Fisichella",
+    "d1_ppr": 0.12,
+    "d2_ppr": 0.41
+  },
+  {
+    "year": 2002,
+    "constructor": "Renault",
+    "constructorId": "4",
+    "d1": "Jarno Trulli",
+    "d2": "Jenson Button",
+    "d1_ppr": 0.53,
+    "d2_ppr": 0.82
+  },
+  {
+    "year": 2002,
+    "constructor": "Sauber",
+    "constructorId": "15",
+    "d1": "Felipe Massa",
+    "d2": "Nick Heidfeld",
+    "d1_ppr": 0.25,
+    "d2_ppr": 0.41
+  },
+  {
+    "year": 2001,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Michael Schumacher",
+    "d2": "Rubens Barrichello",
+    "d1_ppr": 7.24,
+    "d2_ppr": 3.29
+  },
+  {
+    "year": 2001,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "David Coulthard",
+    "d2": "Mika Häkkinen",
+    "d1_ppr": 3.82,
+    "d2_ppr": 2.18
+  },
+  {
+    "year": 2001,
+    "constructor": "Sauber",
+    "constructorId": "15",
+    "d1": "Nick Heidfeld",
+    "d2": "Kimi Räikkönen",
+    "d1_ppr": 0.71,
+    "d2_ppr": 0.53
+  },
+  {
+    "year": 2001,
+    "constructor": "BAR",
+    "constructorId": "16",
+    "d1": "Olivier Panis",
+    "d2": "Jacques Villeneuve",
+    "d1_ppr": 0.29,
+    "d2_ppr": 0.71
+  },
+  {
+    "year": 2001,
+    "constructor": "Arrows",
+    "constructorId": "21",
+    "d1": "Jos Verstappen",
+    "d2": "Enrique Bernoldi",
+    "d1_ppr": 0.06,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2001,
+    "constructor": "Jaguar",
+    "constructorId": "19",
+    "d1": "Eddie Irvine",
+    "d2": "Pedro de la Rosa",
+    "d1_ppr": 0.35,
+    "d2_ppr": 0.23
+  },
+  {
+    "year": 2001,
+    "constructor": "Minardi",
+    "constructorId": "18",
+    "d1": "Fernando Alonso",
+    "d2": "Tarso Marques",
+    "d1_ppr": 0,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2001,
+    "constructor": "Benetton",
+    "constructorId": "22",
+    "d1": "Giancarlo Fisichella",
+    "d2": "Jenson Button",
+    "d1_ppr": 0.47,
+    "d2_ppr": 0.12
+  },
+  {
+    "year": 2001,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "Juan Pablo Montoya",
+    "d2": "Ralf Schumacher",
+    "d1_ppr": 1.82,
+    "d2_ppr": 2.88
+  },
+  {
+    "year": 2000,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Michael Schumacher",
+    "d2": "Rubens Barrichello",
+    "d1_ppr": 6.35,
+    "d2_ppr": 3.65
+  },
+  {
+    "year": 2000,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "Ralf Schumacher",
+    "d2": "Jenson Button",
+    "d1_ppr": 1.41,
+    "d2_ppr": 0.71
+  },
+  {
+    "year": 2000,
+    "constructor": "BAR",
+    "constructorId": "16",
+    "d1": "Jacques Villeneuve",
+    "d2": "Ricardo Zonta",
+    "d1_ppr": 1,
+    "d2_ppr": 0.18
+  },
+  {
+    "year": 2000,
+    "constructor": "Benetton",
+    "constructorId": "22",
+    "d1": "Giancarlo Fisichella",
+    "d2": "Alexander Wurz",
+    "d1_ppr": 1.06,
+    "d2_ppr": 0.12
+  },
+  {
+    "year": 2000,
+    "constructor": "Minardi",
+    "constructorId": "18",
+    "d1": "Marc Gené",
+    "d2": "Gastón Mazzacane",
+    "d1_ppr": 0,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2000,
+    "constructor": "Prost",
+    "constructorId": "20",
+    "d1": "Nick Heidfeld",
+    "d2": "Jean Alesi",
+    "d1_ppr": 0,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2000,
+    "constructor": "Sauber",
+    "constructorId": "15",
+    "d1": "Mika Salo",
+    "d2": "Pedro Diniz",
+    "d1_ppr": 0.35,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2000,
+    "constructor": "Jordan",
+    "constructorId": "17",
+    "d1": "Heinz-Harald Frentzen",
+    "d2": "Jarno Trulli",
+    "d1_ppr": 0.65,
+    "d2_ppr": 0.35
+  },
+  {
+    "year": 2000,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "Mika Häkkinen",
+    "d2": "David Coulthard",
+    "d1_ppr": 5.24,
+    "d2_ppr": 4.29
+  },
+  {
+    "year": 2000,
+    "constructor": "Arrows",
+    "constructorId": "21",
+    "d1": "Jos Verstappen",
+    "d2": "Pedro de la Rosa",
+    "d1_ppr": 0.29,
+    "d2_ppr": 0.12
+  },
+  {
+    "year": 2000,
+    "constructor": "Jaguar",
+    "constructorId": "19",
+    "d1": "Eddie Irvine",
+    "d2": "Johnny Herbert",
+    "d1_ppr": 0.25,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2009,
+    "constructor": "Brawn",
+    "constructorId": "23",
+    "d1": "Jenson Button",
+    "d2": "Rubens Barrichello",
+    "d1_ppr": 5.59,
+    "d2_ppr": 4.53
+  },
+  {
+    "year": 2009,
+    "constructor": "Toyota",
+    "constructorId": "7",
+    "d1": "Jarno Trulli",
+    "d2": "Timo Glock",
+    "d1_ppr": 1.91,
+    "d2_ppr": 1.6
+  },
+  {
+    "year": 2009,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "Nico Rosberg",
+    "d2": "Kazuki Nakajima",
+    "d1_ppr": 2.03,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2009,
+    "constructor": "BMW Sauber",
+    "constructorId": "2",
+    "d1": "Nick Heidfeld",
+    "d2": "Robert Kubica",
+    "d1_ppr": 1.12,
+    "d2_ppr": 1
+  },
+  {
+    "year": 2009,
+    "constructor": "Red Bull",
+    "constructorId": "9",
+    "d1": "Mark Webber",
+    "d2": "Sebastian Vettel",
+    "d1_ppr": 4.09,
+    "d2_ppr": 4.94
+  },
+  {
+    "year": 2009,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "Heikki Kovalainen",
+    "d2": "Lewis Hamilton",
+    "d1_ppr": 1.29,
+    "d2_ppr": 2.88
+  },
+  {
+    "year": 2010,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Fernando Alonso",
+    "d2": "Felipe Massa",
+    "d1_ppr": 13.26,
+    "d2_ppr": 7.58
+  },
+  {
+    "year": 2010,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "Lewis Hamilton",
+    "d2": "Jenson Button",
+    "d1_ppr": 12.63,
+    "d2_ppr": 11.26
+  },
+  {
+    "year": 2010,
+    "constructor": "Red Bull",
+    "constructorId": "9",
+    "d1": "Sebastian Vettel",
+    "d2": "Mark Webber",
+    "d1_ppr": 13.47,
+    "d2_ppr": 12.74
+  },
+  {
+    "year": 2010,
+    "constructor": "Mercedes",
+    "constructorId": "131",
+    "d1": "Nico Rosberg",
+    "d2": "Michael Schumacher",
+    "d1_ppr": 7.47,
+    "d2_ppr": 3.79
+  },
+  {
+    "year": 2010,
+    "constructor": "Force India",
+    "constructorId": "10",
+    "d1": "Vitantonio Liuzzi",
+    "d2": "Adrian Sutil",
+    "d1_ppr": 1.11,
+    "d2_ppr": 2.47
+  },
+  {
+    "year": 2010,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "Rubens Barrichello",
+    "d2": "Nico Hülkenberg",
+    "d1_ppr": 2.47,
+    "d2_ppr": 1.16
+  },
+  {
+    "year": 2010,
+    "constructor": "Renault",
+    "constructorId": "4",
+    "d1": "Robert Kubica",
+    "d2": "Vitaly Petrov",
+    "d1_ppr": 7.16,
+    "d2_ppr": 1.42
+  },
+  {
+    "year": 2010,
+    "constructor": "Toro Rosso",
+    "constructorId": "5",
+    "d1": "Jaime Alguersuari",
+    "d2": "Sébastien Buemi",
+    "d1_ppr": 0.26,
+    "d2_ppr": 0.42
+  },
+  {
+    "year": 2010,
+    "constructor": "Lotus",
+    "constructorId": "205",
+    "d1": "Heikki Kovalainen",
+    "d2": "Jarno Trulli",
+    "d1_ppr": 0,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2010,
+    "constructor": "Virgin",
+    "constructorId": "166",
+    "d1": "Timo Glock",
+    "d2": "Lucas di Grassi",
+    "d1_ppr": 0,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2011,
+    "constructor": "Red Bull",
+    "constructorId": "9",
+    "d1": "Sebastian Vettel",
+    "d2": "Mark Webber",
+    "d1_ppr": 20.63,
+    "d2_ppr": 13.58
+  },
+  {
+    "year": 2011,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "Lewis Hamilton",
+    "d2": "Jenson Button",
+    "d1_ppr": 11.95,
+    "d2_ppr": 14.21
+  },
+  {
+    "year": 2011,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Fernando Alonso",
+    "d2": "Felipe Massa",
+    "d1_ppr": 13.53,
+    "d2_ppr": 6.21
+  },
+  {
+    "year": 2011,
+    "constructor": "Toro Rosso",
+    "constructorId": "5",
+    "d1": "Sébastien Buemi",
+    "d2": "Jaime Alguersuari",
+    "d1_ppr": 0.79,
+    "d2_ppr": 1.37
+  },
+  {
+    "year": 2011,
+    "constructor": "Force India",
+    "constructorId": "10",
+    "d1": "Adrian Sutil",
+    "d2": "Paul di Resta",
+    "d1_ppr": 2.21,
+    "d2_ppr": 1.42
+  },
+  {
+    "year": 2011,
+    "constructor": "Lotus",
+    "constructorId": "205",
+    "d1": "Jarno Trulli",
+    "d2": "Heikki Kovalainen",
+    "d1_ppr": 0,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2011,
+    "constructor": "Virgin",
+    "constructorId": "166",
+    "d1": "Jérôme d'Ambrosio",
+    "d2": "Timo Glock",
+    "d1_ppr": 0,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2011,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "Rubens Barrichello",
+    "d2": "Pastor Maldonado",
+    "d1_ppr": 0.21,
+    "d2_ppr": 0.05
+  },
+  {
+    "year": 2011,
+    "constructor": "Mercedes",
+    "constructorId": "131",
+    "d1": "Nico Rosberg",
+    "d2": "Michael Schumacher",
+    "d1_ppr": 4.68,
+    "d2_ppr": 4
+  },
+  {
+    "year": 2011,
+    "constructor": "Sauber",
+    "constructorId": "15",
+    "d1": "Kamui Kobayashi",
+    "d2": "Sergio Pérez",
+    "d1_ppr": 1.58,
+    "d2_ppr": 0.78
+  },
+  {
+    "year": 2012,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "Jenson Button",
+    "d2": "Lewis Hamilton",
+    "d1_ppr": 9.4,
+    "d2_ppr": 9.5
+  },
+  {
+    "year": 2012,
+    "constructor": "Red Bull",
+    "constructorId": "9",
+    "d1": "Sebastian Vettel",
+    "d2": "Mark Webber",
+    "d1_ppr": 14.05,
+    "d2_ppr": 8.95
+  },
+  {
+    "year": 2012,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Fernando Alonso",
+    "d2": "Felipe Massa",
+    "d1_ppr": 13.9,
+    "d2_ppr": 6.1
+  },
+  {
+    "year": 2012,
+    "constructor": "Sauber",
+    "constructorId": "15",
+    "d1": "Kamui Kobayashi",
+    "d2": "Sergio Pérez",
+    "d1_ppr": 3,
+    "d2_ppr": 3.3
+  },
+  {
+    "year": 2012,
+    "constructor": "Lotus F1",
+    "constructorId": "208",
+    "d1": "Kimi Räikkönen",
+    "d2": "Romain Grosjean",
+    "d1_ppr": 10.35,
+    "d2_ppr": 5.05
+  },
+  {
+    "year": 2012,
+    "constructor": "Toro Rosso",
+    "constructorId": "5",
+    "d1": "Daniel Ricciardo",
+    "d2": "Jean-Éric Vergne",
+    "d1_ppr": 0.5,
+    "d2_ppr": 0.8
+  },
+  {
+    "year": 2012,
+    "constructor": "Force India",
+    "constructorId": "10",
+    "d1": "Paul di Resta",
+    "d2": "Nico Hülkenberg",
+    "d1_ppr": 2.3,
+    "d2_ppr": 3.15
+  },
+  {
+    "year": 2012,
+    "constructor": "Mercedes",
+    "constructorId": "131",
+    "d1": "Nico Rosberg",
+    "d2": "Michael Schumacher",
+    "d1_ppr": 4.65,
+    "d2_ppr": 2.45
+  },
+  {
+    "year": 2012,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "Pastor Maldonado",
+    "d2": "Bruno Senna",
+    "d1_ppr": 2.25,
+    "d2_ppr": 1.55
+  },
+  {
+    "year": 2012,
+    "constructor": "Marussia",
+    "constructorId": "206",
+    "d1": "Timo Glock",
+    "d2": "Charles Pic",
+    "d1_ppr": 0,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2012,
+    "constructor": "Caterham",
+    "constructorId": "207",
+    "d1": "Heikki Kovalainen",
+    "d2": "Vitaly Petrov",
+    "d1_ppr": 0,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2012,
+    "constructor": "HRT",
+    "constructorId": "164",
+    "d1": "Pedro de la Rosa",
+    "d2": "Narain Karthikeyan",
+    "d1_ppr": 0,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2013,
+    "constructor": "Lotus F1",
+    "constructorId": "208",
+    "d1": "Kimi Räikkönen",
+    "d2": "Romain Grosjean",
+    "d1_ppr": 10.76,
+    "d2_ppr": 6.95
+  },
+  {
+    "year": 2013,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Fernando Alonso",
+    "d2": "Felipe Massa",
+    "d1_ppr": 12.74,
+    "d2_ppr": 5.89
+  },
+  {
+    "year": 2013,
+    "constructor": "Red Bull",
+    "constructorId": "9",
+    "d1": "Sebastian Vettel",
+    "d2": "Mark Webber",
+    "d1_ppr": 20.89,
+    "d2_ppr": 10.47
+  },
+  {
+    "year": 2013,
+    "constructor": "Mercedes",
+    "constructorId": "131",
+    "d1": "Lewis Hamilton",
+    "d2": "Nico Rosberg",
+    "d1_ppr": 9.95,
+    "d2_ppr": 9
+  },
+  {
+    "year": 2013,
+    "constructor": "Force India",
+    "constructorId": "10",
+    "d1": "Adrian Sutil",
+    "d2": "Paul di Resta",
+    "d1_ppr": 1.53,
+    "d2_ppr": 2.53
+  },
+  {
+    "year": 2013,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "Jenson Button",
+    "d2": "Sergio Pérez",
+    "d1_ppr": 3.84,
+    "d2_ppr": 2.58
+  },
+  {
+    "year": 2013,
+    "constructor": "Toro Rosso",
+    "constructorId": "5",
+    "d1": "Jean-Éric Vergne",
+    "d2": "Daniel Ricciardo",
+    "d1_ppr": 0.68,
+    "d2_ppr": 1.05
+  },
+  {
+    "year": 2013,
+    "constructor": "Sauber",
+    "constructorId": "15",
+    "d1": "Esteban Gutiérrez",
+    "d2": "Nico Hülkenberg",
+    "d1_ppr": 0.32,
+    "d2_ppr": 2.68
+  },
+  {
+    "year": 2013,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "Valtteri Bottas",
+    "d2": "Pastor Maldonado",
+    "d1_ppr": 0.21,
+    "d2_ppr": 0.05
+  },
+  {
+    "year": 2013,
+    "constructor": "Marussia",
+    "constructorId": "206",
+    "d1": "Jules Bianchi",
+    "d2": "Max Chilton",
+    "d1_ppr": 0,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2013,
+    "constructor": "Caterham",
+    "constructorId": "207",
+    "d1": "Charles Pic",
+    "d2": "Giedo van der Garde",
+    "d1_ppr": 0,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2014,
+    "constructor": "Mercedes",
+    "constructorId": "131",
+    "d1": "Nico Rosberg",
+    "d2": "Lewis Hamilton",
+    "d1_ppr": 16.68,
+    "d2_ppr": 20.21
+  },
+  {
+    "year": 2014,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "Kevin Magnussen",
+    "d2": "Jenson Button",
+    "d1_ppr": 2.89,
+    "d2_ppr": 6.63
+  },
+  {
+    "year": 2014,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Fernando Alonso",
+    "d2": "Kimi Räikkönen",
+    "d1_ppr": 8.47,
+    "d2_ppr": 2.89
+  },
+  {
+    "year": 2014,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "Valtteri Bottas",
+    "d2": "Felipe Massa",
+    "d1_ppr": 9.79,
+    "d2_ppr": 7.05
+  },
+  {
+    "year": 2014,
+    "constructor": "Force India",
+    "constructorId": "10",
+    "d1": "Nico Hülkenberg",
+    "d2": "Sergio Pérez",
+    "d1_ppr": 5.05,
+    "d2_ppr": 3.11
+  },
+  {
+    "year": 2014,
+    "constructor": "Toro Rosso",
+    "constructorId": "5",
+    "d1": "Jean-Éric Vergne",
+    "d2": "Daniil Kvyat",
+    "d1_ppr": 1.16,
+    "d2_ppr": 0.42
+  },
+  {
+    "year": 2014,
+    "constructor": "Sauber",
+    "constructorId": "15",
+    "d1": "Adrian Sutil",
+    "d2": "Esteban Gutiérrez",
+    "d1_ppr": 0,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2014,
+    "constructor": "Marussia",
+    "constructorId": "206",
+    "d1": "Max Chilton",
+    "d2": "Jules Bianchi",
+    "d1_ppr": 0,
+    "d2_ppr": 0.13
+  },
+  {
+    "year": 2014,
+    "constructor": "Lotus F1",
+    "constructorId": "208",
+    "d1": "Romain Grosjean",
+    "d2": "Pastor Maldonado",
+    "d1_ppr": 0.42,
+    "d2_ppr": 0.11
+  },
+  {
+    "year": 2014,
+    "constructor": "Caterham",
+    "constructorId": "207",
+    "d1": "Marcus Ericsson",
+    "d2": "Kamui Kobayashi",
+    "d1_ppr": 0,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2014,
+    "constructor": "Red Bull",
+    "constructorId": "9",
+    "d1": "Sebastian Vettel",
+    "d2": "Daniel Ricciardo",
+    "d1_ppr": 8.79,
+    "d2_ppr": 12.53
+  },
+  {
+    "year": 2015,
+    "constructor": "Mercedes",
+    "constructorId": "131",
+    "d1": "Lewis Hamilton",
+    "d2": "Nico Rosberg",
+    "d1_ppr": 20.05,
+    "d2_ppr": 16.95
+  },
+  {
+    "year": 2015,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Sebastian Vettel",
+    "d2": "Kimi Räikkönen",
+    "d1_ppr": 14.63,
+    "d2_ppr": 7.89
+  },
+  {
+    "year": 2015,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "Felipe Massa",
+    "d2": "Valtteri Bottas",
+    "d1_ppr": 6.37,
+    "d2_ppr": 7.16
+  },
+  {
+    "year": 2015,
+    "constructor": "Sauber",
+    "constructorId": "15",
+    "d1": "Felipe Nasr",
+    "d2": "Marcus Ericsson",
+    "d1_ppr": 1.42,
+    "d2_ppr": 0.47
+  },
+  {
+    "year": 2015,
+    "constructor": "Red Bull",
+    "constructorId": "9",
+    "d1": "Daniel Ricciardo",
+    "d2": "Daniil Kvyat",
+    "d1_ppr": 4.84,
+    "d2_ppr": 5
+  },
+  {
+    "year": 2015,
+    "constructor": "Force India",
+    "constructorId": "10",
+    "d1": "Nico Hülkenberg",
+    "d2": "Sergio Pérez",
+    "d1_ppr": 3.05,
+    "d2_ppr": 4.11
+  },
+  {
+    "year": 2015,
+    "constructor": "Toro Rosso",
+    "constructorId": "5",
+    "d1": "Carlos Sainz",
+    "d2": "Max Verstappen",
+    "d1_ppr": 0.95,
+    "d2_ppr": 2.58
+  },
+  {
+    "year": 2015,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "Jenson Button",
+    "d2": "Fernando Alonso",
+    "d1_ppr": 0.84,
+    "d2_ppr": 0.61
+  },
+  {
+    "year": 2015,
+    "constructor": "Lotus F1",
+    "constructorId": "208",
+    "d1": "Romain Grosjean",
+    "d2": "Pastor Maldonado",
+    "d1_ppr": 2.68,
+    "d2_ppr": 1.42
+  },
+  {
+    "year": 2016,
+    "constructor": "Mercedes",
+    "constructorId": "131",
+    "d1": "Nico Rosberg",
+    "d2": "Lewis Hamilton",
+    "d1_ppr": 18.33,
+    "d2_ppr": 18.1
+  },
+  {
+    "year": 2016,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Sebastian Vettel",
+    "d2": "Kimi Räikkönen",
+    "d1_ppr": 10.1,
+    "d2_ppr": 8.86
+  },
+  {
+    "year": 2016,
+    "constructor": "Red Bull",
+    "constructorId": "9",
+    "d1": "Daniel Ricciardo",
+    "d2": "Max Verstappen",
+    "d1_ppr": 12.19,
+    "d2_ppr": 11.24
+  },
+  {
+    "year": 2016,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "Felipe Massa",
+    "d2": "Valtteri Bottas",
+    "d1_ppr": 2.52,
+    "d2_ppr": 4.05
+  },
+  {
+    "year": 2016,
+    "constructor": "Haas F1 Team",
+    "constructorId": "210",
+    "d1": "Romain Grosjean",
+    "d2": "Esteban Gutiérrez",
+    "d1_ppr": 1.38,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2016,
+    "constructor": "Force India",
+    "constructorId": "10",
+    "d1": "Nico Hülkenberg",
+    "d2": "Sergio Pérez",
+    "d1_ppr": 3.43,
+    "d2_ppr": 4.81
+  },
+  {
+    "year": 2016,
+    "constructor": "Toro Rosso",
+    "constructorId": "5",
+    "d1": "Carlos Sainz",
+    "d2": "Daniil Kvyat",
+    "d1_ppr": 2.19,
+    "d2_ppr": 0.24
+  },
+  {
+    "year": 2016,
+    "constructor": "Renault",
+    "constructorId": "4",
+    "d1": "Jolyon Palmer",
+    "d2": "Kevin Magnussen",
+    "d1_ppr": 0.05,
+    "d2_ppr": 0.33
+  },
+  {
+    "year": 2016,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "Jenson Button",
+    "d2": "Fernando Alonso",
+    "d1_ppr": 1,
+    "d2_ppr": 2.7
+  },
+  {
+    "year": 2016,
+    "constructor": "Sauber",
+    "constructorId": "15",
+    "d1": "Felipe Nasr",
+    "d2": "Marcus Ericsson",
+    "d1_ppr": 0.1,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2017,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Sebastian Vettel",
+    "d2": "Kimi Räikkönen",
+    "d1_ppr": 15.85,
+    "d2_ppr": 10.25
+  },
+  {
+    "year": 2017,
+    "constructor": "Mercedes",
+    "constructorId": "131",
+    "d1": "Lewis Hamilton",
+    "d2": "Valtteri Bottas",
+    "d1_ppr": 18.15,
+    "d2_ppr": 15.25
+  },
+  {
+    "year": 2017,
+    "constructor": "Red Bull",
+    "constructorId": "9",
+    "d1": "Max Verstappen",
+    "d2": "Daniel Ricciardo",
+    "d1_ppr": 8.4,
+    "d2_ppr": 10
+  },
+  {
+    "year": 2017,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "Felipe Massa",
+    "d2": "Lance Stroll",
+    "d1_ppr": 2.26,
+    "d2_ppr": 2
+  },
+  {
+    "year": 2017,
+    "constructor": "Force India",
+    "constructorId": "10",
+    "d1": "Sergio Pérez",
+    "d2": "Esteban Ocon",
+    "d1_ppr": 5,
+    "d2_ppr": 4.35
+  },
+  {
+    "year": 2017,
+    "constructor": "Renault",
+    "constructorId": "4",
+    "d1": "Nico Hülkenberg",
+    "d2": "Jolyon Palmer",
+    "d1_ppr": 2.15,
+    "d2_ppr": 0.5
+  },
+  {
+    "year": 2017,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "Stoffel Vandoorne",
+    "d2": "Fernando Alonso",
+    "d1_ppr": 0.65,
+    "d2_ppr": 0.89
+  },
+  {
+    "year": 2017,
+    "constructor": "Haas F1 Team",
+    "constructorId": "210",
+    "d1": "Kevin Magnussen",
+    "d2": "Romain Grosjean",
+    "d1_ppr": 0.95,
+    "d2_ppr": 1.4
+  },
+  {
+    "year": 2017,
+    "constructor": "Sauber",
+    "constructorId": "15",
+    "d1": "Marcus Ericsson",
+    "d2": "Pascal Wehrlein",
+    "d1_ppr": 0,
+    "d2_ppr": 0.28
+  },
+  {
+    "year": 2018,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Sebastian Vettel",
+    "d2": "Kimi Räikkönen",
+    "d1_ppr": 15.24,
+    "d2_ppr": 11.95
+  },
+  {
+    "year": 2018,
+    "constructor": "Mercedes",
+    "constructorId": "131",
+    "d1": "Lewis Hamilton",
+    "d2": "Valtteri Bottas",
+    "d1_ppr": 19.43,
+    "d2_ppr": 11.76
+  },
+  {
+    "year": 2018,
+    "constructor": "Red Bull",
+    "constructorId": "9",
+    "d1": "Daniel Ricciardo",
+    "d2": "Max Verstappen",
+    "d1_ppr": 8.1,
+    "d2_ppr": 11.86
+  },
+  {
+    "year": 2018,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "Fernando Alonso",
+    "d2": "Stoffel Vandoorne",
+    "d1_ppr": 2.38,
+    "d2_ppr": 0.57
+  },
+  {
+    "year": 2018,
+    "constructor": "Renault",
+    "constructorId": "4",
+    "d1": "Nico Hülkenberg",
+    "d2": "Carlos Sainz",
+    "d1_ppr": 3.29,
+    "d2_ppr": 2.52
+  },
+  {
+    "year": 2018,
+    "constructor": "Force India",
+    "constructorId": "10",
+    "d1": "Sergio Pérez",
+    "d2": "Esteban Ocon",
+    "d1_ppr": 2.95,
+    "d2_ppr": 2.33
+  },
+  {
+    "year": 2018,
+    "constructor": "Sauber",
+    "constructorId": "15",
+    "d1": "Charles Leclerc",
+    "d2": "Marcus Ericsson",
+    "d1_ppr": 1.86,
+    "d2_ppr": 0.43
+  },
+  {
+    "year": 2018,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "Lance Stroll",
+    "d2": "Sergey Sirotkin",
+    "d1_ppr": 0.29,
+    "d2_ppr": 0.05
+  },
+  {
+    "year": 2018,
+    "constructor": "Toro Rosso",
+    "constructorId": "5",
+    "d1": "Brendon Hartley",
+    "d2": "Pierre Gasly",
+    "d1_ppr": 0.19,
+    "d2_ppr": 1.38
+  },
+  {
+    "year": 2018,
+    "constructor": "Haas F1 Team",
+    "constructorId": "210",
+    "d1": "Romain Grosjean",
+    "d2": "Kevin Magnussen",
+    "d1_ppr": 1.76,
+    "d2_ppr": 2.67
+  },
+  {
+    "year": 2019,
+    "constructor": "Mercedes",
+    "constructorId": "131",
+    "d1": "Valtteri Bottas",
+    "d2": "Lewis Hamilton",
+    "d1_ppr": 15.52,
+    "d2_ppr": 19.67
+  },
+  {
+    "year": 2019,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Sebastian Vettel",
+    "d2": "Charles Leclerc",
+    "d1_ppr": 11.43,
+    "d2_ppr": 12.57
+  },
+  {
+    "year": 2019,
+    "constructor": "Haas F1 Team",
+    "constructorId": "210",
+    "d1": "Kevin Magnussen",
+    "d2": "Romain Grosjean",
+    "d1_ppr": 0.95,
+    "d2_ppr": 0.38
+  },
+  {
+    "year": 2019,
+    "constructor": "Renault",
+    "constructorId": "4",
+    "d1": "Nico Hülkenberg",
+    "d2": "Daniel Ricciardo",
+    "d1_ppr": 1.76,
+    "d2_ppr": 2.57
+  },
+  {
+    "year": 2019,
+    "constructor": "Alfa Romeo",
+    "constructorId": "51",
+    "d1": "Kimi Räikkönen",
+    "d2": "Antonio Giovinazzi",
+    "d1_ppr": 2.05,
+    "d2_ppr": 0.67
+  },
+  {
+    "year": 2019,
+    "constructor": "Racing Point",
+    "constructorId": "211",
+    "d1": "Lance Stroll",
+    "d2": "Sergio Pérez",
+    "d1_ppr": 1,
+    "d2_ppr": 2.48
+  },
+  {
+    "year": 2019,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "Lando Norris",
+    "d2": "Carlos Sainz",
+    "d1_ppr": 2.33,
+    "d2_ppr": 4.57
+  },
+  {
+    "year": 2019,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "George Russell",
+    "d2": "Robert Kubica",
+    "d1_ppr": 0,
+    "d2_ppr": 0.05
+  },
+  {
+    "year": 2020,
+    "constructor": "Mercedes",
+    "constructorId": "131",
+    "d1": "Valtteri Bottas",
+    "d2": "Lewis Hamilton",
+    "d1_ppr": 13.12,
+    "d2_ppr": 21.69
+  },
+  {
+    "year": 2020,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Charles Leclerc",
+    "d2": "Sebastian Vettel",
+    "d1_ppr": 5.76,
+    "d2_ppr": 1.94
+  },
+  {
+    "year": 2020,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "Lando Norris",
+    "d2": "Carlos Sainz",
+    "d1_ppr": 5.71,
+    "d2_ppr": 6.18
+  },
+  {
+    "year": 2020,
+    "constructor": "Racing Point",
+    "constructorId": "211",
+    "d1": "Sergio Pérez",
+    "d2": "Lance Stroll",
+    "d1_ppr": 8.33,
+    "d2_ppr": 4.69
+  },
+  {
+    "year": 2020,
+    "constructor": "AlphaTauri",
+    "constructorId": "213",
+    "d1": "Pierre Gasly",
+    "d2": "Daniil Kvyat",
+    "d1_ppr": 4.41,
+    "d2_ppr": 1.88
+  },
+  {
+    "year": 2020,
+    "constructor": "Renault",
+    "constructorId": "4",
+    "d1": "Esteban Ocon",
+    "d2": "Daniel Ricciardo",
+    "d1_ppr": 3.65,
+    "d2_ppr": 7
+  },
+  {
+    "year": 2020,
+    "constructor": "Alfa Romeo",
+    "constructorId": "51",
+    "d1": "Antonio Giovinazzi",
+    "d2": "Kimi Räikkönen",
+    "d1_ppr": 0.24,
+    "d2_ppr": 0.24
+  },
+  {
+    "year": 2020,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "Nicholas Latifi",
+    "d2": "George Russell",
+    "d1_ppr": 0,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2020,
+    "constructor": "Red Bull",
+    "constructorId": "9",
+    "d1": "Alexander Albon",
+    "d2": "Max Verstappen",
+    "d1_ppr": 6.18,
+    "d2_ppr": 12.59
+  },
+  {
+    "year": 2020,
+    "constructor": "Haas F1 Team",
+    "constructorId": "210",
+    "d1": "Romain Grosjean",
+    "d2": "Kevin Magnussen",
+    "d1_ppr": 0.13,
+    "d2_ppr": 0.06
+  },
+  {
+    "year": 2021,
+    "constructor": "Mercedes",
+    "constructorId": "131",
+    "d1": "Lewis Hamilton",
+    "d2": "Valtteri Bottas",
+    "d1_ppr": 17.52,
+    "d2_ppr": 9.95
+  },
+  {
+    "year": 2021,
+    "constructor": "Red Bull",
+    "constructorId": "9",
+    "d1": "Max Verstappen",
+    "d2": "Sergio Pérez",
+    "d1_ppr": 17.66,
+    "d2_ppr": 8.64
+  },
+  {
+    "year": 2021,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "Lando Norris",
+    "d2": "Daniel Ricciardo",
+    "d1_ppr": 7.27,
+    "d2_ppr": 5.18
+  },
+  {
+    "year": 2021,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Charles Leclerc",
+    "d2": "Carlos Sainz",
+    "d1_ppr": 7.23,
+    "d2_ppr": 7.43
+  },
+  {
+    "year": 2021,
+    "constructor": "AlphaTauri",
+    "constructorId": "213",
+    "d1": "Yuki Tsunoda",
+    "d2": "Pierre Gasly",
+    "d1_ppr": 1.45,
+    "d2_ppr": 5
+  },
+  {
+    "year": 2021,
+    "constructor": "Aston Martin",
+    "constructorId": "117",
+    "d1": "Lance Stroll",
+    "d2": "Sebastian Vettel",
+    "d1_ppr": 1.55,
+    "d2_ppr": 1.95
+  },
+  {
+    "year": 2021,
+    "constructor": "Alfa Romeo",
+    "constructorId": "51",
+    "d1": "Kimi Räikkönen",
+    "d2": "Antonio Giovinazzi",
+    "d1_ppr": 0.5,
+    "d2_ppr": 0.14
+  },
+  {
+    "year": 2021,
+    "constructor": "Alpine F1 Team",
+    "constructorId": "214",
+    "d1": "Esteban Ocon",
+    "d2": "Fernando Alonso",
+    "d1_ppr": 3.36,
+    "d2_ppr": 3.68
+  },
+  {
+    "year": 2021,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "George Russell",
+    "d2": "Nicholas Latifi",
+    "d1_ppr": 0.73,
+    "d2_ppr": 0.32
+  },
+  {
+    "year": 2021,
+    "constructor": "Haas F1 Team",
+    "constructorId": "210",
+    "d1": "Mick Schumacher",
+    "d2": "Nikita Mazepin",
+    "d1_ppr": 0,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2022,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Charles Leclerc",
+    "d2": "Carlos Sainz",
+    "d1_ppr": 13.23,
+    "d2_ppr": 10.36
+  },
+  {
+    "year": 2022,
+    "constructor": "Mercedes",
+    "constructorId": "131",
+    "d1": "Lewis Hamilton",
+    "d2": "George Russell",
+    "d1_ppr": 10.59,
+    "d2_ppr": 11.91
+  },
+  {
+    "year": 2022,
+    "constructor": "Haas F1 Team",
+    "constructorId": "210",
+    "d1": "Kevin Magnussen",
+    "d2": "Mick Schumacher",
+    "d1_ppr": 0.95,
+    "d2_ppr": 0.55
+  },
+  {
+    "year": 2022,
+    "constructor": "Alfa Romeo",
+    "constructorId": "51",
+    "d1": "Valtteri Bottas",
+    "d2": "Guanyu Zhou",
+    "d1_ppr": 2.14,
+    "d2_ppr": 0.27
+  },
+  {
+    "year": 2022,
+    "constructor": "Alpine F1 Team",
+    "constructorId": "214",
+    "d1": "Esteban Ocon",
+    "d2": "Fernando Alonso",
+    "d1_ppr": 4.05,
+    "d2_ppr": 3.68
+  },
+  {
+    "year": 2022,
+    "constructor": "AlphaTauri",
+    "constructorId": "213",
+    "d1": "Yuki Tsunoda",
+    "d2": "Pierre Gasly",
+    "d1_ppr": 0.55,
+    "d2_ppr": 1.05
+  },
+  {
+    "year": 2022,
+    "constructor": "Aston Martin",
+    "constructorId": "117",
+    "d1": "Lance Stroll",
+    "d2": "Sebastian Vettel",
+    "d1_ppr": 0.82,
+    "d2_ppr": 1.85
+  },
+  {
+    "year": 2022,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "Alexander Albon",
+    "d2": "Nicholas Latifi",
+    "d1_ppr": 0.19,
+    "d2_ppr": 0.09
+  },
+  {
+    "year": 2022,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "Daniel Ricciardo",
+    "d2": "Lando Norris",
+    "d1_ppr": 1.55,
+    "d2_ppr": 5.27
+  },
+  {
+    "year": 2022,
+    "constructor": "Red Bull",
+    "constructorId": "9",
+    "d1": "Sergio Pérez",
+    "d2": "Max Verstappen",
+    "d1_ppr": 13.23,
+    "d2_ppr": 19.68
+  },
+  {
+    "year": 2023,
+    "constructor": "Red Bull",
+    "constructorId": "9",
+    "d1": "Max Verstappen",
+    "d2": "Sergio Pérez",
+    "d1_ppr": 24.09,
+    "d2_ppr": 11.82
+  },
+  {
+    "year": 2023,
+    "constructor": "Aston Martin",
+    "constructorId": "117",
+    "d1": "Fernando Alonso",
+    "d2": "Lance Stroll",
+    "d1_ppr": 9,
+    "d2_ppr": 3.09
+  },
+  {
+    "year": 2023,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Carlos Sainz",
+    "d2": "Charles Leclerc",
+    "d1_ppr": 8.09,
+    "d2_ppr": 8.41
+  },
+  {
+    "year": 2023,
+    "constructor": "Mercedes",
+    "constructorId": "131",
+    "d1": "Lewis Hamilton",
+    "d2": "George Russell",
+    "d1_ppr": 9.86,
+    "d2_ppr": 7.14
+  },
+  {
+    "year": 2023,
+    "constructor": "Alfa Romeo",
+    "constructorId": "51",
+    "d1": "Valtteri Bottas",
+    "d2": "Guanyu Zhou",
+    "d1_ppr": 0.45,
+    "d2_ppr": 0.27
+  },
+  {
+    "year": 2023,
+    "constructor": "Alpine F1 Team",
+    "constructorId": "214",
+    "d1": "Pierre Gasly",
+    "d2": "Esteban Ocon",
+    "d1_ppr": 2.45,
+    "d2_ppr": 2.55
+  },
+  {
+    "year": 2023,
+    "constructor": "Williams",
+    "constructorId": "3",
+    "d1": "Alexander Albon",
+    "d2": "Logan Sargeant",
+    "d1_ppr": 1.14,
+    "d2_ppr": 0.05
+  },
+  {
+    "year": 2023,
+    "constructor": "Haas F1 Team",
+    "constructorId": "210",
+    "d1": "Kevin Magnussen",
+    "d2": "Nico Hülkenberg",
+    "d1_ppr": 0.14,
+    "d2_ppr": 0.27
+  },
+  {
+    "year": 2023,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "Lando Norris",
+    "d2": "Oscar Piastri",
+    "d1_ppr": 8.36,
+    "d2_ppr": 3.73
+  },
+  {
+    "year": 2024,
+    "constructor": "Red Bull",
+    "constructorId": "9",
+    "d1": "Max Verstappen",
+    "d2": "Sergio Pérez",
+    "d1_ppr": 16.63,
+    "d2_ppr": 5.75
+  },
+  {
+    "year": 2024,
+    "constructor": "Ferrari",
+    "constructorId": "6",
+    "d1": "Carlos Sainz",
+    "d2": "Charles Leclerc",
+    "d1_ppr": 11.39,
+    "d2_ppr": 13.63
+  },
+  {
+    "year": 2024,
+    "constructor": "Mercedes",
+    "constructorId": "131",
+    "d1": "George Russell",
+    "d2": "Lewis Hamilton",
+    "d1_ppr": 9.42,
+    "d2_ppr": 8.63
+  },
+  {
+    "year": 2024,
+    "constructor": "McLaren",
+    "constructorId": "1",
+    "d1": "Lando Norris",
+    "d2": "Oscar Piastri",
+    "d1_ppr": 14.33,
+    "d2_ppr": 11.04
+  },
+  {
+    "year": 2024,
+    "constructor": "Aston Martin",
+    "constructorId": "117",
+    "d1": "Fernando Alonso",
+    "d2": "Lance Stroll",
+    "d1_ppr": 2.92,
+    "d2_ppr": 1
+  },
+  {
+    "year": 2024,
+    "constructor": "Sauber",
+    "constructorId": "15",
+    "d1": "Guanyu Zhou",
+    "d2": "Valtteri Bottas",
+    "d1_ppr": 0.17,
+    "d2_ppr": 0
+  },
+  {
+    "year": 2024,
+    "constructor": "Haas F1 Team",
+    "constructorId": "210",
+    "d1": "Kevin Magnussen",
+    "d2": "Nico Hülkenberg",
+    "d1_ppr": 0.64,
+    "d2_ppr": 1.5
+  },
+  {
+    "year": 2024,
+    "constructor": "Alpine F1 Team",
+    "constructorId": "214",
+    "d1": "Esteban Ocon",
+    "d2": "Pierre Gasly",
+    "d1_ppr": 1,
+    "d2_ppr": 1.67
+  }
+]

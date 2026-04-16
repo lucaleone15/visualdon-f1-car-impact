@@ -5,12 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>F1 — La Machine ou l'Homme ?</title>
-  <link rel="icon" type="image/x-icon" href="asset/img/F1-01.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,700;0,900;1,300;1,700&family=Barlow:wght@300;400;500&family=Courier+Prime:ital,wght@0,400;1,400&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="src/style.css">
+  <link rel="icon" type="image/png" href="./asset/img/F1-01.png">
+  <link rel="stylesheet" href="/src/style.css">
 </head>
 
 <body>
@@ -21,6 +17,31 @@
   <!-- ══════════ INTRO ══════════ -->
   <section id="intro" class="chapter chapter-intro">
     <canvas id="intro-canvas"></canvas>
+
+    <!-- Pilot strip — 5 photos bottom of screen -->
+    <div class="intro-pilots">
+      <div class="intro-pilot">
+        <img src="./asset/img/schumacher.png" alt="Schumacher" onerror="this.style.display='none'">
+        <span class="intro-pilot-name">Schumacher</span>
+      </div>
+      <div class="intro-pilot">
+        <img src="./asset/img/alonso.png" alt="Alonso" onerror="this.style.display='none'">
+        <span class="intro-pilot-name">Alonso</span>
+      </div>
+      <div class="intro-pilot intro-pilot--center">
+        <img src="./asset/img/hamilton.png" alt="Hamilton" onerror="this.style.display='none'">
+        <span class="intro-pilot-name">Hamilton</span>
+      </div>
+      <div class="intro-pilot">
+        <img src="./asset/img/vettel.png" alt="Vettel" onerror="this.style.display='none'">
+        <span class="intro-pilot-name">Vettel</span>
+      </div>
+      <div class="intro-pilot">
+        <img src="./asset/img/verstappen.png" alt="Verstappen" onerror="this.style.display='none'">
+        <span class="intro-pilot-name">Verstappen</span>
+      </div>
+    </div>
+
     <div class="intro-content">
       <div class="intro-eyebrow">Formule 1 · 2000–2024 · 86 pilotes · 26 000 résultats</div>
       <h1 class="intro-title">
@@ -52,8 +73,7 @@
           <p>En F1, deux équipiers partagent <strong>le même châssis, le même moteur, la même stratégie</strong>. Si
             leurs résultats diffèrent — c'est le pilote. Chez Red Bull, l'écart moyen entre équipiers est de
             <strong>+4,3 pts/course</strong>. Et <strong>8 champions du monde sur 9</strong> ont systématiquement dominé
-            leur coéquipier.
-          </p>
+            leur coéquipier.</p>
         </div>
       </div>
       <div class="step" data-chapter="1" data-idx="1">
@@ -69,8 +89,7 @@
           <div class="step-tag">03 / Records</div>
           <h2>Les dominations absolues</h2>
           <p>Top 15 des écarts 2000–2024. Verstappen–Pérez : <strong>+12,3 pts/course</strong>. Vettel–Webber :
-            <strong>+10,4 pts/course</strong>. Même voiture.
-          </p>
+            <strong>+10,4 pts/course</strong>. Même voiture.</p>
         </div>
       </div>
     </div>
@@ -82,7 +101,13 @@
     <div class="drama-content">
       <div class="drama-year">2023</div>
       <div class="drama-teams">
+
+        <!-- VER side -->
         <div class="drama-driver" id="dd-ver">
+          <div class="dd-photo-wrap">
+            <img class="dd-photo" src="./asset/img/verstappen-duel.png" alt="Max Verstappen"
+              onerror="this.style.display='none'">
+          </div>
           <div class="dd-name">VERSTAPPEN</div>
           <div class="dd-bar-wrap">
             <div class="dd-bar" id="bar-ver"></div>
@@ -90,8 +115,15 @@
           <div class="dd-pts" id="pts-ver">0</div>
           <div class="dd-sub">pts / course</div>
         </div>
+
         <div class="drama-vs">VS</div>
+
+        <!-- PER side -->
         <div class="drama-driver" id="dd-per">
+          <div class="dd-photo-wrap">
+            <img class="dd-photo" src="./asset/img/perez-duel.png" alt="Sergio Pérez"
+              onerror="this.style.display='none'">
+          </div>
           <div class="dd-name">PÉREZ</div>
           <div class="dd-bar-wrap">
             <div class="dd-bar" id="bar-per"></div>
@@ -99,6 +131,7 @@
           <div class="dd-pts" id="pts-per">0</div>
           <div class="dd-sub">pts / course</div>
         </div>
+
       </div>
       <div class="drama-caption" id="drama-caption">La même voiture. Red Bull RB19.</div>
       <div class="drama-scroll-hint">↓ continuez</div>
@@ -106,22 +139,6 @@
   </section>
 
   <!-- ══════════ CHAPTER 3 — Trajectoires ══════════ -->
-  <section id="ch3" class="chapter chapter-interactive">
-    <div class="ch3-header">
-      <div class="ch-eyebrow">Chapitre 3 — Trajectoires</div>
-      <h2>Trajectoires de carrière</h2>
-      <p>Chaque ligne = un pilote. L'axe Y = son <strong>écart à son coéquipier</strong>, saison par saison. Au-dessus
-        de zéro : il domine. Les tirets verticaux : changements d'équipe.</p>
-    </div>
-    <div id="ch3-selector" class="driver-selector"></div>
-    <div id="ch3-vis" class="vis-container">
-      <svg id="svg-ch3" class="full-svg"></svg>
-    </div>
-    <div id="ch3-callout" class="callout-box"></div>
-    <div id="ch3-tooltip" class="hover-tooltip"></div>
-  </section>
-
-  <!-- ══════════ CHAPTER 4 — Grand Scatter ══════════ -->
   <section id="ch4" class="chapter chapter-scroll">
     <div class="sticky-wrap">
       <div class="sticky-vis">
@@ -161,7 +178,30 @@
             même résultat.</p>
         </div>
       </div>
+      <div class="step" data-chapter="4" data-idx="4">
+        <div class="step-inner step-inner--free">
+          <div class="step-tag">05 / Explorer</div>
+          <h2>À vous de jouer</h2>
+          <p>Le graphique est libre. <strong>Zoomez, filtrez, cliquez</strong> sur un point pour comparer deux
+            équipiers. Chaque point = une saison.</p>
+        </div>
+      </div>
     </div>
+  </section>
+
+  <section id="ch3" class="chapter chapter-interactive">
+    <div class="ch3-header">
+      <div class="ch-eyebrow">Chapitre 3 — Trajectoires</div>
+      <h2>Trajectoires de carrière</h2>
+      <p>Chaque ligne = un pilote. L'axe Y = son <strong>écart à son coéquipier</strong>, saison par saison. Au-dessus
+        de zéro : il domine. Les tirets verticaux : changements d'équipe.</p>
+    </div>
+    <div id="ch3-selector" class="driver-selector"></div>
+    <div id="ch3-vis" class="vis-container">
+      <svg id="svg-ch3" class="full-svg"></svg>
+    </div>
+    <div id="ch3-callout" class="callout-box"></div>
+    <div id="ch3-tooltip" class="hover-tooltip"></div>
   </section>
 
 
@@ -366,9 +406,7 @@
     </div>
   </section>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
-  <script src="src/charts.js"></script>
-  <script src="src/loader.js"></script>
+  <script type="module" src="/src/main.js"></script>
 
   <!-- FLOATING TABLE OF CONTENTS -->
   <nav id="toc-float" aria-label="Table des matières">
@@ -388,13 +426,13 @@
           <span class="toc-num">03</span>
           <span class="toc-label">Verstappen vs Pérez</span>
         </a></li>
-      <li><a href="#ch3" data-section="ch3">
-          <span class="toc-num">04</span>
-          <span class="toc-label">Trajectoires de carrière</span>
-        </a></li>
       <li><a href="#ch4" data-section="ch4">
-          <span class="toc-num">05</span>
+          <span class="toc-num">04</span>
           <span class="toc-label">Vue d'ensemble</span>
+        </a></li>
+      <li><a href="#ch3" data-section="ch3">
+          <span class="toc-num">05</span>
+          <span class="toc-label">Trajectoires de carrière</span>
         </a></li>
       <li><a href="#ch-sim" data-section="ch-sim">
           <span class="toc-num">06</span>

@@ -1,8 +1,16 @@
 import { defineConfig } from 'vite'
-import dsv from '@rollup/plugin-dsv'
 
 export default defineConfig({
-    plugins: [
-        dsv(),
-],
+  root: '.',
+  publicDir: 'public',
+  build: {
+    outDir: 'dist',
+    rollupOptions: {
+      input: 'index.html'
+    }
+  },
+  server: {
+    port: 3000,
+    open: true
+  }
 })

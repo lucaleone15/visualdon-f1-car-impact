@@ -5,9 +5,9 @@ import { initCharts } from './charts.js';
 
 async function loadData() {
   const [career, teammates, sim] = await Promise.all([
-    fetch('src/data/career_data.json').then(r => r.json()),
-    fetch('src/data/teammate_data.json').then(r => r.json()),
-    fetch('src/data/sim_data.json').then(r => r.json()),
+    fetch('data/career_data.json').then(r => r.json()),
+    fetch('data/teammate_data.json').then(r => r.json()),
+    fetch('data/sim_data.json').then(r => r.json()),
   ]);
   window.CAREER_DATA = career;
   window.TEAMMATE_DATA = teammates;

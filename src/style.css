@@ -757,68 +757,111 @@ body {
 }
 
 /* ═══════════════════════════════════════════════
-   INTRO — Pilot photo strip
+   INTRO — Text left · Photos right · No overlap
 ═══════════════════════════════════════════════ */
 .chapter-intro {
-  flex-direction: column;
-  justify-content: flex-end;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  overflow: hidden;
 }
 
+/* Left: text takes 42% width */
+.intro-content {
+  position: relative;
+  z-index: 2;
+  width: 42%;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 3rem 5rem 4rem;
+}
+
+.intro-title {
+  overflow: visible;
+  margin-top: 0.75rem;
+}
+
+.intro-sub {
+  max-width: 380px;
+  margin-top: 1.2rem;
+}
+
+/* Right: photos fill remaining 58% */
 .intro-pilots {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
+  flex: 1;
   display: flex;
   align-items: flex-end;
-  justify-content: space-around;
+  justify-content: flex-end;
   pointer-events: none;
-  z-index: 1;
-  gap: 0;
+  position: relative;
+  overflow: hidden;
 }
 
 .intro-pilot {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   flex: 1;
-  max-width: 200px;
-  position: relative;
+  height: 100%;
+  max-width: 160px;
 }
 
 .intro-pilot img {
   width: 100%;
-  max-height: 55vh;
+  height: 100%;
   object-fit: contain;
-  object-position: bottom;
-  /* Subtle fade at top so it blends with dark bg */
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.2) 15%, black 40%);
-  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.2) 15%, black 40%);
-  filter: grayscale(20%) brightness(0.85);
+  object-position: bottom center;
   display: block;
+  /* Fade at top only */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 20%);
+  filter: brightness(0.85);
 }
 
-.intro-pilot--center img {
-  max-height: 68vh;
-  filter: grayscale(0%) brightness(0.95);
+/* Hero pilot: taller + brighter */
+.intro-pilot--hero img {
+  filter: brightness(1);
+  height: 115%;
+  object-position: top center;
+}
+.intro-pilot--hero {
+  z-index: 2;
+}
+
+/* Non-hero pilots: slight opacity */
+.intro-pilot:not(.intro-pilot--hero) {
+  opacity: 0.72;
 }
 
 .intro-pilot-name {
   position: absolute;
-  bottom: 0.5rem;
+  bottom: 0.75rem;
   font-family: var(--ff-m);
-  font-size: 0.65rem;
+  font-size: 0.58rem;
   letter-spacing: 0.22em;
-  color: rgba(240,237,230,0.32);
+  color: rgba(240,237,230,0.4);
   text-transform: uppercase;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.9);
+  white-space: nowrap;
 }
 
-/* Keep intro-content above the pilots strip */
-.intro-content {
-  position: relative;
-  z-index: 2;
+/* Scroll cue bottom-left inside content */
+.scroll-cue {
+  position: absolute;
+  bottom: 2rem;
+  left: 4rem;
+  transform: none;
 }
 
-@media (max-width: 600px) {
-  .intro-pilots { display: none; }
+@media (max-width: 768px) {
+  .chapter-intro { flex-direction: column; }
+  .intro-content { width: 100%; padding: 3rem 1.5rem 2rem; justify-content: flex-start; }
+  .intro-pilots { height: 50vh; }
+  .intro-pilot { max-width: 80px; }
+  .scroll-cue { left: 1.5rem; }
 }
 
 /* ═══════════════════════════════════════════════
@@ -848,3 +891,91 @@ body {
 @media (max-width: 600px) {
   .dd-photo-wrap { width: 90px; height: 120px; }
 }
+
+/* --- Raffinement de l'Intro --- */
+
+.chapter-intro {
+  height: 100vh;
+  background: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+}
+
+.intro-inner {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  width: 90%;
+  max-width: 1400px;
+  z-index: 2;
+}
+
+/* TYPOGRAPHIE */
+.intro-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(3rem, 7vw, 8rem);
+  font-weight: 900;
+  line-height: 0.85;
+  color: #f0ede6;
+  margin: 1.5rem 0;
+}
+
+.title-line { display: block; }
+
+.title-italic {
+  font-family: 'Playfair Display', serif; /* Ou une police élégante */
+  font-style: italic;
+  font-weight: 400;
+  color: #ff1801; /* Rouge F1 */
+  padding-left: 1rem;
+}
+
+.intro-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.3em;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.5);
+}
+
+.eyebrow-line {
+  width: 40px;
+  height: 1px;
+  background: #ff1801;
+}
+
+/* LES PILOTES */
+.intro-visual {
+  position: relative;
+  height: 80vh;
+}
+
+.pilots-stack {
+  position: relative;
+  height: 100%;
+  transform: rotate(-3deg);
+}
+
+.pilot {
+  position: absolute;
+  bottom: 0;
+  transition: transform 0.4s ease-out;
+  filter: grayscale(100%) contrast(1.1) brightness(0.8);
+  mask-image: linear-gradient(to top, transparent 5%, black 40%);
+}
+
+.pilot img { height: 75vh; width: auto; object-fit: contain; }
+
+.pilot:hover {
+  filter: grayscale(0%) brightness(1);
+  z-index: 10;
+  transform: scale(1.05) translateY(-20px);
+}
+
+/* Placement décalé */
+.p-schumi { left: 0%; z-index: 1; opacity: 0.4; }
+.p-hamilton { left: 20%; z-index: 2; opacity: 0.6; }
+.p-verstappen { left: 40%; z-index: 3; }

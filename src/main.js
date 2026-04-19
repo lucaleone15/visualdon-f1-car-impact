@@ -26,3 +26,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error('Erreur initialisation :', e);
   }
 });
+
+document.addEventListener('mousemove', (e) => {
+  const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+  const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+
+  // Le titre bouge légèrement à l'opposé des images
+  document.querySelector('.intro-content').style.transform =
+    `translate(${moveX * -1}px, ${moveY * -1}px)`;
+
+  // Les pilotes bougent avec plus d'amplitude
+  const pilots = document.querySelectorAll('.pilot');
+  pilots.forEach((p, index) => {
+    const depth = (index + 1) * 2;
+    p.style.transform = `translate(${moveX * depth}px, ${moveY * depth}px)`;
+  });
+});

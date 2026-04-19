@@ -9,116 +9,108 @@ let ch1State = -1;
 let activeRadialYear = 2000;
 let ch4State = -1;
 let scatterDataCache = null;
+let activeFilter = "all"; // module-level so filter always works
 let activeDrivers = ['Lewis Hamilton', 'Fernando Alonso'];
 
 function drawF1CarWithPies(g, w, h) {
   const cx = w / 2;
   const cy = h / 2;
   const FF = "'Poppins', system-ui, sans-serif";
-  const FM = "'Inter', 'Helvetica Neue', system-ui, sans-serif";
+  const FM = "'Inter', system-ui, sans-serif";
 
-  // ── Sizing: car wide, centered vertically on wheel axles ──
-  // SVG viewBox 98.751×98.75 — wheels at x=22.1 / 86.7, y=53.8
-  // Reserve top space for title, bottom for stat labels
+  // Layout: car centered, wheels at 54.3% of SVG height
   const pad = { top: h * 0.18, bot: h * 0.22 };
   const availH = h - pad.top - pad.bot;
-  const carW = Math.min(w * 0.82, availH * 1.1);
-  const carX = cx - carW / 2;
-  // place wheel-center (54.3% down) at vertical midpoint of available area
+  const carW  = Math.min(w * 0.82, availH * 1.1);
+  const carX  = cx - carW / 2;
   const wheelCY = pad.top + availH * 0.5;
-  const carY = wheelCY - 0.543 * carW;
+  const carY  = wheelCY - 0.543 * carW;
   const sx = carW / 98.751;
   const sy = carW / 98.75;
 
-  // ── SVG defs: glow filter ──
+  // Glow filter
   const defs2 = g.append('defs');
-  const glowF = defs2.append('filter').attr('id', 'f1-glow').attr('x', '-40%').attr('y', '-40%').attr('width', '180%').attr('height', '180%');
-  glowF.append('feGaussianBlur').attr('in', 'SourceGraphic').attr('stdDeviation', '4').attr('result', 'blur');
+  const glowF = defs2.append('filter').attr('id','f1-glow').attr('x','-40%').attr('y','-40%').attr('width','180%').attr('height','180%');
+  glowF.append('feGaussianBlur').attr('in','SourceGraphic').attr('stdDeviation','4').attr('result','blur');
   const fm = glowF.append('feMerge');
-  fm.append('feMergeNode').attr('in', 'blur');
-  fm.append('feMergeNode').attr('in', 'SourceGraphic');
+  fm.append('feMergeNode').attr('in','blur');
+  fm.append('feMergeNode').attr('in','SourceGraphic');
 
-  // ── Car body ──
-  const carG = g.append('g').attr('transform', `translate(${carX},${carY})`).attr('opacity', 0);
-  carG.transition().duration(700).ease(d3.easeCubicOut).attr('opacity', 1);
-  const pathG = carG.append('g').attr('transform', `scale(${sx},${sy})`);
+  // Car body
+  const carG = g.append('g').attr('transform',`translate(${carX},${carY})`).attr('opacity',0);
+  carG.transition().duration(700).ease(d3.easeCubicOut).attr('opacity',1);
+  const pathG = carG.append('g').attr('transform',`scale(${sx},${sy})`);
 
-  // Wheel hubs (dark)
-  const HUB_PATH_L = 'M22.106,46.936c-3.79,0-6.866,3.071-6.866,6.866c0,0.293,0.024,0.58,0.062,0.862c0.426,3.386,3.307,6.003,6.805,6.003c3.598,0,6.54-2.761,6.839-6.279c0.017-0.194,0.03-0.389,0.03-0.586C28.976,50.008,25.9,46.936,22.106,46.936z';
-  const HUB_PATH_R = 'M86.74,46.936c-3.79,0-6.866,3.071-6.866,6.866c0,0.293,0.024,0.58,0.062,0.862c0.426,3.386,3.308,6.003,6.806,6.003c3.598,0,6.54-2.761,6.84-6.279c0.017-0.194,0.028-0.389,0.028-0.586C93.609,50.008,90.535,46.936,86.74,46.936z';
-  pathG.append('path').attr('d', HUB_PATH_L).attr('fill', '#2a2a3a');
-  pathG.append('path').attr('d', HUB_PATH_R).attr('fill', '#2a2a3a');
-
-  // Main body (red) with glow
+  // Wheel hubs
   pathG.append('path')
-    .attr('d', 'M78.029,53.801c0-3.049,1.638-5.717,4.072-7.19l-16.177-7.166H55.775c-0.604,0-1.094,0.49-1.094,1.095v1.438c0,0.604,0.489,1.095,1.094,1.095h0.72v0.997h-1.841c-0.579,0-1.096,0.371-1.277,0.921L53.23,45.43c-3.351-0.271-4.945,2.294-6.62,2.294l-1.131-1.361c-0.674-0.813-1.706-1.241-2.758-1.144c-0.32,0.03-0.661,0.094-1.008,0.211l-0.635,2.294c0,0-5.759-0.335-13.245-0.066c1.648,1.537,2.687,3.72,2.687,6.146c0,0.24,0.039,5.32,0.039,5.32h49.383c-0.976-1.188-1.637-2.648-1.84-4.266C78.055,54.485,78.029,54.135,78.029,53.801z')
-    .attr('fill', '#e8001a').attr('filter', 'url(#f1-glow)');
-
-  // Rear/exhaust section
+    .attr('d','M22.106,46.936c-3.79,0-6.866,3.071-6.866,6.866c0,0.293,0.024,0.58,0.062,0.862c0.426,3.386,3.307,6.003,6.805,6.003c3.598,0,6.54-2.761,6.839-6.279c0.017-0.194,0.03-0.389,0.03-0.586C28.976,50.008,25.9,46.936,22.106,46.936z')
+    .attr('fill','#2a2a3a');
   pathG.append('path')
-    .attr('d', 'M13.695,53.801c0-1.928,0.659-3.699,1.753-5.12C9.664,49.487,4.044,50.83,0,53.047c0,1.176,5.168,0.019,5.168,2.448H1.181c-0.402,0-0.728,0.325-0.728,0.728v2.172c0,0.402,0.325,0.729,0.728,0.729h9.969c0.403,0,0.729-0.326,0.729-0.729v-3.354h1.922c-0.009-0.062-0.024-0.121-0.032-0.185C13.72,54.485,13.695,54.135,13.695,53.801z')
-    .attr('fill', '#100d0c').attr('stroke', 'rgba(232,0,26,0.5)').attr('stroke-width', '0.5');
+    .attr('d','M86.74,46.936c-3.79,0-6.866,3.071-6.866,6.866c0,0.293,0.024,0.58,0.062,0.862c0.426,3.386,3.308,6.003,6.806,6.003c3.598,0,6.54-2.761,6.84-6.279c0.017-0.194,0.028-0.389,0.028-0.586C93.609,50.008,90.535,46.936,86.74,46.936z')
+    .attr('fill','#2a2a3a');
+
+  // Main body (red)
+  pathG.append('path')
+    .attr('d','M78.029,53.801c0-3.049,1.638-5.717,4.072-7.19l-16.177-7.166H55.775c-0.604,0-1.094,0.49-1.094,1.095v1.438c0,0.604,0.489,1.095,1.094,1.095h0.72v0.997h-1.841c-0.579,0-1.096,0.371-1.277,0.921L53.23,45.43c-3.351-0.271-4.945,2.294-6.62,2.294l-1.131-1.361c-0.674-0.813-1.706-1.241-2.758-1.144c-0.32,0.03-0.661,0.094-1.008,0.211l-0.635,2.294c0,0-5.759-0.335-13.245-0.066c1.648,1.537,2.687,3.72,2.687,6.146c0,0.24,0.039,5.32,0.039,5.32h49.383c-0.976-1.188-1.637-2.648-1.84-4.266C78.055,54.485,78.029,54.135,78.029,53.801z')
+    .attr('fill','#e8001a').attr('filter','url(#f1-glow)');
+
+  // Rear
+  pathG.append('path')
+    .attr('d','M13.695,53.801c0-1.928,0.659-3.699,1.753-5.12C9.664,49.487,4.044,50.83,0,53.047c0,1.176,5.168,0.019,5.168,2.448H1.181c-0.402,0-0.728,0.325-0.728,0.728v2.172c0,0.402,0.325,0.729,0.728,0.729h9.969c0.403,0,0.729-0.326,0.729-0.729v-3.354h1.922c-0.009-0.062-0.024-0.121-0.032-0.185C13.72,54.485,13.695,54.135,13.695,53.801z')
+    .attr('fill','#100d0c').attr('stroke','rgba(232,0,26,0.5)').attr('stroke-width','0.5');
 
   // Front wing
   pathG.append('path')
-    .attr('d', 'M96.938,38.084H86.284c-1.003,0-1.815,0.812-1.815,1.814v2.376c0,0.48,0.191,0.942,0.531,1.282l1.855,1.854c4.446,0.218,8,3.893,8,8.391c0,0.111-0.012,0.224-0.017,0.334h3.912V39.899C98.752,38.896,97.939,38.084,96.938,38.084z')
-    .attr('fill', '#100d0c').attr('stroke', 'rgba(232,0,26,0.6)').attr('stroke-width', '0.7');
+    .attr('d','M96.938,38.084H86.284c-1.003,0-1.815,0.812-1.815,1.814v2.376c0,0.48,0.191,0.942,0.531,1.282l1.855,1.854c4.446,0.218,8,3.893,8,8.391c0,0.111-0.012,0.224-0.017,0.334h3.912V39.899C98.752,38.896,97.939,38.084,96.938,38.084z')
+    .attr('fill','#100d0c').attr('stroke','rgba(232,0,26,0.6)').attr('stroke-width','0.7');
 
-  // ── Wheel positions ──
+  // Wheel centers
   const wheelR = Math.min(Math.max(h * 0.055, 18), 36);
-  const leftX = carX + 22.1 * sx;
-  const leftY = carY + 53.8 * sy;
+  const leftX  = carX + 22.1 * sx;
+  const leftY  = carY + 53.8 * sy;
   const rightX = carX + 86.7 * sx;
   const rightY = carY + 53.8 * sy;
 
-  // ── Pie donut on each wheel ──
-  function drawWheel(x, y, r, pct, color, valLine1, valLine2) {
+  // Pie donut helper
+  function drawDonut(x, y, r, pct, color, valLine1, valLine2) {
     const tau = 2 * Math.PI;
-    const arcFull = d3.arc().innerRadius(r * 0.36).outerRadius(r).startAngle(0).endAngle(tau);
-    const arcFill = d3.arc().innerRadius(r * 0.36).outerRadius(r).startAngle(0).endAngle(tau * pct);
-
-    const wg = g.append('g').attr('transform', `translate(${x},${y})`).attr('opacity', 0);
-    wg.transition().delay(500).duration(700).attr('opacity', 1);
-
-    // Background track
-    wg.append('path').attr('d', arcFull()).attr('fill', 'rgba(255,255,255,0.38)');
-    // Filled arc
+    const arcFull = d3.arc().innerRadius(r*0.36).outerRadius(r).startAngle(0).endAngle(tau);
+    const arcFill = d3.arc().innerRadius(r*0.36).outerRadius(r).startAngle(0).endAngle(tau*pct);
+    const wg = g.append('g').attr('transform',`translate(${x},${y})`).attr('opacity',0);
+    wg.transition().delay(500).duration(700).attr('opacity',1);
+    wg.append('path').attr('d', arcFull()).attr('fill','rgba(255,255,255,0.07)');
     wg.append('path').attr('d', arcFill()).attr('fill', color)
-      .style('filter', `drop-shadow(0 0 5px ${color}99)`);
-
-    // Inner circle (dark)
-    wg.append('circle').attr('r', r * 0.36).attr('fill', '#0d0b0a');
-
-    // Center value: line 1 (big)
+      .style('filter',`drop-shadow(0 0 5px ${color}99)`);
+    wg.append('circle').attr('r', r*0.36).attr('fill','#0d0b0a');
     wg.append('text')
-      .attr('text-anchor', 'middle').attr('dominant-baseline', 'middle')
-      .attr('y', valLine2 ? -r * 0.18 : 0)
-      .attr('font-family', FF).attr('font-size', `${r * 0.46}px`).attr('font-weight', '700')
-      .attr('fill', '#f0ede6').text(valLine1);
+      .attr('text-anchor','middle').attr('dominant-baseline','middle')
+      .attr('y', valLine2 ? -r*0.18 : 0)
+      .attr('font-family', FF).attr('font-size',`${r*0.46}px`).attr('font-weight','700')
+      .attr('fill','#f0ede6').text(valLine1);
     if (valLine2) {
       wg.append('text')
-        .attr('text-anchor', 'middle').attr('dominant-baseline', 'middle')
-        .attr('y', r * 0.3)
-        .attr('font-family', FM).attr('font-size', `${Math.max(7, r * 0.22)}px`)
-        .attr('fill', 'rgba(240,237,230,0.55)').text(valLine2);
+        .attr('text-anchor','middle').attr('dominant-baseline','middle')
+        .attr('y', r*0.3)
+        .attr('font-family', FM).attr('font-size',`${Math.max(7, r*0.22)}px`)
+        .attr('fill','rgba(240,237,230,0.55)').text(valLine2);
     }
   }
 
-  drawWheel(leftX, leftY, wheelR, 0.67, '#e8001a', '×2', 'VER/PER');
-  drawWheel(rightX, rightY, wheelR, 0.83, '#c8860a', '15/18', 'HAM');
+  drawDonut(leftX,  leftY,  wheelR, 0.67, '#e8001a', '×2',   'VER/PER');
+  drawDonut(rightX, rightY, wheelR, 0.83, '#c8860a', '15/18', 'HAM');
 
-  // ── Stat labels: positioned cleanly above/below each wheel ──
+  // Stat labels
   function statLabel(x, anchorY, isAbove, lines, color) {
-    const lg = g.append('g').attr('opacity', 0);
-    lg.transition().delay(800).duration(500).attr('opacity', 1);
+    const lg = g.append('g').attr('opacity',0);
+    lg.transition().delay(800).duration(500).attr('opacity',1);
     const step = 16;
     lines.forEach((line, i) => {
       const isBig = i === 0;
       lg.append('text')
         .attr('x', x).attr('y', anchorY + (isAbove ? -(lines.length - i - 1) * step : i * step))
-        .attr('text-anchor', 'middle')
+        .attr('text-anchor','middle')
         .attr('font-family', isBig ? FF : FM)
-        .attr('font-size', isBig ? `${Math.min(16, wheelR * 0.5)}px` : `${Math.min(11, wheelR * 0.35)}px`)
+        .attr('font-size', isBig ? `${Math.min(16, wheelR*0.5)}px` : `${Math.min(11, wheelR*0.35)}px`)
         .attr('font-weight', isBig ? '700' : '400')
         .attr('fill', isBig ? '#f0ede6' : 'rgba(240,237,230,0.5)')
         .text(line);
@@ -126,74 +118,68 @@ function drawF1CarWithPies(g, w, h) {
   }
 
   const labelGap = wheelR + 14;
-  // Left wheel — above: stat name / below: context
-  statLabel(leftX, leftY - labelGap, true, ['Verstappen 2023', '×2 plus de points que Pérez'], '#e8001a');
-  statLabel(leftX, leftY + labelGap, false, ['24,1 vs 11,8 pts/course', 'même voiture'], 'rgba(240,237,230,0.4)');
-
-  // Right wheel — above / below
-  statLabel(rightX, rightY - labelGap, true, ['Hamilton 2007–2024', '15 saisons sur 18 au-dessus'], '#c8860a');
+  statLabel(leftX,  leftY - labelGap, true,  ['Verstappen 2023', '×2 plus de points que Pérez'], '#e8001a');
+  statLabel(leftX,  leftY + labelGap, false, ['24,1 vs 11,8 pts/course', 'même voiture'], 'rgba(240,237,230,0.4)');
+  statLabel(rightX, rightY - labelGap, true,  ['Hamilton 2007–2024', '15 saisons sur 18 au-dessus'], '#c8860a');
   statLabel(rightX, rightY + labelGap, false, ['McLaren · Mercedes', 'peu importe la voiture'], 'rgba(240,237,230,0.4)');
 
-  // ── Main title ──
+  // Title
   const titleY = Math.max(20, pad.top * 0.45);
   g.append('text').attr('x', cx).attr('y', titleY)
-    .attr('text-anchor', 'middle')
-    .attr('font-family', FM).attr('font-size', '0.65rem').attr('letter-spacing', '0.3em')
-    .attr('fill', 'rgba(212,0,15,0.8)').attr('opacity', 0)
+    .attr('text-anchor','middle')
+    .attr('font-family', FM).attr('font-size','0.56rem').attr('letter-spacing','0.3em')
+    .attr('fill','rgba(212,0,15,0.8)').attr('opacity',0)
     .text('MÊME VOITURE')
-    .transition().delay(150).duration(600).attr('opacity', 1);
-
+    .transition().delay(150).duration(600).attr('opacity',1);
   g.append('text').attr('x', cx).attr('y', titleY + 22)
-    .attr('text-anchor', 'middle')
+    .attr('text-anchor','middle')
     .attr('font-family', FF)
     .attr('font-size', `${Math.max(20, Math.min(36, w * 0.038))}px`)
-    .attr('font-weight', '700').attr('font-style', 'italic')
-    .attr('fill', '#f0ede6').attr('opacity', 0)
+    .attr('font-weight','700').attr('font-style','italic')
+    .attr('fill','#f0ede6').attr('opacity',0)
     .text('Résultats différents.')
-    .transition().delay(300).duration(700).attr('opacity', 1);
+    .transition().delay(300).duration(700).attr('opacity',1);
 }
 
 
-
+/* ─────────────────────────────────────────────────────────────────
+   initCh1 — scrollytelling controller for chapter 1
+   state 0 = F1 car SVG  |  1 = radial duels  |  2 = top15 dumbbell
+───────────────────────────────────────────────────────────────── */
 function initCh1(teammateData) {
-
-  // FIX #4 — forcer re-render en invalidant l'état lors d'un resize
   function invalidate() { ch1State = -1; }
   window.addEventListener('resize', invalidate);
 
-  function render(state) {
-    // FIX #4 — toujours re-render (on ne bloque plus sur ch1State)
+  function render(state, forceRedraw) {
+    if (state === ch1State && !forceRedraw) return;
     ch1State = state;
 
     const svg = d3.select('#svg-ch1');
     svg.selectAll('*').remove();
 
-    // FIX #1 #5 — utiliser le parent sticky-vis pour les dimensions
     const { W, H } = svgDims('svg-ch1');
     svg.attr('width', W).attr('height', H);
 
-    // Responsive margins: on large screens, push data to the right half
     const m = W < 900
       ? { top: 30, right: 20, bottom: 40, left: 20 }
-      : { top: 60, right: 60, bottom: 60, left: W * 0.45 }; // 45% left padding avoids the overlay card
+      : { top: 60, right: 60, bottom: 60, left: W * 0.45 };
     const cw = W - m.left - m.right;
     const ch = H - m.top - m.bottom;
     const g = svg.append('g').attr('transform', `translate(${m.left},${m.top})`);
 
     const ann = document.getElementById('ann1');
 
-    // Setup global definitions (glow filter)
-    const defs = svg.append("defs");
+    // Team glow filters
+    const defs = svg.append('defs');
     Object.keys(TEAM_COLORS).forEach(team => {
       const c = teamColor(team);
-      const filter = defs.append("filter").attr("id", `glow-${team.replace(/\s+/g, '')}`);
-      filter.append("feGaussianBlur").attr("stdDeviation", "3").attr("result", "coloredBlur");
-      const feMerge = filter.append("feMerge");
-      feMerge.append("feMergeNode").attr("in", "coloredBlur");
-      feMerge.append("feMergeNode").attr("in", "SourceGraphic");
+      const filter = defs.append('filter').attr('id', `glow-${team.replace(/\s+/g, '')}`);
+      filter.append('feGaussianBlur').attr('stdDeviation', '3').attr('result', 'coloredBlur');
+      const feMerge = filter.append('feMerge');
+      feMerge.append('feMergeNode').attr('in', 'coloredBlur');
+      feMerge.append('feMergeNode').attr('in', 'SourceGraphic');
     });
 
-    // Show/hide radial year UI depending on state
     const rUI = document.getElementById('radial-year-ui');
 
     if (state === 0) {
@@ -212,22 +198,18 @@ function initCh1(teammateData) {
         .map(d => ({ ...d, gap: Math.abs(d.d1_ppr - d.d2_ppr) }))
         .sort((a, b) => b.gap - a.gap)
         .slice(0, 15);
-      // extra top margin so the grid header (labels at top) has room
       const g2 = svg.append('g').attr('transform', `translate(${m.left},${m.top + 44})`);
       drawDuelBars(g2, cw, ch - 44, top15, 'highlight');
       if (ann) ann.textContent = 'Top 15 écarts coéquipiers — 2000/2024';
     }
   }
 
-  window._ch1Render = render; // expose for year-sync from radial selector
+  window._ch1Render = render;
   return render;
 }
 
-
 /* ─────────────────────────────────────────────────────────────────
    drawDuel2023 — visualisation interactive des duels 2023
-   Chaque équipe = une ligne avec deux barres côte à côte
-   Hover → tooltip avec pts/course, gap mis en évidence
 ───────────────────────────────────────────────────────────────── */
 /* ─────────────────────────────────────────────────────────────────
    drawRadialSelection — Radial Layout with Year Selection
@@ -241,7 +223,7 @@ function drawRadialSelection(allData, g, w, h) {
   g.selectAll('*').remove();
 
   // ── Year data ──
-  const validYears = [...new Set(allData.map(d => d.year))].sort((a, b) => a - b); // ASC: 2000→2024
+  const validYears = [...new Set(allData.map(d => d.year))].sort((a,b) => a - b); // ASC: 2000→2024
   const displayYears = validYears; // all years
 
   // ── Build UI once ──
@@ -291,7 +273,7 @@ function drawRadialSelection(allData, g, w, h) {
 
   // Separator
   const sep = document.createElement('div');
-  Object.assign(sep.style, { width: '1px', height: '16px', background: 'rgba(240,237,230,0.38)', flexShrink: '0', marginRight: '0.4rem' });
+  Object.assign(sep.style, { width:'1px', height:'16px', background:'rgba(240,237,230,0.38)', flexShrink:'0', marginRight:'0.4rem' });
   ui.appendChild(sep);
 
   // Year buttons — single row, left→right
@@ -334,7 +316,7 @@ function drawRadialSelection(allData, g, w, h) {
   if (_radialPlaying) startAutoplay();
 
   const yearData = allData.filter(d => d.year === activeRadialYear);
-
+  
   // Format into standard structure
   const data = yearData.map(d => {
     const isD1Winner = d.d1_ppr >= d.d2_ppr;
@@ -351,29 +333,29 @@ function drawRadialSelection(allData, g, w, h) {
   const tooltip = d3.select('#ch3-tooltip');
   const cx = w / 2;
   const cy = h / 2 - 20;
-
+  
   // Headers
-  g.append('text').attr('x', cx).attr('y', cy - Math.min(cx, cy) * 0.85)
+  g.append('text').attr('x', cx).attr('y', cy - Math.min(cx, cy) * 0.94)
     .attr('text-anchor', 'middle')
     .attr('font-family', "'Poppins', system-ui, sans-serif").attr('font-size', '0.70rem')
     .attr('font-weight', '700').attr('letter-spacing', '0.18em').attr('fill', '#8a8a80').attr('opacity', 0)
     .text(`SAISON ${activeRadialYear} · DUELS COÉQUIPIERS`)
     .transition().duration(500).attr('opacity', 1);
 
-  g.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 50)
-    .attr('fill', 'none').attr('stroke', '#f0ede6').attr('stroke-width', 1).attr('opacity', 0.1)
-    .transition().delay(100).duration(1000).attr('opacity', 0.1);
+  g.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 75)
+    .attr('fill', 'rgba(240,237,230,0.02)').attr('stroke', '#f0ede6').attr('stroke-width', 1).attr('opacity', 0.12)
+    .transition().delay(100).duration(1000).attr('opacity', 0.12);
 
   const radiusLine = Math.min(cx, cy) * 0.70; // Slightly smaller to leave room for text
-
+  
   data.forEach((d, i) => {
     const angle = (i / data.length) * Math.PI * 2 - Math.PI / 2;
     const teamColor = d.color;
     // Map ppr to distance from center. Base radius is 50. Max radius is radiusLine
     const maxPpr = 25; // max point is Verstappen ~24
-
-    const rW = 50 + (d.w_ppr / maxPpr) * (radiusLine - 50);
-    const rL = 50 + (d.l_ppr / maxPpr) * (radiusLine - 50);
+    
+    const rW = 75 + (d.w_ppr / maxPpr) * (radiusLine - 75);
+    const rL = 75 + (d.l_ppr / maxPpr) * (radiusLine - 75);
 
     const xw = cx + Math.cos(angle) * rW;
     const yw = cy + Math.sin(angle) * rW;
@@ -386,7 +368,7 @@ function drawRadialSelection(allData, g, w, h) {
 
     // Inner line to center
     trackG.append('line')
-      .attr('x1', cx + Math.cos(angle) * 45).attr('y1', cy + Math.sin(angle) * 45)
+      .attr('x1', cx + Math.cos(angle) * 70).attr('y1', cy + Math.sin(angle) * 70)
       .attr('x2', xl).attr('y2', yl)
       .attr('stroke', teamColor).attr('stroke-width', 1).attr('opacity', 0.2);
 
@@ -427,10 +409,10 @@ function drawRadialSelection(allData, g, w, h) {
 
     // Invisible Hitbox for tooltip
     trackG.append('path')
-      .attr('d', `M ${cx} ${cy} L ${xw + Math.cos(angle) * 40} ${yw + Math.sin(angle) * 40}`)
+      .attr('d', `M ${cx} ${cy} L ${xw + Math.cos(angle)*40} ${yw + Math.sin(angle)*40}`)
       .attr('stroke', 'transparent').attr('stroke-width', 30).attr('fill', 'none')
       .style('cursor', 'pointer')
-      .on('mouseover', function (event) {
+      .on('mouseover', function(event) {
         trackG.select('line:nth-child(2)').attr('stroke-width', 5).attr('opacity', 1);
         const gap = +(d.w_ppr - d.l_ppr).toFixed(1);
         tooltip.html(`
@@ -442,10 +424,10 @@ function drawRadialSelection(allData, g, w, h) {
           </div>
         `).classed('show', true);
       })
-      .on('mousemove', function (event) {
+      .on('mousemove', function(event) {
         tooltip.style('left', (event.pageX + 14) + 'px').style('top', (event.pageY - 28) + 'px');
       })
-      .on('mouseout', function () {
+      .on('mouseout', function() {
         trackG.select('line:nth-child(2)').attr('stroke-width', 3).attr('opacity', 0.7);
         tooltip.classed('show', false);
       });
@@ -489,10 +471,10 @@ function drawDuelBars(g, w, h, data, mode) {
 
   // Max PPR across all data for the X scale
   const maxPPR = d3.max(data, d => getWPPR(d)) || 20;
-
+  
   // Create a horizontal X scale that maps 0 -> maxPPR over 70% of graph width
   const LABEL_W = 120;
-  const px = d3.scaleLinear().domain([0, maxPPR * 1.05]).range([LABEL_W, w - 40]);
+  const px = d3.scaleLinear().domain([0, maxPPR * 1.05]).range([LABEL_W, w - 85]);
 
   // ── Grid: dashed vertical lines + labeled pts values at top ──
   const ticks = px.ticks(6);
@@ -535,7 +517,7 @@ function drawDuelBars(g, w, h, data, mode) {
     const loser = getLoser(d);
     const wPPR = getWPPR(d);
     const lPPR = getLPPR(d);
-
+    
     const rowG = g.append('g').attr('transform', `translate(0,${oy})`).style('cursor', 'pointer');
     const cy = ROW_H / 2;
 
@@ -569,7 +551,7 @@ function drawDuelBars(g, w, h, data, mode) {
     } else {
       loserDot.attr('r', 5);
     }
-
+      
     // Loser name — same team color as winner (no red) in highlight mode
     const loserText = rowG.append('text').attr('x', px(lPPR) - 10).attr('y', cy + 3)
       .attr('text-anchor', 'end')
@@ -613,7 +595,7 @@ function drawDuelBars(g, w, h, data, mode) {
     if (gap > 0.3) {
       rowG.append('text')
         .attr('x', px(wPPR) + 12)
-        .attr('y', cy + 16) // below winner name
+        .attr('y', cy + 20) // below winner name, more gap
         .attr('font-family', "'Poppins', system-ui, sans-serif").attr('font-size', '1rem')
         .attr('font-weight', '900')
         .attr('fill', mode === 'grey' ? '#3a3a50' : (gap >= 5 ? 'var(--gold)' : color))
@@ -749,7 +731,7 @@ function animateDrama() {
    CH3 — CAREER TRAJECTORIES (interactive)
 ═══════════════════════════════════════════════ */
 const FEATURED_DRIVERS = [
-  { name: 'Lewis Hamilton', color: '#00d2be', story: '<strong>Hamilton</strong> : positif dans <em>15 saisons sur 18</em>. Chez McLaren comme chez Mercedes, il domine systématiquement. Le talent traverse les équipes.' },
+  { name: 'Lewis Hamilton',  color: '#00d2be', story: '<strong>Hamilton</strong> : positif dans <em>15 saisons sur 18</em>. Chez McLaren comme chez Mercedes, il domine systématiquement. Le talent traverse les équipes.' },
   { name: 'Fernando Alonso', color: '#ff8000', story: '<strong>Alonso</strong> : <em>18 saisons positives sur 20</em>. Peu importe la voiture — Ferrari, McLaren-Honda, Renault, Alpine — il est presque toujours au-dessus de son équipe. Le cas le plus pur de talent brut.' },
   { name: 'Sebastian Vettel', color: '#dc0000', story: '<strong>Vettel</strong> : dominant avec Red Bull (2010-2013), puis plus fragile. Sa trajectoire interroge : était-ce lui ou la RB de Newey ?' },
   { name: 'Max Verstappen', color: '#3671c6', story: '<strong>Verstappen</strong> : depuis 2019, il domine <em>massivement</em> ses coéquipiers. Son écart à Pérez (+12 pts/course en 2023) reste sans équivalent.' },
@@ -949,11 +931,11 @@ function renderCh3(careerData) {
           <div class="tt-row"><span>Victoires cette saison</span><span class="tt-val">${d.wins}</span></div>
         `);
       })
-      .on('mouseout', function (event, d) {
+      .on('mouseout', function (event, d) { 
         d3.select(this)
           .attr('r', 4.5)
-          .style('filter', 'none');
-        hideTip();
+          .style('filter', 'none'); 
+        hideTip(); 
       });
 
     // Collect end labels — will render after all lines drawn
@@ -1057,7 +1039,7 @@ function buildScatterData(careerData) {
 
 function initCh4(careerData) {
   const scatterData = buildScatterData(careerData);
-  let activeFilter = 'all';
+  // activeFilter is module-level (see top of file)
 
   const ALONSO_SEASONS = scatterData.filter(d => String(d.driver) === 'Fernando Alonso');
   const HIGHLIGHT_SEASONS = [
@@ -1158,11 +1140,9 @@ function initCh4(careerData) {
       btn.addEventListener('click', () => {
         fw.querySelectorAll('.sf-btn').forEach(b => b.classList.remove('active'));
         if (btn.classList.contains('sf-btn')) btn.classList.add('active');
-        activeFilter = btn.dataset.f;
-        // Re-render at current visual state (not state=0 which shows empty chart)
-        const currentState = ch4State >= 0 ? ch4State : 4;
-        ch4State = -1; // force full redraw
-        render(currentState);
+        activeFilter = btn.dataset.f || 'all';
+        ch4State = -1;
+        render(4);
       });
     });
   }
@@ -1244,7 +1224,7 @@ function initCh4(careerData) {
 
     const dotR = d => 4.5 + d.wins * 0.75;
     // Circles: team color, white stroke = above avg, red stroke = below avg
-    const displayData = typeof getFilteredData === 'function' ? getFilteredData() : scatterData;
+    const displayData = getFilteredData();
     zoomG.selectAll('.dot').data(displayData).join('circle')
       .attr('class', 'dot')
       .attr('cx', d => x(d.teamAvg))
@@ -1352,33 +1332,33 @@ function initCh4(careerData) {
     // ── Highlight labels: only states 1-3, NOT state=4 (free explore = clean) ──
     if (state >= 1 && state < 4) {
       const highlightList = state >= 3 ? ALONSO_SEASONS : HIGHLIGHT_SEASONS.filter((_, i) => i < (state === 1 ? 5 : HIGHLIGHT_SEASONS.length));
-
+      
       const lbls = [];
       highlightList.forEach(hl => {
         const pt = scatterData.find(d => d.driver === hl.driver && d.year === hl.year);
         if (pt) {
-          lbls.push({
-            pt,
-            x: x(pt.teamAvg),
-            y: y(pt.relative),
-            fx: x(pt.teamAvg), // anchor x
-            rawY: y(pt.relative) // original y anchor
-          });
+            lbls.push({
+                pt,
+                x: x(pt.teamAvg),
+                y: y(pt.relative),
+                fx: x(pt.teamAvg), // anchor x
+                rawY: y(pt.relative) // original y anchor
+            });
         }
       });
 
       // Simple 1D force separation for Y-axis explicitly tailored to these highlight lines
       const MIN_Y_GAP = 22;
       for (let iter = 0; iter < 80; iter++) {
-        lbls.sort((a, b) => a.y - b.y);
-        for (let i = 1; i < lbls.length; i++) {
-          const gap = lbls[i].y - lbls[i - 1].y;
-          if (gap < MIN_Y_GAP) {
-            const push = (MIN_Y_GAP - gap) * 0.5;
-            lbls[i].y += push;
-            lbls[i - 1].y -= push;
+          lbls.sort((a,b) => a.y - b.y);
+          for(let i = 1; i < lbls.length; i++){
+              const gap = lbls[i].y - lbls[i-1].y;
+              if (gap < MIN_Y_GAP) {
+                  const push = (MIN_Y_GAP - gap) * 0.5;
+                  lbls[i].y += push;
+                  lbls[i-1].y -= push;
+              }
           }
-        }
       }
 
       // Clamp label Y to chart bounds with margin
@@ -1435,36 +1415,43 @@ function initCh4(careerData) {
     g.append('rect').attr('x', 0).attr('width', cw).attr('y', ch - bH2).attr('height', bH2).attr('fill', '#e8001a').attr('opacity', 0.04);
     g.append('text').attr('x', 8).attr('y', ch - 7).attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem').attr('fill', '#e8001a').attr('opacity', 0.8).text('PILOTE BATTU PAR SON COEQUIPIER');
 
-    // Legend — inside chart, bottom-right corner, semi-transparent box
-    const legBoxW = 170, legBoxH = 100;
-    const legX = cw - legBoxW - 8, legY = ch - legBoxH - 8;
-    const legG2 = g.append('g').attr('transform', `translate(${legX},${legY})`);
-    legG2.append('rect').attr('width', legBoxW).attr('height', legBoxH).attr('rx', 4)
-      .attr('fill', 'rgba(8,8,12,0.78)').attr('stroke', 'rgba(255,255,255,0.38)').attr('stroke-width', 1);
-    // Wins size legend
-    legG2.append('text').attr('x', 8).attr('y', 14)
-      .attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem').attr('fill', '#7a7a9a')
-      .text('TAILLE = victoires en saison');
-    [[0, '0 vic.'], [5, '5 vic.'], [15, '15 vic.']].forEach(([w, lbl], i) => {
-      const r = 4 + w * 0.6;
-      legG2.append('circle').attr('cx', 12).attr('cy', 28 + i * 18).attr('r', r)
-        .attr('fill', 'none').attr('stroke', '#4a4a70').attr('stroke-width', 1).attr('opacity', 0.5);
-      legG2.append('text').attr('x', 12 + r + 5).attr('y', 32 + i * 18)
-        .attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem').attr('fill', '#7a7a9a').text(lbl);
+    // Legend — top-left corner, two columns, no overflow
+    const FF2 = "'Inter', system-ui, sans-serif";
+    const legG2 = g.append('g').attr('transform', `translate(4, 28)`);
+    legG2.append('rect').attr('width', 200).attr('height', 84).attr('rx', 2)
+      .attr('fill', 'rgba(8,8,12,0.82)').attr('stroke', 'rgba(255,255,255,0.12)').attr('stroke-width', 1);
+
+    // Left col: size legend
+    legG2.append('text').attr('x', 8).attr('y', 13)
+      .attr('font-family', FF2).attr('font-size', '0.6rem').attr('fill', 'rgba(240,237,230,0.4)')
+      .attr('font-weight', '600').attr('letter-spacing', '0.05em')
+      .text('TAILLE = victoires');
+    [[0,'0'],[6,'6'],[14,'14+']].forEach(([w, lbl], i) => {
+      const r = Math.max(4, 3.5 + w * 0.55);
+      const cx2 = 10, cy2 = 26 + i * 19;
+      legG2.append('circle').attr('cx', cx2).attr('cy', cy2).attr('r', r)
+        .attr('fill', 'none').attr('stroke', 'rgba(240,237,230,0.3)').attr('stroke-width', 1);
+      legG2.append('text').attr('x', cx2 + r + 5).attr('y', cy2 + 4)
+        .attr('font-family', FF2).attr('font-size', '0.62rem').attr('fill', 'rgba(240,237,230,0.55)').text(lbl);
     });
-    // Stroke color legend
-    const lsep = legBoxW / 2 + 4;
-    legG2.append('text').attr('x', lsep).attr('y', 14)
-      .attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem').attr('fill', '#7a7a9a')
+
+    // Right col: stroke legend
+    const lsep = 100;
+    legG2.append('text').attr('x', lsep).attr('y', 13)
+      .attr('font-family', FF2).attr('font-size', '0.6rem').attr('fill', 'rgba(240,237,230,0.4)')
+      .attr('font-weight', '600').attr('letter-spacing', '0.05em')
       .text('CONTOUR = duel');
-    legG2.append('circle').attr('cx', lsep + 8).attr('cy', 30).attr('r', 7)
-      .attr('fill', '#5a5a7a').attr('stroke', 'rgba(255,255,255,0.5)').attr('stroke-width', 1.8);
-    legG2.append('text').attr('x', lsep + 20).attr('y', 34)
-      .attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem').attr('fill', '#aaaacc').text('blanc = domine');
-    legG2.append('circle').attr('cx', lsep + 8).attr('cy', 52).attr('r', 7)
-      .attr('fill', '#5a5a7a').attr('stroke', '#e8001a').attr('stroke-width', 2);
-    legG2.append('text').attr('x', lsep + 20).attr('y', 56)
-      .attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem').attr('fill', '#e8001a').text('rouge = battu');
+    legG2.append('circle').attr('cx', lsep + 7).attr('cy', 28).attr('r', 6)
+      .attr('fill', 'rgba(60,60,90,0.8)').attr('stroke', 'rgba(255,255,255,0.6)').attr('stroke-width', 2);
+    legG2.append('text').attr('x', lsep + 18).attr('y', 32)
+      .attr('font-family', FF2).attr('font-size', '0.62rem').attr('fill', 'rgba(240,237,230,0.65)').text('dominant');
+    legG2.append('circle').attr('cx', lsep + 7).attr('cy', 49).attr('r', 6)
+      .attr('fill', 'rgba(60,60,90,0.8)').attr('stroke', '#e8001a').attr('stroke-width', 2);
+    legG2.append('text').attr('x', lsep + 18).attr('y', 53)
+      .attr('font-family', FF2).attr('font-size', '0.62rem').attr('fill', 'rgba(240,237,230,0.65)').text('battu');
+    legG2.append('text').attr('x', lsep).attr('y', 74)
+      .attr('font-family', FF2).attr('font-size', '0.58rem').attr('fill', 'rgba(240,237,230,0.28)')
+      .text('couleur = écurie →');
     // team color legend handled by dropdown
 
     // UX hint
@@ -1472,7 +1459,7 @@ function initCh4(careerData) {
 
     // ── Team color legend — collapsible DOM panel ──
     (function buildTeamLegend() {
-      const displayData2 = typeof getFilteredData === 'function' ? getFilteredData() : scatterData;
+      const displayData2 = getFilteredData();
       const teamsInView = [...new Set(displayData2.map(d => d.constructor).filter(Boolean))].sort();
 
       // Remove existing panel so it rebuilds on filter change
@@ -1496,8 +1483,8 @@ function initCh4(careerData) {
         <div class="ch4-legend-body" style="display:none"></div>
       `;
 
-      const body = panel.querySelector('.ch4-legend-body');
-      const btn = panel.querySelector('.ch4-legend-toggle');
+      const body  = panel.querySelector('.ch4-legend-body');
+      const btn   = panel.querySelector('.ch4-legend-toggle');
       const arrow = panel.querySelector('.ch4-legend-arrow');
 
       teamsInView.forEach(team => {
@@ -1571,7 +1558,7 @@ function initScrollytelling(ch1Render, ch4Render) {
 
       if (entry.isIntersecting) {
         const chapter = parseInt(entry.target.dataset.chapter);
-        const idx = parseInt(entry.target.dataset.idx);
+        const idx     = parseInt(entry.target.dataset.idx);
 
         if (chapter === 1 && ch1Render) ch1Render(idx);
 

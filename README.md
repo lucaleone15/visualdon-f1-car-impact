@@ -5,7 +5,7 @@
 ## 🚀 Accès au site
 
 Le projet interactif et les visualisations de données sont accessibles ici :  
-**[https://f1-car-impact.netlify.app/](https://f1-car-impact.netlify.app/)**
+**https://visualdon-f1-car-impact.netlify.app/**
 
 ## 📌 Contexte
 

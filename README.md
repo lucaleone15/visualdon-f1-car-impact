@@ -2,6 +2,11 @@
 
 ## Dans quelle mesure la voiture impacte-t-elle les performances d’un pilote en Formule 1 ?
 
+## 🚀 Accès au site
+
+Le projet interactif et les visualisations de données sont accessibles ici :  
+**[https://f1-car-impact.netlify.app/](https://f1-car-impact.netlify.app/)**
+
 ## 📌 Contexte
 
 Ce projet s’appuie sur des données historiques issues du championnat du monde de Formule 1.

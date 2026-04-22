@@ -1176,31 +1176,31 @@ function initCh4(careerData) {
     const y = d3.scaleLinear().domain([Math.min(-9, yExt[0] - 1), Math.max(9, yExt[1] + 1)]).range([ch, 0]);
 
     // Grid
-    g.append('g').attr('class', 'grid')
+    g.append('g').attr('class', 'grid').attr('pointer-events', 'none')
       .call(d3.axisBottom(x).ticks(6).tickSize(ch).tickFormat(''))
       .select('.domain').remove();
-    g.append('g').attr('class', 'grid')
+    g.append('g').attr('class', 'grid').attr('pointer-events', 'none')
       .call(d3.axisLeft(y).ticks(8).tickSize(-cw).tickFormat(''))
       .select('.domain').remove();
 
     // Zero line
-    g.append('line').attr('class', 'zero-line')
+    g.append('line').attr('class', 'zero-line').attr('pointer-events', 'none')
       .attr('x1', 0).attr('x2', cw).attr('y1', y(0)).attr('y2', y(0));
 
     // Quadrant shading
     if (state >= 1) {
       g.append('rect').attr('x', cw / 2).attr('width', cw / 2).attr('y', 0).attr('height', y(0))
-        .attr('fill', '#00c87a').attr('opacity', 0.03);
+        .attr('fill', '#00c87a').attr('opacity', 0.03).attr('pointer-events', 'none');
       g.append('text').attr('x', cw * 0.75).attr('y', 20).attr('text-anchor', 'middle')
         .attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem')
-        .attr('fill', '#00c87a').attr('opacity', 0.5).text('BONNE VOITURE + PILOTE FORT');
+        .attr('fill', '#00c87a').attr('opacity', 0.5).attr('pointer-events', 'none').text('BONNE VOITURE + PILOTE FORT');
     }
     if (state >= 2) {
       g.append('rect').attr('x', 0).attr('width', cw / 2).attr('y', 0).attr('height', y(0))
-        .attr('fill', '#f0c040').attr('opacity', 0.03);
+        .attr('fill', '#f0c040').attr('opacity', 0.03).attr('pointer-events', 'none');
       g.append('text').attr('x', cw * 0.25).attr('y', 20).attr('text-anchor', 'middle')
         .attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem')
-        .attr('fill', '#f0c040').attr('opacity', 0.5).text('PETITE ÉQUIPE + GRAND PILOTE');
+        .attr('fill', '#f0c040').attr('opacity', 0.5).attr('pointer-events', 'none').text('PETITE ÉQUIPE + GRAND PILOTE');
     }
 
     // All dots — click to highlight teammate + zoom
@@ -1391,8 +1391,9 @@ function initCh4(careerData) {
 
     // Axes
     g.append('g').attr('class', 'axis').attr('transform', `translate(0,${ch})`)
+      .attr('pointer-events', 'none')
       .call(d3.axisBottom(x).ticks(6).tickFormat(d => d + ' pts'));
-    g.append('g').attr('class', 'axis')
+    g.append('g').attr('class', 'axis').attr('pointer-events', 'none')
       .call(d3.axisLeft(y).ticks(8).tickFormat(d => (d > 0 ? '+' : '') + d));
 
     // Axis labels
@@ -1410,16 +1411,17 @@ function initCh4(careerData) {
 
     // Zone banners
     const bH2 = 22;
-    g.append('rect').attr('x', 0).attr('width', cw).attr('y', 0).attr('height', bH2).attr('fill', '#00c87a').attr('opacity', 0.05);
-    g.append('text').attr('x', 8).attr('y', 15).attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem').attr('fill', '#00c87a').attr('opacity', 0.8).text('PILOTE AU-DESSUS DE SON COEQUIPIER');
-    g.append('rect').attr('x', 0).attr('width', cw).attr('y', ch - bH2).attr('height', bH2).attr('fill', '#e8001a').attr('opacity', 0.04);
-    g.append('text').attr('x', 8).attr('y', ch - 7).attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem').attr('fill', '#e8001a').attr('opacity', 0.8).text('PILOTE BATTU PAR SON COEQUIPIER');
+    g.append('rect').attr('x', 0).attr('width', cw).attr('y', 0).attr('height', bH2).attr('fill', '#00c87a').attr('opacity', 0.05).attr('pointer-events', 'none');
+    g.append('text').attr('x', 8).attr('y', 15).attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem').attr('fill', '#00c87a').attr('opacity', 0.8).attr('pointer-events', 'none').text('PILOTE AU-DESSUS DE SON COEQUIPIER');
+    g.append('rect').attr('x', 0).attr('width', cw).attr('y', ch - bH2).attr('height', bH2).attr('fill', '#e8001a').attr('opacity', 0.04).attr('pointer-events', 'none');
+    g.append('text').attr('x', 8).attr('y', ch - 7).attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem').attr('fill', '#e8001a').attr('opacity', 0.8).attr('pointer-events', 'none').text('PILOTE BATTU PAR SON COEQUIPIER');
 
     // Legend — top-left corner, two columns, no overflow
     const FF2 = "'Inter', system-ui, sans-serif";
     const legG2 = g.append('g').attr('transform', `translate(4, 28)`);
     legG2.append('rect').attr('width', 200).attr('height', 84).attr('rx', 2)
-      .attr('fill', 'rgba(8,8,12,0.82)').attr('stroke', 'rgba(255,255,255,0.12)').attr('stroke-width', 1);
+      .attr('fill', 'rgba(8,8,12,0.82)').attr('stroke', 'rgba(255,255,255,0.12)').attr('stroke-width', 1)
+      .attr('pointer-events', 'none');
 
     // Left col: size legend
     legG2.append('text').attr('x', 8).attr('y', 13)

@@ -152,27 +152,17 @@ body {
 }
 .full-svg { width: 100%; height: 100%; display: block; max-height: 100vh; }
 
-/* Steps float OVER the sticky chart, anchored to left side only */
 .steps-wrap {
-  position: relative;          /* keeps scroll height */
-  width: var(--step-w);
-  max-width: 42%;              /* max 42% — SVG fully accessible to the right */
-  padding: 50vh 0 60vh;
-  pointer-events: none;        /* transparent — won't block SVG */
-  z-index: 10;
-  margin-left: 2.5rem;
+  position: relative; z-index: 2;
+  width: var(--step-w); max-width: 38%;  /* never wider than 38% — SVG right side stays clear */
+  margin-left: 3rem; padding: 50vh 0 60vh;
+  pointer-events: none;
 }
-
-/* Each step is full viewport height for scroll triggering */
-.step {
-  min-height: 100vh;
-  display: flex; align-items: center;
-  pointer-events: none;        /* transparent — won't block SVG */
-}
+.step { min-height: 100vh; display: flex; align-items: center; pointer-events: none; } /* transparent — only step-inner gets events */
 
 /* ── Step card ── */
 .step-inner {
-  pointer-events: auto;        /* only the card itself captures events */
+  pointer-events: auto;
   padding: 1.5rem 1.5rem 1.5rem 1.25rem;
   border-left: 2px solid rgba(212,0,15,0.5);
   background: rgba(20,18,16,0.95);
@@ -212,7 +202,6 @@ body {
 /* Scatter filters */
 .scatter-filters {
   display: flex; align-items: center; gap: 0.35rem;
-  pointer-events: auto;  /* always clickable */
   padding: 0.55rem 1.25rem; background: var(--surface);
   border-bottom: 1px solid var(--line-d);
   flex-shrink: 0; flex-wrap: wrap;
@@ -504,7 +493,7 @@ body {
 .sim-calc-num {
   font-family: var(--ff-d); font-size: 2.4rem;
   font-weight: 700; font-style: italic; line-height: 1;
-  color: rgba(240,237,230,0.5);
+  color: rgba(240,237,230,0.8);
 }
 .sim-calc-item--total .sim-calc-num { color: var(--bg); }
 .sim-calc-unit { font-family: var(--ff-m); font-size: 0.65rem; color: rgba(240,237,230,0.42); letter-spacing: 0.1em; }
@@ -533,15 +522,15 @@ body {
   height: 180px; margin-bottom: 1.5rem; padding-top: 0.75rem;
   border-top: 1px solid rgba(240,237,230,0.42);
 }
-.sim-podium-col  { display: flex; flex-direction: column; align-items: center; flex: 1; height: 100%; }
+.sim-podium-col  { display: flex; flex-direction: column-reverse; align-items: center; flex: 1; height: 100%; justify-content: flex-start; }
 .sim-pod-name    { font-family: var(--ff-m); font-size: 0.65rem; color: rgba(240,237,230,0.42); margin-bottom: 0.3rem; text-align: center; }
 .sim-pod-name.user-duo { color: var(--red2); }
 .sim-pod-bar     { width: 100%; background: rgba(240,237,230,0.42); transition: height 0.8s cubic-bezier(0.16,1,0.3,1); flex-shrink: 0; }
 .sim-pod-bar.user-duo { background: rgba(212,0,15,0.5); }
 .sim-podium-col--first .sim-pod-bar { background: rgba(240,237,230,0.42); }
 .sim-podium-col--first .sim-pod-bar.user-duo { background: var(--red2); }
-.sim-pod-pts     { font-family: var(--ff-m); font-size: 0.65rem; color: rgba(240,237,230,0.42); margin-top: 0.25rem; }
-.sim-pod-rank    { font-family: var(--ff-d); font-size: 1.4rem; font-weight: 700; font-style: italic; color: rgba(240,237,230,0.42); margin-top: auto; }
+.sim-pod-pts     { font-family: var(--ff-m); font-size: 0.65rem; color: rgba(240,237,230,0.7); margin-top: 0.25rem; }
+.sim-pod-rank    { font-family: var(--ff-d); font-size: 1.4rem; font-weight: 700; font-style: italic; color: rgba(240,237,230,0.7); margin-top: 0.25rem; }
 .sim-insight     { font-family: var(--ff-m); font-size: 0.65rem; color: rgba(240,237,230,0.42); line-height: 1.7; border-top: 1px solid rgba(240,237,230,0.42); padding-top: 0.75rem; }
 
 /* ═══════════════════
@@ -673,14 +662,7 @@ body {
    RESPONSIVE
 ═══════════════════ */
 @media (max-width: 768px) {
-  .steps-wrap {
-    position: relative;        /* back to flow on mobile */
-    top: auto; left: auto;
-    width: calc(100vw - 2rem);
-    max-width: 100%;
-    margin: 0 1rem;
-  }
-  .step { pointer-events: auto; }
+  .steps-wrap { margin-left: 1rem; width: calc(100vw - 2rem); }
   .chapter-interactive, .chapter-finale, .chapter-sim { padding: 3rem 1.5rem; }
   .finale-cases { grid-template-columns: 1fr; }
   .fc-case { border-right: none; border-bottom: 1px solid rgba(20,18,16,0.48); padding: 1.5rem 0; }
@@ -834,25 +816,39 @@ body {
   object-fit: contain;
   object-position: bottom center;
   display: block;
-  /* Fade at top only */
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%);
-  mask-image: linear-gradient(to bottom, transparent 0%, black 20%);
-  filter: brightness(0.85);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 15%);
+  /* Default: desaturated, 60% brightness */
+  filter: grayscale(100%) brightness(0.6);
+  transition: filter 0.45s ease, transform 0.45s ease;
 }
 
-/* Hero pilot: taller + brighter */
+/* Hover: full color, full brightness */
+.intro-pilot:hover img {
+  filter: grayscale(0%) brightness(1.0);
+  transform: scale(1.04) translateY(-10px);
+}
+
+/* Hero (center): colorful at rest, slightly brighter on hover */
 .intro-pilot--hero img {
-  filter: brightness(1);
+  filter: grayscale(0%) brightness(0.88);
   height: 115%;
   object-position: top center;
 }
+.intro-pilot--hero:hover img {
+  filter: grayscale(0%) brightness(1.05);
+  transform: scale(1.03) translateY(-8px);
+}
+
+/* Hero pilot: taller + brighter */
+
 .intro-pilot--hero {
   z-index: 2;
 }
 
 /* Non-hero pilots: slight opacity */
 .intro-pilot:not(.intro-pilot--hero) {
-  opacity: 0.72;
+  opacity: 1; /* brightness handled by filter */
 }
 
 .intro-pilot-name {
@@ -998,3 +994,108 @@ body {
 .p-schumi { left: 0%; z-index: 1; opacity: 0.4; }
 .p-hamilton { left: 20%; z-index: 2; opacity: 0.6; }
 .p-verstappen { left: 40%; z-index: 3; }
+/* ── Select-all / deselect-all button ── */
+.ds-all-btn {
+  font-family: var(--ff-m);
+  font-size: 0.62rem;
+  color: var(--red);
+  background: none;
+  border: 1px solid rgba(212,0,15,0.3);
+  padding: 0.2rem 0.65rem;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: background 0.15s, border-color 0.15s;
+  margin-left: 0.5rem;
+}
+.ds-all-btn:hover { background: rgba(212,0,15,0.08); border-color: var(--red); }
+
+/* ── Ch4 state overlays ── */
+#ch4-lock-overlay,
+#ch4-free-overlay {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  pointer-events: none;
+  z-index: 20;
+  text-align: center;
+  transition: opacity 0.8s ease;
+}
+
+/* LOCK — red-tinted, prominent */
+#ch4-lock-overlay {
+  background: rgba(10,10,8,0.88);
+  border: 1px solid rgba(212,0,15,0.25);
+  border-top: 2px solid rgba(212,0,15,0.5);
+  padding: 0.75rem 1.5rem 0.65rem;
+  min-width: 220px;
+}
+.ch4-state-icon {
+  font-size: 1.4rem;
+  margin-bottom: 0.1rem;
+  opacity: 0.8;
+}
+.ch4-state-title {
+  font-family: var(--ff-d);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(212,0,15,0.9);
+  text-transform: uppercase;
+}
+.ch4-state-sub {
+  font-family: var(--ff-m);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: rgba(240,237,230,0.45);
+  margin-top: 0.15rem;
+}
+
+/* FREE — green-tinted, welcoming */
+#ch4-free-overlay {
+  background: rgba(10,10,8,0.88);
+  border: 1px solid rgba(0,200,122,0.2);
+  border-top: 2px solid rgba(0,200,122,0.5);
+  padding: 0.65rem 1.5rem;
+  min-width: 280px;
+}
+.ch4-free-badge {
+  font-family: var(--ff-d);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #00c87a;
+  margin-bottom: 0.35rem;
+}
+.ch4-free-controls {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: var(--ff-m);
+  font-size: 0.58rem;
+  color: rgba(240,237,230,0.45);
+}
+.ch4-free-controls strong {
+  color: rgba(240,237,230,0.75);
+  font-weight: 600;
+}
+
+/* ── ds-all-btn ── */
+.ds-all-btn {
+  font-family: var(--ff-m);
+  font-size: 0.62rem;
+  color: var(--red);
+  background: none;
+  border: 1px solid rgba(212,0,15,0.3);
+  padding: 0.2rem 0.65rem;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: background 0.15s, border-color 0.15s;
+  margin-left: 0.5rem;
+}
+.ds-all-btn:hover { background: rgba(212,0,15,0.08); border-color: var(--red); }

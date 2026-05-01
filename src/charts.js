@@ -427,7 +427,7 @@ function drawRadialSelection(allData, g, w, h) {
       .on('mousemove', function(event) {
         tooltip.style('left', (event.pageX + 14) + 'px').style('top', (event.pageY - 28) + 'px');
       })
-      .on('mouseout', function() {
+      .on('mouseleave', function() {
         trackG.select('line:nth-child(2)').attr('stroke-width', 3).attr('opacity', 0.7);
         tooltip.classed('show', false);
       });
@@ -620,7 +620,7 @@ function drawDuelBars(g, w, h, data, mode) {
       .on('mousemove', function (event) {
         tooltip.style('left', (event.pageX + 14) + 'px').style('top', (event.pageY - 28) + 'px');
       })
-      .on('mouseout', function () {
+      .on('mouseleave', function () {
         rowG.select('line').attr('opacity', mode === 'grey' ? 0.35 : 0.6).attr('stroke-width', 3);
         tooltip.classed('show', false);
       });
@@ -746,10 +746,31 @@ function initCh3(careerData) {
   const sel = document.getElementById('ch3-selector');
   if (!sel) return;
 
-  sel.innerHTML = '<span class="ds-label">Choisir un pilote :</span>';
+  sel.innerHTML = '<span class="ds-label">Choisir un pilote :</span><button class="ds-all-btn" id="ds-toggle-all">Tout sélectionner</button>';
+  // Wire toggle-all
+  setTimeout(() => {
+    const toggleBtn = document.getElementById('ds-toggle-all');
+    if (!toggleBtn) return;
+    toggleBtn.addEventListener('click', () => {
+      const allNames = FEATURED_DRIVERS.map(d => d.name);
+      const allSelected = allNames.every(n => activeDrivers.includes(n));
+      if (allSelected) {
+        activeDrivers = [allNames[0]]; // keep at least one
+      } else {
+        activeDrivers = [...allNames];
+      }
+      toggleBtn.textContent = allNames.every(n => activeDrivers.includes(n)) ? 'Tout désélectionner' : 'Tout sélectionner';
+      // Refresh chips
+      sel.querySelectorAll('.driver-chip').forEach(chip => {
+        chip.classList.toggle('active', activeDrivers.includes(chip.dataset.name));
+      });
+      renderCh3(careerData);
+    });
+  }, 0);
   FEATURED_DRIVERS.forEach(({ name, color }) => {
     const chip = document.createElement('div');
     chip.className = 'driver-chip' + (activeDrivers.includes(name) ? ' active' : '');
+    chip.dataset.name = name;
     chip.textContent = name.split(' ').pop();
     chip.title = name;
     if (activeDrivers.includes(name)) {
@@ -860,7 +881,8 @@ function renderCh3(careerData) {
     .x(d => x(d.year)).y(d => y(d.relative_ppr))
     .curve(d3.curveMonotoneX);
 
-  allDriverData.forEach(({ name, career, color }) => {
+  const usedPillPositions = {}; // {year: count} to stagger pills per year
+  allDriverData.forEach(({ name, career, color }, driverIdx) => {
     const fc = career.filter(s => s.year >= xDom[0] && s.year <= xDom[1]);
 
     // Team change: dashed vertical + pill label at axis bottom
@@ -870,27 +892,34 @@ function renderCh3(careerData) {
         const newTeam = fc[i].constructor
           .replace(' F1 Team', '').replace(' Racing Point', '').replace(' Racing', '')
           .replace(' Grand Prix', '').split(' ').slice(0, 2).join(' ');
-        // Dashed vertical line — visible but not dominating
+        // Thin vertical tick at team change
         g.append('line')
-          .attr('x1', mx).attr('x2', mx).attr('y1', 0).attr('y2', ch)
-          .attr('stroke', color).attr('stroke-width', 1.5)
-          .attr('stroke-dasharray', '3 4').attr('opacity', 0.3);
+          .attr('x1', mx).attr('x2', mx).attr('y1', Math.max(0, y(fc[i].relative_ppr) - 20)).attr('y2', Math.min(ch, y(fc[i].relative_ppr) + 20))
+          .attr('stroke', color).attr('stroke-width', 1).attr('stroke-dasharray', '2 3').attr('opacity', 0.4).attr('pointer-events', 'none');
         // Arrow marker at top
         g.append('text').attr('x', mx).attr('y', -4)
           .attr('text-anchor', 'middle')
           .attr('font-family', "'Poppins', system-ui, sans-serif").attr('font-size', '0.70rem')
           .attr('fill', color).attr('opacity', 0.65).text('↓');
-        // Pill label at bottom axis — rounded, team-colored
-        const tw = newTeam.length * 5.4 + 12;
-        const tagG = g.append('g').attr('transform', `translate(${mx},${ch + 20})`);
-        tagG.append('rect').attr('x', -tw / 2).attr('y', -7).attr('width', tw).attr('height', 13)
-          .attr('rx', 6)
-          .attr('fill', color).attr('opacity', 0.25)
-          .attr('stroke', color).attr('stroke-width', 0.8).attr('stroke-opacity', 0.55);
-        tagG.append('text').attr('x', 0).attr('y', 2.5)
-          .attr('text-anchor', 'middle')
-          .attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem')
-          .attr('fill', color).attr('font-weight', '700').text(newTeam);
+        // Inline label ON the line at start of each new team segment
+        // Position it vertically at the data point, horizontally just right of the change
+        const segY = y(fc[i].relative_ppr);
+        // Background for readability
+        const tw2 = newTeam.length * 5 + 8;
+        const inlineG = g.append('g')
+          .attr('transform', `translate(${mx + 5}, ${segY})`)
+          .attr('pointer-events', 'none');
+        inlineG.append('rect')
+          .attr('x', 0).attr('y', -7).attr('width', tw2).attr('height', 13)
+          .attr('fill', 'rgba(14,12,10,0.85)').attr('rx', 2);
+        inlineG.append('text')
+          .attr('x', 4).attr('y', 2.5)
+          .attr('font-family', "'Inter', system-ui, sans-serif")
+          .attr('font-size', '0.6rem').attr('font-weight', '700')
+          .attr('fill', color)
+          .attr('paint-order', 'stroke')
+          .attr('stroke', 'rgba(14,12,10,0.9)').attr('stroke-width', '3px')
+          .text(newTeam);
       }
     }
 
@@ -931,7 +960,7 @@ function renderCh3(careerData) {
           <div class="tt-row"><span>Victoires cette saison</span><span class="tt-val">${d.wins}</span></div>
         `);
       })
-      .on('mouseout', function (event, d) { 
+      .on('mouseleave', function (event, d) { 
         d3.select(this)
           .attr('r', 4.5)
           .style('filter', 'none'); 
@@ -1154,6 +1183,52 @@ function initCh4(careerData) {
   function render(state) {
     ch4State = state;
 
+    // Show/hide interaction lock vs free exploration overlays
+    let lockEl  = document.getElementById('ch4-lock-overlay');
+    let freeEl  = document.getElementById('ch4-free-overlay');
+    const svis  = document.querySelector('#ch4 .sticky-vis');
+
+    // Build lock overlay (shown during guided scrollytelling)
+    if (!lockEl && svis) {
+      lockEl = document.createElement('div');
+      lockEl.id = 'ch4-lock-overlay';
+      lockEl.innerHTML = `
+        <div class="ch4-state-icon">🔒</div>
+        <div class="ch4-state-title">Mode guidé</div>
+        <div class="ch4-state-sub">Continuez à défiler pour explorer le graphique</div>
+      `;
+      svis.appendChild(lockEl);
+    }
+
+    // Build free overlay (shown when exploration is unlocked)
+    if (!freeEl && svis) {
+      freeEl = document.createElement('div');
+      freeEl.id = 'ch4-free-overlay';
+      freeEl.innerHTML = `
+        <div class="ch4-free-badge">✦ EXPLORATION LIBRE</div>
+        <div class="ch4-free-controls">
+          <span><strong>Zoom</strong> molette</span>
+          <span><strong>Déplacer</strong> cliquer-glisser</span>
+          <span><strong>Détailler</strong> clic sur un point</span>
+          <span><strong>Filtrer</strong> boutons ci-dessus</span>
+        </div>
+      `;
+      svis.appendChild(freeEl);
+    }
+
+    if (state < 4) {
+      if (lockEl) lockEl.style.display  = 'flex';
+      if (freeEl) freeEl.style.display  = 'none';
+    } else {
+      if (lockEl) lockEl.style.display  = 'none';
+      if (freeEl) freeEl.style.display  = 'flex';
+      // Auto-hide free overlay after 6s
+      clearTimeout(window._ch4FreeTimer);
+      window._ch4FreeTimer = setTimeout(() => {
+        if (freeEl) freeEl.style.opacity = '0';
+      }, 6000);
+    }
+
     // FIX #3 #5 — utiliser svgDims au lieu de 'vis-ch4'
     // SVG dimensions
     const { W, H } = svgDims('svg-ch4');
@@ -1176,31 +1251,31 @@ function initCh4(careerData) {
     const y = d3.scaleLinear().domain([Math.min(-9, yExt[0] - 1), Math.max(9, yExt[1] + 1)]).range([ch, 0]);
 
     // Grid
-    g.append('g').attr('class', 'grid').attr('pointer-events', 'none')
+    g.append('g').attr('class', 'grid')
       .call(d3.axisBottom(x).ticks(6).tickSize(ch).tickFormat(''))
       .select('.domain').remove();
-    g.append('g').attr('class', 'grid').attr('pointer-events', 'none')
+    g.append('g').attr('class', 'grid')
       .call(d3.axisLeft(y).ticks(8).tickSize(-cw).tickFormat(''))
       .select('.domain').remove();
 
     // Zero line
-    g.append('line').attr('class', 'zero-line').attr('pointer-events', 'none')
+    g.append('line').attr('class', 'zero-line')
       .attr('x1', 0).attr('x2', cw).attr('y1', y(0)).attr('y2', y(0));
 
     // Quadrant shading
     if (state >= 1) {
       g.append('rect').attr('x', cw / 2).attr('width', cw / 2).attr('y', 0).attr('height', y(0))
-        .attr('fill', '#00c87a').attr('opacity', 0.03).attr('pointer-events', 'none');
+        .attr('fill', '#00c87a').attr('opacity', 0.03);
       g.append('text').attr('x', cw * 0.75).attr('y', 20).attr('text-anchor', 'middle')
         .attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem')
-        .attr('fill', '#00c87a').attr('opacity', 0.5).attr('pointer-events', 'none').text('BONNE VOITURE + PILOTE FORT');
+        .attr('fill', '#00c87a').attr('opacity', 0.5).text('BONNE VOITURE + PILOTE FORT');
     }
     if (state >= 2) {
       g.append('rect').attr('x', 0).attr('width', cw / 2).attr('y', 0).attr('height', y(0))
-        .attr('fill', '#f0c040').attr('opacity', 0.03).attr('pointer-events', 'none');
+        .attr('fill', '#f0c040').attr('opacity', 0.03);
       g.append('text').attr('x', cw * 0.25).attr('y', 20).attr('text-anchor', 'middle')
         .attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem')
-        .attr('fill', '#f0c040').attr('opacity', 0.5).attr('pointer-events', 'none').text('PETITE ÉQUIPE + GRAND PILOTE');
+        .attr('fill', '#f0c040').attr('opacity', 0.5).text('PETITE ÉQUIPE + GRAND PILOTE');
     }
 
     // All dots — click to highlight teammate + zoom
@@ -1251,7 +1326,7 @@ function initCh4(careerData) {
           <div class="tt-row" style="opacity:0.5"><span style="font-size:0.55rem">Cliquer pour voir le coéquipier</span></div>
         `);
       })
-      .on('mouseout', function (event, d) {
+      .on('mouseleave', function (event, d) {
         if (selectedDot !== d) {
           d3.select(this)
             .attr('r', dotR(d))
@@ -1391,9 +1466,8 @@ function initCh4(careerData) {
 
     // Axes
     g.append('g').attr('class', 'axis').attr('transform', `translate(0,${ch})`)
-      .attr('pointer-events', 'none')
       .call(d3.axisBottom(x).ticks(6).tickFormat(d => d + ' pts'));
-    g.append('g').attr('class', 'axis').attr('pointer-events', 'none')
+    g.append('g').attr('class', 'axis')
       .call(d3.axisLeft(y).ticks(8).tickFormat(d => (d > 0 ? '+' : '') + d));
 
     // Axis labels
@@ -1411,17 +1485,16 @@ function initCh4(careerData) {
 
     // Zone banners
     const bH2 = 22;
-    g.append('rect').attr('x', 0).attr('width', cw).attr('y', 0).attr('height', bH2).attr('fill', '#00c87a').attr('opacity', 0.05).attr('pointer-events', 'none');
-    g.append('text').attr('x', 8).attr('y', 15).attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem').attr('fill', '#00c87a').attr('opacity', 0.8).attr('pointer-events', 'none').text('PILOTE AU-DESSUS DE SON COEQUIPIER');
-    g.append('rect').attr('x', 0).attr('width', cw).attr('y', ch - bH2).attr('height', bH2).attr('fill', '#e8001a').attr('opacity', 0.04).attr('pointer-events', 'none');
-    g.append('text').attr('x', 8).attr('y', ch - 7).attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem').attr('fill', '#e8001a').attr('opacity', 0.8).attr('pointer-events', 'none').text('PILOTE BATTU PAR SON COEQUIPIER');
+    g.append('rect').attr('x', 0).attr('width', cw).attr('y', 0).attr('height', bH2).attr('fill', '#00c87a').attr('opacity', 0.05);
+    g.append('text').attr('x', 8).attr('y', 15).attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem').attr('fill', '#00c87a').attr('opacity', 0.8).attr('font-size', '0.55rem').attr('pointer-events', 'none').text('AU-DESSUS DU COÉQUIPIER');
+    g.append('rect').attr('x', 0).attr('width', cw).attr('y', ch - bH2).attr('height', bH2).attr('fill', '#e8001a').attr('opacity', 0.04);
+    g.append('text').attr('x', 8).attr('y', ch - 7).attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem').attr('fill', '#e8001a').attr('opacity', 0.8).attr('font-size', '0.55rem').attr('pointer-events', 'none').text('BATTU PAR SON COÉQUIPIER');
 
     // Legend — top-left corner, two columns, no overflow
     const FF2 = "'Inter', system-ui, sans-serif";
     const legG2 = g.append('g').attr('transform', `translate(4, 28)`);
     legG2.append('rect').attr('width', 200).attr('height', 84).attr('rx', 2)
-      .attr('fill', 'rgba(8,8,12,0.82)').attr('stroke', 'rgba(255,255,255,0.12)').attr('stroke-width', 1)
-      .attr('pointer-events', 'none');
+      .attr('fill', 'rgba(8,8,12,0.82)').attr('stroke', 'rgba(255,255,255,0.12)').attr('stroke-width', 1);
 
     // Left col: size legend
     legG2.append('text').attr('x', 8).attr('y', 13)
@@ -1457,7 +1530,7 @@ function initCh4(careerData) {
     // team color legend handled by dropdown
 
     // UX hint
-    g.append('text').attr('x', cw / 2).attr('y', -8).attr('text-anchor', 'middle').attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem').attr('fill', '#6a6a8a').text('Cliquer sur un point pour voir le coéquipier · Molette = zoom · Clic fond = reset');
+    g.append('text').attr('x', cw / 2).attr('y', -8).attr('text-anchor', 'middle').attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem').attr('fill', '#6a6a8a').style('display', 'none');
 
     // ── Team color legend — collapsible DOM panel ──
     (function buildTeamLegend() {
@@ -1571,9 +1644,7 @@ function initScrollytelling(ch1Render, ch4Render) {
             ch4Render(4); // re-render in full free mode
             showHint('✦ Exploration libre — zoom · filtres · cliquer sur un point', 'rgba(240,237,230,0.42)');
             setTimeout(hideHint, 4000);
-            // Fade out "À vous de jouer" step card
-            const freeStep = document.querySelector('.step[data-chapter="4"][data-idx="4"] .step-inner');
-            if (freeStep) setTimeout(() => { freeStep.style.opacity = '0'; freeStep.style.transition = 'opacity 0.8s'; }, 600);
+            // Keep "À vous de jouer" step card visible — user reads it then scrolls away naturally
           }
         }
       }
@@ -1955,5 +2026,14 @@ function initTOC() {
   sections.forEach(s => obs.observe(s));
 }
 
+
+
+// Global tooltip safety — hide if mouse leaves chart area
+document.addEventListener('mouseleave', () => hideTip && hideTip());
+document.addEventListener('scroll', () => {
+  const t = document.getElementById('ch3-tooltip');
+  if (t) t.classList.remove('show');
+  hideTip && hideTip();
+}, { passive: true });
 
 export { initCharts };

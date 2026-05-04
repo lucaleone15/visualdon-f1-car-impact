@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>F1 — La Machine ou l'Homme ?</title>
+  <title>F1 - La Machine ou l'Homme ?</title>
   <link rel="icon" type="image/png" href="./asset/img/F1-01.png">
   <link rel="stylesheet" href="/src/style.css">
 </head>
@@ -22,7 +22,7 @@
       <div class="intro-content">
         <div class="intro-eyebrow">
           <span class="eyebrow-line"></span>
-          <span>2000 – 2024 • 86 Pilotes • 26 000 Résultats</span>
+          <span>2000 - 2024 • 86 Pilotes • 26 000 Résultats</span>
         </div>
 
         <h1 class="intro-title">
@@ -50,7 +50,7 @@
       <p>SCROLLEZ POUR DÉCOUVRIR</p>
     </div>
   </section>
-  <!-- ══════════ CHAPTER 1 — Duo ══════════ -->
+  <!-- ══════════ CHAPTER 1 - Duo ══════════ -->
   <section id="ch1" class="chapter chapter-scroll">
     <div class="sticky-wrap">
       <div class="sticky-vis">
@@ -64,7 +64,7 @@
           <div class="step-tag">01 / Méthode</div>
           <h2>Même voiture.</h2>
           <p>En F1, deux équipiers partagent <strong>le même châssis et le même moteur.</strong> Si
-            leurs résultats diffèrent — c'est le pilote. Chez Red Bull, l'écart moyen entre équipiers est de
+            leurs résultats diffèrent, c'est le pilote. Chez Red Bull, l'écart moyen entre équipiers est de
             <strong>+4,3 pts/course</strong>. Et <strong>8 champions du monde sur 9</strong> ont systématiquement dominé
             leur coéquipier.
           </p>
@@ -92,7 +92,7 @@
     </div>
   </section>
 
-  <!-- ══════════ CHAPTER 2 — Drama VER vs PER ══════════ -->
+  <!-- ══════════ CHAPTER 2 - Drama VER vs PER ══════════ -->
   <section id="ch2" class="chapter chapter-drama">
     <canvas id="drama-canvas"></canvas>
     <div class="drama-content">
@@ -135,7 +135,7 @@
     </div>
   </section>
 
-  <!-- ══════════ CHAPTER 3 — Trajectoires ══════════ -->
+  <!-- ══════════ CHAPTER 3 - Trajectoires ══════════ -->
   <section id="ch4" class="chapter chapter-scroll">
     <div class="sticky-wrap">
       <div class="sticky-vis">
@@ -156,7 +156,7 @@
         <div class="step-inner">
           <div class="step-tag">02 / Champions</div>
           <h2>La zone des champions</h2>
-          <p>En haut à droite : bonne voiture <em>et</em> pilote dominant. Hamilton 2020, Verstappen
+          <p>En haut à droite : bonne voiture et pilote dominant. Hamilton 2020, Verstappen
             2023, Schumacher
             2002.</p>
         </div>
@@ -173,8 +173,8 @@
       <div class="step" data-chapter="4" data-idx="3">
         <div class="step-inner">
           <div class="step-tag">04 / Révélation</div>
-          <h2>Alonso — 18 saisons sur 20</h2>
-          <p>Peu importe la voiture, Alonso est presque toujours <em>au-dessus</em>. Ferrari, McLaren-Honda, Alpine. Le
+          <h2>Alonso - 18 saisons sur 20</h2>
+          <p>Peu importe la voiture, Alonso est presque toujours au-dessus. Ferrari, McLaren-Honda, Alpine. Le
             même résultat.</p>
         </div>
       </div>
@@ -191,7 +191,7 @@
 
   <section id="ch3" class="chapter chapter-interactive">
     <div class="ch3-header">
-      <div class="ch-eyebrow">Chapitre 3 — Trajectoires</div>
+      <div class="ch-eyebrow">Chapitre 3 - Trajectoires</div>
       <h2>Trajectoires de carrière</h2>
       <p><strong>Chaque ligne</strong> = un pilote. <br><strong>L'axe Y</strong> = son écart à son coéquipier, saison
         par
@@ -233,7 +233,7 @@
 
         <!-- Voiture -->
         <div class="sim-sel-group sim-sel-group--car">
-          <div class="sim-sel-label">Voiture <span class="sim-sel-sub">— pts/course de l'équipe</span></div>
+          <div class="sim-sel-label">Voiture <span class="sim-sel-sub">- pts/course de l'équipe</span></div>
           <div class="sim-sel-scroll" id="sel-car">
             <!-- filled by JS -->
           </div>
@@ -241,7 +241,7 @@
 
         <!-- Pilote -->
         <div class="sim-sel-group sim-sel-group--driver">
-          <div class="sim-sel-label">Pilote <span class="sim-sel-sub">— pts vs pilote médian du peloton</span></div>
+          <div class="sim-sel-label">Pilote <span class="sim-sel-sub">- pts vs pilote médian du peloton</span></div>
           <div class="sim-sel-scroll" id="sel-driver">
             <!-- filled by JS -->
           </div>
@@ -256,19 +256,19 @@
           <div class="sim-calc-row">
             <div class="sim-calc-item">
               <div class="sim-calc-label">Base voiture</div>
-              <div class="sim-calc-num" id="calc-car">—</div>
+              <div class="sim-calc-num" id="calc-car">-</div>
               <div class="sim-calc-unit">pts / course</div>
             </div>
             <div class="sim-calc-op">+</div>
             <div class="sim-calc-item">
               <div class="sim-calc-label">Bonus pilote <span style="opacity:0.5;font-size:0.45rem">(±6 max)</span></div>
-              <div class="sim-calc-num" id="calc-driver">—</div>
+              <div class="sim-calc-num" id="calc-driver">-</div>
               <div class="sim-calc-unit">pts / course</div>
             </div>
             <div class="sim-calc-op">=</div>
             <div class="sim-calc-item sim-calc-item--total">
               <div class="sim-calc-label">Ton duo</div>
-              <div class="sim-calc-num" id="calc-total">—</div>
+              <div class="sim-calc-num" id="calc-total">-</div>
               <div class="sim-calc-unit">pts / course</div>
             </div>
           </div>
@@ -290,21 +290,21 @@
         <!-- Podium animé -->
         <div class="sim-podium" id="sim-podium">
           <div class="sim-podium-col" id="pod-2">
-            <div class="sim-pod-name" id="pod-2-name">—</div>
+            <div class="sim-pod-name" id="pod-2-name">-</div>
             <div class="sim-pod-bar" id="pod-2-bar"></div>
-            <div class="sim-pod-pts" id="pod-2-pts">—</div>
+            <div class="sim-pod-pts" id="pod-2-pts">-</div>
             <div class="sim-pod-rank">2</div>
           </div>
           <div class="sim-podium-col sim-podium-col--first" id="pod-1">
-            <div class="sim-pod-name" id="pod-1-name">—</div>
+            <div class="sim-pod-name" id="pod-1-name">-</div>
             <div class="sim-pod-bar" id="pod-1-bar"></div>
-            <div class="sim-pod-pts" id="pod-1-pts">—</div>
+            <div class="sim-pod-pts" id="pod-1-pts">-</div>
             <div class="sim-pod-rank">1</div>
           </div>
           <div class="sim-podium-col" id="pod-3">
-            <div class="sim-pod-name" id="pod-3-name">—</div>
+            <div class="sim-pod-name" id="pod-3-name">-</div>
             <div class="sim-pod-bar" id="pod-3-bar"></div>
-            <div class="sim-pod-pts" id="pod-3-pts">—</div>
+            <div class="sim-pod-pts" id="pod-3-pts">-</div>
             <div class="sim-pod-rank">3</div>
           </div>
         </div>
@@ -332,7 +332,7 @@
         <p class="fh-sub">Jamais l'un sans l'autre.</p>
       </div>
 
-      <!-- SPLIT BAR — cinématique -->
+      <!-- SPLIT BAR - cinématique -->
       <div class="finale-split" id="finale-split">
         <div class="fs-track">
           <div class="fs-segment fs-car" id="fs-car">
@@ -354,7 +354,7 @@
           <div class="fc-driver" style="color:#ff8000">ALONSO</div>
           <div class="fc-meta">20 saisons · 7 équipes différentes</div>
           <div class="fc-number" style="color:#ff8000">18<span>/20</span></div>
-          <p class="fc-text">saisons où il domine son coéquipier — <strong>peu importe la voiture.</strong></p>
+          <p class="fc-text">saisons où il domine son coéquipier, <strong>peu importe la voiture.</strong></p>
           <div class="fc-badge fc-badge--gold">TALENT ABSOLU</div>
         </div>
 

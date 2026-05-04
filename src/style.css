@@ -145,13 +145,20 @@ body {
   z-index: 1; display: flex; flex-direction: column;
   background: var(--surface);
 }
-.sticky-vis {
-  width: 100%; flex: 1; min-height: 0;
-  display: flex; align-items: center; justify-content: center;
-  padding: 1.5rem 2rem; overflow: hidden; position: relative;
+.sticky-vis, .vis-container {
+    width: 100%;
+    height: 100vh; /* Prend toute la hauteur de l'écran */
+    background: #0d0b0a; /* Ta couleur de fond sombre */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
-.full-svg { width: 100%; height: 100%; display: block; max-height: 100vh; }
-
+.full-svg {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
 .steps-wrap {
   position: relative; z-index: 2;
   width: var(--step-w); max-width: 38%;  /* never wider than 38% — SVG right side stays clear */
@@ -578,7 +585,7 @@ body {
 }
 @media (max-width: 700px) { .finale-cases { grid-template-columns: 1fr; } }
 .fc-case { padding: 2rem 1.5rem 2rem 0; border-right: 1px solid rgba(20,18,16,0.48); }
-.fc-case:last-child { border-right: none; padding-right: 0; }
+.fc-case:last-child { border-right: none; padding-right: 0; padding-left: 1.5rem; }
 .fc-case--center { padding-left: 1.5rem; }
 .fc-driver { font-family: var(--ff-m); font-size: 0.65rem; letter-spacing: 0.3em; margin-bottom: 0.25rem; }
 .fc-meta   { font-family: var(--ff-m); font-size: 0.65rem; color: var(--ink3); margin-bottom: 0.75rem; }
@@ -606,11 +613,17 @@ body {
 .fm-quote em { font-style: normal; color: var(--red); }
 
 /* Stats */
-.finale-stats { display: flex; align-items: center; gap: 2rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
-.fst-item  { flex: 1; min-width: 120px; }
+.finale-stats {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 2.5rem;
+}
+.fst-item  { min-width: 0; padding: 0 1.5rem; }
 .fst-n     { font-family: var(--ff-d); font-size: 3.5rem; font-weight: 700; font-style: italic; line-height: 1; letter-spacing: -0.03em; color: var(--ink); }
 .fst-l     { font-family: var(--ff-m); font-size: 0.65rem; color: var(--ink3); line-height: 1.6; margin-top: 0.2rem; }
-.fst-sep   { color: var(--line); font-size: 1.5rem; align-self: center; }
+.fst-sep   { color: var(--line); font-size: 2rem; align-self: center; text-align: center; }
 .finale-credit { font-family: var(--ff-m); font-size: 0.65rem; color: var(--ink3); letter-spacing: 0.1em; }
 
 /* ═══════════════════
@@ -739,18 +752,18 @@ body {
 
 /* Free exploration step card — slightly different accent */
 .step-inner--free {
-  border-left-color: rgba(200,134,10,0.6);
+  border-left-color: var(--red);
+}
+.step-inner--free .step-tag {
+  color: var(--red2);
+}
+.step-inner--free h2 {
+  color: var(--red2);
 }
 .step-inner--free.active {
-  border-left-color: var(--gold);
+  border-left-color: var(--red2);
 }
 
-/* Scroll hint bar */
-#scroll-hint-bar {
-  font-family: 'Poppins', system-ui, sans-serif;
-  font-size: 0.65rem;
-  font-weight: 400;
-}
 
 /* Radial year UI — Poppins */
 #radial-year-ui {
@@ -971,29 +984,65 @@ body {
 .pilots-stack {
   position: relative;
   height: 100%;
-  transform: rotate(-3deg);
+  /* On centre l'origine pour éviter que la droite ne s'échappe trop */
+  transform-origin: center center; 
+  transform: rotate(-3deg) scale(0.95); /* Le scale léger aide à tout garder dans le cadre */
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .pilot {
   position: absolute;
   bottom: 0;
-  transition: transform 0.4s ease-out;
-  filter: grayscale(100%) contrast(1.1) brightness(0.8);
-  mask-image: linear-gradient(to top, transparent 5%, black 40%);
+  /* Par défaut : noir & blanc, 60% opaque */
+  filter: grayscale(100%) brightness(0.55);
+  opacity: 0.6;
+  -webkit-mask-image: linear-gradient(to top, transparent 3%, black 35%);
+  mask-image: linear-gradient(to top, transparent 3%, black 35%);
+  transition: filter 0.4s ease, opacity 0.35s ease, transform 0.4s ease;
 }
 
 .pilot img { height: 75vh; width: auto; object-fit: contain; }
 
+/* Hover — couleur pleine, opacité 100%, léger zoom */
+/* Un seul sélecteur propre pour le hover */
 .pilot:hover {
-  filter: grayscale(0%) brightness(1);
-  z-index: 10;
-  transform: scale(1.05) translateY(-20px);
+  filter: grayscale(0%) brightness(1) !important;
+  opacity: 1 !important;
+  z-index: 50 !important; /* Passe devant tout le monde */
+  transform: scale(1.08) translateY(-20px) rotate(3deg); /* On annule la rotation du parent pour le redresser au hover */
 }
 
-/* Placement décalé */
-.p-schumi { left: 0%; z-index: 1; opacity: 0.4; }
-.p-hamilton { left: 20%; z-index: 2; opacity: 0.6; }
-.p-verstappen { left: 40%; z-index: 3; }
+/* Chaque pilote overrride hover pour garantir la priorité */
+.p-schumi:hover,
+.p-hamilton:hover,
+.p-verstappen:hover {
+  filter: grayscale(0%) brightness(1.0) !important;
+  opacity: 1 !important;
+  z-index: 10;
+  transform: scale(1.05) translateY(-16px);
+}
+
+/* Positions: 3 pilotes bien répartis et tous visibles */
+/* Positions recalculées pour l'équilibre */
+.p-schumi { 
+  left: -15%; /* Moins collé à gauche */
+  z-index: 1; 
+}
+
+.p-hamilton { 
+  left: 0%; /* Centré */
+  z-index: 3; 
+  /* Retrait du filtre forcé au repos pour qu'il réagisse comme les autres */
+  filter: grayscale(100%) brightness(0.55); 
+  opacity: 0.6;
+}
+
+.p-verstappen { 
+  left: 15%; /* Ramène Verstappen vers le centre pour éviter la coupure */
+  z-index: 2; 
+}
 /* ── Select-all / deselect-all button ── */
 .ds-all-btn {
   font-family: var(--ff-m);
@@ -1099,3 +1148,46 @@ body {
   margin-left: 0.5rem;
 }
 .ds-all-btn:hover { background: rgba(212,0,15,0.08); border-color: var(--red); }
+
+/* ── Scroll indicator (new intro structure) ── */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 3;
+  pointer-events: none;
+}
+.scroll-indicator p {
+  font-family: var(--ff-m);
+  font-size: 0.5rem;
+  letter-spacing: 0.35em;
+  color: rgba(240,237,230,0.3);
+}
+.mouse {
+  width: 22px;
+  height: 34px;
+  border: 1.5px solid rgba(240,237,230,0.3);
+  border-radius: 12px;
+  position: relative;
+}
+.mouse::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 6px;
+  background: rgba(240,237,230,0.5);
+  border-radius: 2px;
+  animation: scrollDot 1.6s ease-in-out infinite;
+}
+@keyframes scrollDot {
+  0%   { top: 5px; opacity: 1; }
+  100% { top: 18px; opacity: 0; }
+}

@@ -13,132 +13,104 @@ let activeFilter = "all"; // module-level so filter always works
 let activeDrivers = ['Lewis Hamilton', 'Fernando Alonso'];
 
 function drawF1CarWithPies(g, w, h) {
-  const cx = w / 2;
-  const cy = h / 2;
+  // 1. CONSTANTES DE MISE EN PAGE (Faisons simple et fixe)
+  const cx = w * 0.62;
+  const cy = h * 0.65;
   const FF = "'Poppins', system-ui, sans-serif";
   const FM = "'Inter', system-ui, sans-serif";
 
-  // Layout: car centered, wheels at 54.3% of SVG height
-  const pad = { top: h * 0.18, bot: h * 0.22 };
-  const availH = h - pad.top - pad.bot;
-  const carW  = Math.min(w * 0.82, availH * 1.1);
-  const carX  = cx - carW / 2;
-  const wheelCY = pad.top + availH * 0.5;
-  const carY  = wheelCY - 0.543 * carW;
-  const sx = carW / 98.751;
-  const sy = carW / 98.75;
+  // Taille réduite pour ne pas étouffer le texte de gauche
+  const carW = Math.min(w * 0.5, 600);
+  const sx = carW / 100;
+  const sy = sx;
+
+  const carX = cx - (carW * 0.5);
+  const wheelCY = cy;
+  const carY = wheelCY - (53.8 * sy);
+
+  // NETTOYAGE RADICAL (Indispensable pour éviter les sauts au scroll)
+  g.selectAll("*").interrupt(); // Arrête toute animation en cours
+  g.selectAll("*").remove();
 
   // Glow filter
   const defs2 = g.append('defs');
-  const glowF = defs2.append('filter').attr('id','f1-glow').attr('x','-40%').attr('y','-40%').attr('width','180%').attr('height','180%');
-  glowF.append('feGaussianBlur').attr('in','SourceGraphic').attr('stdDeviation','4').attr('result','blur');
+  const glowF = defs2.append('filter').attr('id', 'f1-glow').attr('x', '-40%').attr('y', '-40%').attr('width', '180%').attr('height', '180%');
+  glowF.append('feGaussianBlur').attr('in', 'SourceGraphic').attr('stdDeviation', '4').attr('result', 'blur');
   const fm = glowF.append('feMerge');
-  fm.append('feMergeNode').attr('in','blur');
-  fm.append('feMergeNode').attr('in','SourceGraphic');
+  fm.append('feMergeNode').attr('in', 'blur');
+  fm.append('feMergeNode').attr('in', 'SourceGraphic');
 
-  // Car body
-  const carG = g.append('g').attr('transform',`translate(${carX},${carY})`).attr('opacity',0);
-  carG.transition().duration(700).ease(d3.easeCubicOut).attr('opacity',1);
-  const pathG = carG.append('g').attr('transform',`scale(${sx},${sy})`);
+  // 2. CORRECTION DU TEXTE (Positionnement et espacement)
+  const titleGroup = g.append('g');
 
-  // Wheel hubs
-  pathG.append('path')
-    .attr('d','M22.106,46.936c-3.79,0-6.866,3.071-6.866,6.866c0,0.293,0.024,0.58,0.062,0.862c0.426,3.386,3.307,6.003,6.805,6.003c3.598,0,6.54-2.761,6.839-6.279c0.017-0.194,0.03-0.389,0.03-0.586C28.976,50.008,25.9,46.936,22.106,46.936z')
-    .attr('fill','#2a2a3a');
-  pathG.append('path')
-    .attr('d','M86.74,46.936c-3.79,0-6.866,3.071-6.866,6.866c0,0.293,0.024,0.58,0.062,0.862c0.426,3.386,3.308,6.003,6.806,6.003c3.598,0,6.54-2.761,6.84-6.279c0.017-0.194,0.028-0.389,0.028-0.586C93.609,50.008,90.535,46.936,86.74,46.936z')
-    .attr('fill','#2a2a3a');
+  // Sourcil (Même Voiture) - on remonte un peu plus
+  titleGroup.append('text')
+    .attr('x', cx)
+    .attr('y', h * 0.12)
+    .attr('text-anchor', 'middle')
+    .attr('font-family', FM)
+    .attr('font-size', '10px')
+    .attr('letter-spacing', '0.5em')
+    .attr('fill', '#D4000F') // Rouge plus franc
+    .text('MÊME VOITURE');
 
-  // Main body (red)
-  pathG.append('path')
-    .attr('d','M78.029,53.801c0-3.049,1.638-5.717,4.072-7.19l-16.177-7.166H55.775c-0.604,0-1.094,0.49-1.094,1.095v1.438c0,0.604,0.489,1.095,1.094,1.095h0.72v0.997h-1.841c-0.579,0-1.096,0.371-1.277,0.921L53.23,45.43c-3.351-0.271-4.945,2.294-6.62,2.294l-1.131-1.361c-0.674-0.813-1.706-1.241-2.758-1.144c-0.32,0.03-0.661,0.094-1.008,0.211l-0.635,2.294c0,0-5.759-0.335-13.245-0.066c1.648,1.537,2.687,3.72,2.687,6.146c0,0.24,0.039,5.32,0.039,5.32h49.383c-0.976-1.188-1.637-2.648-1.84-4.266C78.055,54.485,78.029,54.135,78.029,53.801z')
-    .attr('fill','#e8001a').attr('filter','url(#f1-glow)');
+  // Titre (Résultats différents) - on augmente l'espace avec le sourcil
+  const titleFontSize = Math.min(w * 0.04, 42);
+  titleGroup.append('text')
+    .attr('x', cx)
+    .attr('y', h * 0.12 + titleFontSize + 15)
+    .attr('text-anchor', 'middle')
+    .attr('font-family', FF)
+    .attr('font-size', `${titleFontSize}px`)
+    .attr('font-weight', '700')
+    .attr('font-style', 'italic')
+    .attr('fill', '#F0EDE6')
+    .text('Résultats différents.');
 
-  // Rear
-  pathG.append('path')
-    .attr('d','M13.695,53.801c0-1.928,0.659-3.699,1.753-5.12C9.664,49.487,4.044,50.83,0,53.047c0,1.176,5.168,0.019,5.168,2.448H1.181c-0.402,0-0.728,0.325-0.728,0.728v2.172c0,0.402,0.325,0.729,0.728,0.729h9.969c0.403,0,0.729-0.326,0.729-0.729v-3.354h1.922c-0.009-0.062-0.024-0.121-0.032-0.185C13.72,54.485,13.695,54.135,13.695,53.801z')
-    .attr('fill','#100d0c').attr('stroke','rgba(232,0,26,0.5)').attr('stroke-width','0.5');
+  // 3. LA VOITURE (Statique, sans opacité progressive)
+  const carG = g.append('g')
+    .attr('transform', `translate(${carX},${carY})`);
 
-  // Front wing
-  pathG.append('path')
-    .attr('d','M96.938,38.084H86.284c-1.003,0-1.815,0.812-1.815,1.814v2.376c0,0.48,0.191,0.942,0.531,1.282l1.855,1.854c4.446,0.218,8,3.893,8,8.391c0,0.111-0.012,0.224-0.017,0.334h3.912V39.899C98.752,38.896,97.939,38.084,96.938,38.084z')
-    .attr('fill','#100d0c').attr('stroke','rgba(232,0,26,0.6)').attr('stroke-width','0.7');
+  const pathG = carG.append('g').attr('transform', `scale(${sx},${sy})`);
 
-  // Wheel centers
-  const wheelR = Math.min(Math.max(h * 0.055, 18), 36);
-  const leftX  = carX + 22.1 * sx;
-  const leftY  = carY + 53.8 * sy;
-  const rightX = carX + 86.7 * sx;
-  const rightY = carY + 53.8 * sy;
+  // Tracés F1
+  pathG.append('path').attr('d', 'M22.106,46.936c-3.79,0-6.866,3.071-6.866,6.866c0,0.293,0.024,0.58,0.062,0.862c0.426,3.386,3.307,6.003,6.805,6.003c3.598,0,6.54-2.761,6.839-6.279c0.017-0.194,0.03-0.389,0.03-0.586C28.976,50.008,25.9,46.936,22.106,46.936z').attr('fill', '#2a2a3a');
+  pathG.append('path').attr('d', 'M86.74,46.936c-3.79,0-6.866,3.071-6.866,6.866c0,0.293,0.024,0.58,0.062,0.862c0.426,3.386,3.308,6.003,6.806,6.003c3.598,0,6.54-2.761,6.84-6.279c0.017-0.194,0.028-0.389,0.028-0.586C93.609,50.008,90.535,46.936,86.74,46.936z').attr('fill', '#2a2a3a');
+  pathG.append('path').attr('d', 'M78.029,53.801c0-3.049,1.638-5.717,4.072-7.19l-16.177-7.166H55.775c-0.604,0-1.094,0.49-1.094,1.095v1.438c0,0.604,0.489,1.095,1.094,1.095h0.72v0.997h-1.841c-0.579,0-1.096,0.371-1.277,0.921L53.23,45.43c-3.351-0.271-4.945,2.294-6.62,2.294l-1.131-1.361c-0.674-0.813-1.706-1.241-2.758-1.144c-0.32,0.03-0.661,0.094-1.008,0.211l-0.635,2.294c0,0-5.759-0.335-13.245-0.066c1.648,1.537,2.687,3.72,2.687,6.146c0,0.24,0.039,5.32,0.039,5.32h49.383c-0.976-1.188-1.637-2.648-1.84-4.266C78.055,54.485,78.029,54.135,78.029,53.801z').attr('fill', '#E8001A').attr('filter', 'url(#f1-glow)');
+  pathG.append('path').attr('d', 'M13.695,53.801c0-1.928,0.659-3.699,1.753-5.12C9.664,49.487,4.044,50.83,0,53.047c0,1.176,5.168,0.019,5.168,2.448H1.181c-0.402,0-0.728,0.325-0.728,0.728v2.172c0,0.402,0.325,0.729,0.728,0.729h9.969c0.403,0,0.729-0.326,0.729-0.729v-3.354h1.922c-0.009-0.062-0.024-0.121-0.032-0.185C13.72,54.485,13.695,54.135,13.695,53.801z').attr('fill', '#100D0C').attr('stroke', 'rgba(232,0,26,0.5)').attr('stroke-width', '0.5');
+  pathG.append('path').attr('d', 'M96.938,38.084H86.284c-1.003,0-1.815,0.812-1.815,1.814v2.376c0,0.48,0.191,0.942,0.531,1.282l1.855,1.854c4.446,0.218,8,3.893,8,8.391c0,0.111-0.012,0.224-0.017,0.334h3.912V39.899C98.752,38.896,97.939,38.084,96.938,38.084z').attr('fill', '#100D0C').attr('stroke', 'rgba(232,0,26,0.6)').attr('stroke-width', '0.7');
 
-  // Pie donut helper
+  // 4. LES DONUTS ET LABELS
+  const wheelR = Math.min(Math.max(h * 0.05, 16), 28);
+  const leftX = carX + (22.1 * sx);
+  const rightX = carX + (86.7 * sx);
+
   function drawDonut(x, y, r, pct, color, valLine1, valLine2) {
     const tau = 2 * Math.PI;
-    const arcFull = d3.arc().innerRadius(r*0.36).outerRadius(r).startAngle(0).endAngle(tau);
-    const arcFill = d3.arc().innerRadius(r*0.36).outerRadius(r).startAngle(0).endAngle(tau*pct);
-    const wg = g.append('g').attr('transform',`translate(${x},${y})`).attr('opacity',0);
-    wg.transition().delay(500).duration(700).attr('opacity',1);
-    wg.append('path').attr('d', arcFull()).attr('fill','rgba(255,255,255,0.07)');
-    wg.append('path').attr('d', arcFill()).attr('fill', color)
-      .style('filter',`drop-shadow(0 0 5px ${color}99)`);
-    wg.append('circle').attr('r', r*0.36).attr('fill','#0d0b0a');
-    wg.append('text')
-      .attr('text-anchor','middle').attr('dominant-baseline','middle')
-      .attr('y', valLine2 ? -r*0.18 : 0)
-      .attr('font-family', FF).attr('font-size',`${r*0.46}px`).attr('font-weight','700')
-      .attr('fill','#f0ede6').text(valLine1);
-    if (valLine2) {
-      wg.append('text')
-        .attr('text-anchor','middle').attr('dominant-baseline','middle')
-        .attr('y', r*0.3)
-        .attr('font-family', FM).attr('font-size',`${Math.max(7, r*0.22)}px`)
-        .attr('fill','rgba(240,237,230,0.55)').text(valLine2);
-    }
+    const wg = g.append('g').attr('transform', `translate(${x},${y})`);
+
+    wg.append('circle').attr('r', r).attr('fill', 'rgba(255,255,255,0.05)');
+    wg.append('path').attr('d', d3.arc().innerRadius(r * 0.45).outerRadius(r).startAngle(0).endAngle(tau * pct)).attr('fill', color);
+    wg.append('circle').attr('r', r * 0.45).attr('fill', '#0d0b0a');
+
+    wg.append('text').attr('text-anchor', 'middle').attr('dominant-baseline', 'middle').attr('y', -2).attr('font-family', FF).attr('font-size', `${r * 0.45}px`).attr('font-weight', '700').attr('fill', '#F0EDE6').text(valLine1);
+    wg.append('text').attr('text-anchor', 'middle').attr('y', r * 0.35).attr('font-family', FM).attr('font-size', '7px').attr('fill', 'rgba(240,237,230,0.5)').text(valLine2);
   }
 
-  drawDonut(leftX,  leftY,  wheelR, 0.67, '#e8001a', '×2',   'VER/PER');
-  drawDonut(rightX, rightY, wheelR, 0.83, '#c8860a', '15/18', 'HAM');
+  drawDonut(leftX, wheelCY, wheelR, 0.67, '#E8001A', '×2', 'VER/PER');
+  drawDonut(rightX, wheelCY, wheelR, 0.83, '#C8860A', '15/18', 'HAM');
 
-  // Stat labels
-  function statLabel(x, anchorY, isAbove, lines, color) {
-    const lg = g.append('g').attr('opacity',0);
-    lg.transition().delay(800).duration(500).attr('opacity',1);
-    const step = 16;
-    lines.forEach((line, i) => {
-      const isBig = i === 0;
-      lg.append('text')
-        .attr('x', x).attr('y', anchorY + (isAbove ? -(lines.length - i - 1) * step : i * step))
-        .attr('text-anchor','middle')
-        .attr('font-family', isBig ? FF : FM)
-        .attr('font-size', isBig ? `${Math.min(16, wheelR*0.5)}px` : `${Math.min(11, wheelR*0.35)}px`)
-        .attr('font-weight', isBig ? '700' : '400')
-        .attr('fill', isBig ? '#f0ede6' : 'rgba(240,237,230,0.5)')
-        .text(line);
-    });
-  }
+  // Stat Labels (Ajustement finesse)
+  const labelGap = wheelR + 15;
+  const statStyle = (sel, isBig) => sel.attr('text-anchor', 'middle').attr('font-family', isBig ? FF : FM).attr('font-size', isBig ? '12px' : '9px').attr('fill', isBig ? '#F0EDE6' : 'rgba(240,237,230,0.4)');
 
-  const labelGap = wheelR + 14;
-  statLabel(leftX,  leftY - labelGap, true,  ['Verstappen 2023', '×2 plus de points que Pérez'], '#e8001a');
-  statLabel(leftX,  leftY + labelGap, false, ['24,1 vs 11,8 pts/course', 'même voiture'], 'rgba(240,237,230,0.4)');
-  statLabel(rightX, rightY - labelGap, true,  ['Hamilton 2007–2024', '15 saisons sur 18 au-dessus'], '#c8860a');
-  statLabel(rightX, rightY + labelGap, false, ['McLaren · Mercedes', 'peu importe la voiture'], 'rgba(240,237,230,0.4)');
+  const l1 = g.append('g').attr('transform', `translate(${leftX}, ${wheelCY - labelGap})`);
+  statStyle(l1.append('text').attr('y', -12).attr('font-weight', '700'), true).text('Verstappen 2023');
+  statStyle(l1.append('text').attr('y', 0), false).text('×2 plus de points que Pérez');
 
-  // Title
-  const titleY = Math.max(20, pad.top * 0.45);
-  g.append('text').attr('x', cx).attr('y', titleY)
-    .attr('text-anchor','middle')
-    .attr('font-family', FM).attr('font-size','0.56rem').attr('letter-spacing','0.3em')
-    .attr('fill','rgba(212,0,15,0.8)').attr('opacity',0)
-    .text('MÊME VOITURE')
-    .transition().delay(150).duration(600).attr('opacity',1);
-  g.append('text').attr('x', cx).attr('y', titleY + 22)
-    .attr('text-anchor','middle')
-    .attr('font-family', FF)
-    .attr('font-size', `${Math.max(20, Math.min(36, w * 0.038))}px`)
-    .attr('font-weight','700').attr('font-style','italic')
-    .attr('fill','#f0ede6').attr('opacity',0)
-    .text('Résultats différents.')
-    .transition().delay(300).duration(700).attr('opacity',1);
+  const r1 = g.append('g').attr('transform', `translate(${rightX}, ${wheelCY - labelGap})`);
+  statStyle(r1.append('text').attr('y', -12).attr('font-weight', '700'), true).text('Hamilton 2007–2024');
+  statStyle(r1.append('text').attr('y', 0), false).text('15 saisons sur 18 au-dessus');
 }
 
 
@@ -160,9 +132,13 @@ function initCh1(teammateData) {
     const { W, H } = svgDims('svg-ch1');
     svg.attr('width', W).attr('height', H);
 
-    const m = W < 900
-      ? { top: 30, right: 20, bottom: 40, left: 20 }
-      : { top: 60, right: 60, bottom: 60, left: W * 0.45 };
+    // Margins: state=0 uses symmetric margins (full width for F1 car)
+    // state=1/2 keep large left margin for step cards
+    const m = (state === 0)
+      ? { top: 20, right: 20, bottom: 20, left: 20 }
+      : W < 900
+        ? { top: 30, right: 20, bottom: 40, left: 20 }
+        : { top: 60, right: 60, bottom: 60, left: W * 0.45 };
     const cw = W - m.left - m.right;
     const ch = H - m.top - m.bottom;
     const g = svg.append('g').attr('transform', `translate(${m.left},${m.top})`);
@@ -223,7 +199,7 @@ function drawRadialSelection(allData, g, w, h) {
   g.selectAll('*').remove();
 
   // ── Year data ──
-  const validYears = [...new Set(allData.map(d => d.year))].sort((a,b) => a - b); // ASC: 2000→2024
+  const validYears = [...new Set(allData.map(d => d.year))].sort((a, b) => a - b); // ASC: 2000→2024
   const displayYears = validYears; // all years
 
   // ── Build UI once ──
@@ -273,7 +249,7 @@ function drawRadialSelection(allData, g, w, h) {
 
   // Separator
   const sep = document.createElement('div');
-  Object.assign(sep.style, { width:'1px', height:'16px', background:'rgba(240,237,230,0.38)', flexShrink:'0', marginRight:'0.4rem' });
+  Object.assign(sep.style, { width: '1px', height: '16px', background: 'rgba(240,237,230,0.38)', flexShrink: '0', marginRight: '0.4rem' });
   ui.appendChild(sep);
 
   // Year buttons — single row, left→right
@@ -316,7 +292,7 @@ function drawRadialSelection(allData, g, w, h) {
   if (_radialPlaying) startAutoplay();
 
   const yearData = allData.filter(d => d.year === activeRadialYear);
-  
+
   // Format into standard structure
   const data = yearData.map(d => {
     const isD1Winner = d.d1_ppr >= d.d2_ppr;
@@ -333,7 +309,7 @@ function drawRadialSelection(allData, g, w, h) {
   const tooltip = d3.select('#ch3-tooltip');
   const cx = w / 2;
   const cy = h / 2 - 20;
-  
+
   // Headers
   g.append('text').attr('x', cx).attr('y', cy - Math.min(cx, cy) * 0.94)
     .attr('text-anchor', 'middle')
@@ -347,13 +323,13 @@ function drawRadialSelection(allData, g, w, h) {
     .transition().delay(100).duration(1000).attr('opacity', 0.12);
 
   const radiusLine = Math.min(cx, cy) * 0.70; // Slightly smaller to leave room for text
-  
+
   data.forEach((d, i) => {
     const angle = (i / data.length) * Math.PI * 2 - Math.PI / 2;
     const teamColor = d.color;
     // Map ppr to distance from center. Base radius is 50. Max radius is radiusLine
     const maxPpr = 25; // max point is Verstappen ~24
-    
+
     const rW = 75 + (d.w_ppr / maxPpr) * (radiusLine - 75);
     const rL = 75 + (d.l_ppr / maxPpr) * (radiusLine - 75);
 
@@ -409,10 +385,10 @@ function drawRadialSelection(allData, g, w, h) {
 
     // Invisible Hitbox for tooltip
     trackG.append('path')
-      .attr('d', `M ${cx} ${cy} L ${xw + Math.cos(angle)*40} ${yw + Math.sin(angle)*40}`)
+      .attr('d', `M ${cx} ${cy} L ${xw + Math.cos(angle) * 40} ${yw + Math.sin(angle) * 40}`)
       .attr('stroke', 'transparent').attr('stroke-width', 30).attr('fill', 'none')
       .style('cursor', 'pointer')
-      .on('mouseover', function(event) {
+      .on('mouseover', function (event) {
         trackG.select('line:nth-child(2)').attr('stroke-width', 5).attr('opacity', 1);
         const gap = +(d.w_ppr - d.l_ppr).toFixed(1);
         tooltip.html(`
@@ -424,10 +400,10 @@ function drawRadialSelection(allData, g, w, h) {
           </div>
         `).classed('show', true);
       })
-      .on('mousemove', function(event) {
+      .on('mousemove', function (event) {
         tooltip.style('left', (event.pageX + 14) + 'px').style('top', (event.pageY - 28) + 'px');
       })
-      .on('mouseleave', function() {
+      .on('mouseleave', function () {
         trackG.select('line:nth-child(2)').attr('stroke-width', 3).attr('opacity', 0.7);
         tooltip.classed('show', false);
       });
@@ -471,7 +447,7 @@ function drawDuelBars(g, w, h, data, mode) {
 
   // Max PPR across all data for the X scale
   const maxPPR = d3.max(data, d => getWPPR(d)) || 20;
-  
+
   // Create a horizontal X scale that maps 0 -> maxPPR over 70% of graph width
   const LABEL_W = 120;
   const px = d3.scaleLinear().domain([0, maxPPR * 1.05]).range([LABEL_W, w - 85]);
@@ -517,7 +493,7 @@ function drawDuelBars(g, w, h, data, mode) {
     const loser = getLoser(d);
     const wPPR = getWPPR(d);
     const lPPR = getLPPR(d);
-    
+
     const rowG = g.append('g').attr('transform', `translate(0,${oy})`).style('cursor', 'pointer');
     const cy = ROW_H / 2;
 
@@ -551,7 +527,7 @@ function drawDuelBars(g, w, h, data, mode) {
     } else {
       loserDot.attr('r', 5);
     }
-      
+
     // Loser name — same team color as winner (no red) in highlight mode
     const loserText = rowG.append('text').attr('x', px(lPPR) - 10).attr('y', cy + 3)
       .attr('text-anchor', 'end')
@@ -731,7 +707,7 @@ function animateDrama() {
    CH3 — CAREER TRAJECTORIES (interactive)
 ═══════════════════════════════════════════════ */
 const FEATURED_DRIVERS = [
-  { name: 'Lewis Hamilton',  color: '#00d2be', story: '<strong>Hamilton</strong> : positif dans <em>15 saisons sur 18</em>. Chez McLaren comme chez Mercedes, il domine systématiquement. Le talent traverse les équipes.' },
+  { name: 'Lewis Hamilton', color: '#00d2be', story: '<strong>Hamilton</strong> : positif dans <em>15 saisons sur 18</em>. Chez McLaren comme chez Mercedes, il domine systématiquement. Le talent traverse les équipes.' },
   { name: 'Fernando Alonso', color: '#ff8000', story: '<strong>Alonso</strong> : <em>18 saisons positives sur 20</em>. Peu importe la voiture — Ferrari, McLaren-Honda, Renault, Alpine — il est presque toujours au-dessus de son équipe. Le cas le plus pur de talent brut.' },
   { name: 'Sebastian Vettel', color: '#dc0000', story: '<strong>Vettel</strong> : dominant avec Red Bull (2010-2013), puis plus fragile. Sa trajectoire interroge : était-ce lui ou la RB de Newey ?' },
   { name: 'Max Verstappen', color: '#3671c6', story: '<strong>Verstappen</strong> : depuis 2019, il domine <em>massivement</em> ses coéquipiers. Son écart à Pérez (+12 pts/course en 2023) reste sans équivalent.' },
@@ -760,9 +736,17 @@ function initCh3(careerData) {
         activeDrivers = [...allNames];
       }
       toggleBtn.textContent = allNames.every(n => activeDrivers.includes(n)) ? 'Tout désélectionner' : 'Tout sélectionner';
-      // Refresh chips
+      // Rebuild chips so newly active ones get their color
       sel.querySelectorAll('.driver-chip').forEach(chip => {
-        chip.classList.toggle('active', activeDrivers.includes(chip.dataset.name));
+        const isActive = activeDrivers.includes(chip.dataset.name);
+        chip.classList.toggle('active', isActive);
+        // Restore background color for newly active chips
+        const driverDef = FEATURED_DRIVERS.find(d => d.name === chip.dataset.name);
+        if (driverDef) {
+          chip.style.background = isActive ? driverDef.color : 'transparent';
+          chip.style.color = isActive ? '#fff' : '';
+          chip.style.borderColor = isActive ? 'transparent' : '';
+        }
       });
       renderCh3(careerData);
     });
@@ -960,11 +944,11 @@ function renderCh3(careerData) {
           <div class="tt-row"><span>Victoires cette saison</span><span class="tt-val">${d.wins}</span></div>
         `);
       })
-      .on('mouseleave', function (event, d) { 
+      .on('mouseleave', function (event, d) {
         d3.select(this)
           .attr('r', 4.5)
-          .style('filter', 'none'); 
-        hideTip(); 
+          .style('filter', 'none');
+        hideTip();
       });
 
     // Collect end labels — will render after all lines drawn
@@ -1184,9 +1168,9 @@ function initCh4(careerData) {
     ch4State = state;
 
     // Show/hide interaction lock vs free exploration overlays
-    let lockEl  = document.getElementById('ch4-lock-overlay');
-    let freeEl  = document.getElementById('ch4-free-overlay');
-    const svis  = document.querySelector('#ch4 .sticky-vis');
+    let lockEl = document.getElementById('ch4-lock-overlay');
+    let freeEl = document.getElementById('ch4-free-overlay');
+    const svis = document.querySelector('#ch4 .sticky-vis');
 
     // Build lock overlay (shown during guided scrollytelling)
     if (!lockEl && svis) {
@@ -1217,16 +1201,12 @@ function initCh4(careerData) {
     }
 
     if (state < 4) {
-      if (lockEl) lockEl.style.display  = 'flex';
-      if (freeEl) freeEl.style.display  = 'none';
+      if (lockEl) lockEl.style.display = 'flex';
+      if (freeEl) freeEl.style.display = 'none';
     } else {
-      if (lockEl) lockEl.style.display  = 'none';
-      if (freeEl) freeEl.style.display  = 'flex';
-      // Auto-hide free overlay after 6s
-      clearTimeout(window._ch4FreeTimer);
-      window._ch4FreeTimer = setTimeout(() => {
-        if (freeEl) freeEl.style.opacity = '0';
-      }, 6000);
+      if (lockEl) lockEl.style.display = 'none';
+      if (freeEl) freeEl.style.display = 'flex';
+      // Free overlay stays visible permanently while in exploration mode
     }
 
     // FIX #3 #5 — utiliser svgDims au lieu de 'vis-ch4'
@@ -1407,33 +1387,33 @@ function initCh4(careerData) {
     // ── Highlight labels: only states 1-3, NOT state=4 (free explore = clean) ──
     if (state >= 1 && state < 4) {
       const highlightList = state >= 3 ? ALONSO_SEASONS : HIGHLIGHT_SEASONS.filter((_, i) => i < (state === 1 ? 5 : HIGHLIGHT_SEASONS.length));
-      
+
       const lbls = [];
       highlightList.forEach(hl => {
         const pt = scatterData.find(d => d.driver === hl.driver && d.year === hl.year);
         if (pt) {
-            lbls.push({
-                pt,
-                x: x(pt.teamAvg),
-                y: y(pt.relative),
-                fx: x(pt.teamAvg), // anchor x
-                rawY: y(pt.relative) // original y anchor
-            });
+          lbls.push({
+            pt,
+            x: x(pt.teamAvg),
+            y: y(pt.relative),
+            fx: x(pt.teamAvg), // anchor x
+            rawY: y(pt.relative) // original y anchor
+          });
         }
       });
 
       // Simple 1D force separation for Y-axis explicitly tailored to these highlight lines
       const MIN_Y_GAP = 22;
       for (let iter = 0; iter < 80; iter++) {
-          lbls.sort((a,b) => a.y - b.y);
-          for(let i = 1; i < lbls.length; i++){
-              const gap = lbls[i].y - lbls[i-1].y;
-              if (gap < MIN_Y_GAP) {
-                  const push = (MIN_Y_GAP - gap) * 0.5;
-                  lbls[i].y += push;
-                  lbls[i-1].y -= push;
-              }
+        lbls.sort((a, b) => a.y - b.y);
+        for (let i = 1; i < lbls.length; i++) {
+          const gap = lbls[i].y - lbls[i - 1].y;
+          if (gap < MIN_Y_GAP) {
+            const push = (MIN_Y_GAP - gap) * 0.5;
+            lbls[i].y += push;
+            lbls[i - 1].y -= push;
           }
+        }
       }
 
       // Clamp label Y to chart bounds with margin
@@ -1501,7 +1481,7 @@ function initCh4(careerData) {
       .attr('font-family', FF2).attr('font-size', '0.6rem').attr('fill', 'rgba(240,237,230,0.4)')
       .attr('font-weight', '600').attr('letter-spacing', '0.05em')
       .text('TAILLE = victoires');
-    [[0,'0'],[6,'6'],[14,'14+']].forEach(([w, lbl], i) => {
+    [[0, '0'], [6, '6'], [14, '14+']].forEach(([w, lbl], i) => {
       const r = Math.max(4, 3.5 + w * 0.55);
       const cx2 = 10, cy2 = 26 + i * 19;
       legG2.append('circle').attr('cx', cx2).attr('cy', cy2).attr('r', r)
@@ -1558,8 +1538,8 @@ function initCh4(careerData) {
         <div class="ch4-legend-body" style="display:none"></div>
       `;
 
-      const body  = panel.querySelector('.ch4-legend-body');
-      const btn   = panel.querySelector('.ch4-legend-toggle');
+      const body = panel.querySelector('.ch4-legend-body');
+      const btn = panel.querySelector('.ch4-legend-toggle');
       const arrow = panel.querySelector('.ch4-legend-arrow');
 
       teamsInView.forEach(team => {
@@ -1598,33 +1578,9 @@ function initScrollytelling(ch1Render, ch4Render) {
   const ch4LastIdx = ch4Steps.length - 1;
   let ch4Unlocked = false;
 
-  function showHint(text, color) {
-    let hint = document.getElementById('scroll-hint-bar');
-    if (!hint) {
-      hint = document.createElement('div');
-      hint.id = 'scroll-hint-bar';
-      Object.assign(hint.style, {
-        position: 'fixed', bottom: '1.5rem', left: '50%',
-        transform: 'translateX(-50%) translateY(0)',
-        fontFamily: "'Inter', 'Helvetica Neue', system-ui, sans-serif", fontSize: '0.55rem',
-        letterSpacing: '0.22em', padding: '0.35rem 1rem',
-        background: 'rgba(14,12,10,0.92)',
-        borderTop: '1px solid rgba(240,237,230,0.38)',
-        color: 'rgba(240,237,230,0.3)',
-        pointerEvents: 'none', zIndex: '300',
-        transition: 'opacity 0.4s',
-        whiteSpace: 'nowrap',
-      });
-      document.body.appendChild(hint);
-    }
-    hint.textContent = text;
-    hint.style.color = color || 'rgba(240,237,230,0.3)';
-    hint.style.opacity = '1';
-  }
-  function hideHint() {
-    const h = document.getElementById('scroll-hint-bar');
-    if (h) h.style.opacity = '0';
-  }
+  // showHint/hideHint removed — overlays in sticky-vis handle all messaging
+  function showHint() { }
+  function hideHint() { }
 
   const io = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -1633,7 +1589,7 @@ function initScrollytelling(ch1Render, ch4Render) {
 
       if (entry.isIntersecting) {
         const chapter = parseInt(entry.target.dataset.chapter);
-        const idx     = parseInt(entry.target.dataset.idx);
+        const idx = parseInt(entry.target.dataset.idx);
 
         if (chapter === 1 && ch1Render) ch1Render(idx);
 
@@ -1642,9 +1598,9 @@ function initScrollytelling(ch1Render, ch4Render) {
           if (idx >= ch4LastIdx) {
             ch4Unlocked = true;
             ch4Render(4); // re-render in full free mode
-            showHint('✦ Exploration libre — zoom · filtres · cliquer sur un point', 'rgba(240,237,230,0.42)');
-            setTimeout(hideHint, 4000);
-            // Keep "À vous de jouer" step card visible — user reads it then scrolls away naturally
+            // hint removed
+            // hint removed
+            // Free mode triggered by last step (idx=4)
           }
         }
       }

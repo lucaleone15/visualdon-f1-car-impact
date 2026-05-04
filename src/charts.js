@@ -832,7 +832,7 @@ function renderCh3(careerData) {
   // Zero line label
   g.append('text').attr('x', 4).attr('y', y(0) - 6)
     .attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem')
-    .attr('fill', '#7a7a90').text('0 = même niveau que son coéquipier');
+    .attr('fill', 'rgba(240,237,230,0.85)').text('0 = même niveau que son coéquipier');
 
   // Zone labels
   g.append('text').attr('x', 4).attr('y', y(yDom[1]) + 14)
@@ -843,16 +843,16 @@ function renderCh3(careerData) {
   g.append('text').attr('x', 4).attr('y', ch - 6)
     .attr('text-anchor', 'start')
     .attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem')
-    .attr('fill', '#e8001a').attr('opacity', 0.6).text('▼ Pilote en-dessous de son coéquipier');
+    .attr('fill', '#ff9494').attr('opacity', 0.95).text('▼ Pilote en-dessous de son coéquipier');
 
   // Dot legend for red dots
   // Dot legend — top-right of chart, inside box
   const legG = g.append('g').attr('transform', `translate(${cw - 265}, -28)`);
-  legG.append('rect').attr('x', -6).attr('y', -4).attr('width', 260).attr('height', 44).attr('fill', 'rgba(8,8,12,0.82)').attr('rx', 3).attr('stroke', 'rgba(255,255,255,0.38)').attr('stroke-width', 1);
+  legG.append('rect').attr('x', -6).attr('y', -4).attr('width', 260).attr('height', 44).attr('fill', 'rgba(8,8,12,0.94)').attr('rx', 4).attr('stroke', 'rgba(255,255,255,0.55)').attr('stroke-width', 1);
   legG.append('circle').attr('cx', 8).attr('cy', 8).attr('r', 5).attr('fill', '#00c87a').attr('stroke', '#0a0a08').attr('stroke-width', 1.5);
-  legG.append('text').attr('x', 18).attr('y', 12).attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem').attr('fill', '#00c87a').text('= au-dessus de son coequipier');
+  legG.append('text').attr('x', 18).attr('y', 12).attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem').attr('fill', 'rgba(240,237,230,0.95)').text('= au-dessus de son coequipier');
   legG.append('circle').attr('cx', 8).attr('cy', 28).attr('r', 5).attr('fill', '#e8001a').attr('stroke', '#ff4444').attr('stroke-width', 2);
-  legG.append('text').attr('x', 18).attr('y', 32).attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem').attr('fill', '#e8001a').text('= battu par son coequipier cette saison');
+  legG.append('text').attr('x', 18).attr('y', 32).attr('font-family', "'Inter', 'Helvetica Neue', system-ui, sans-serif").attr('font-size', '0.65rem').attr('fill', 'rgba(240,237,230,0.95)').text('= battu par son coequipier cette saison');
 
   // Y axis label
   g.append('text').attr('transform', 'rotate(-90)')
@@ -915,7 +915,7 @@ function renderCh3(careerData) {
 
     // Line with draw animation
     const path = g.append('path').datum(fc)
-      .attr('fill', 'none').attr('stroke', color).attr('stroke-width', 2.5).attr('d', lineGen);
+      .attr('fill', 'none').attr('stroke', color).attr('stroke-width', 3.2).attr('stroke-linecap', 'round').attr('d', lineGen);
     const len = path.node().getTotalLength();
     path.attr('stroke-dasharray', len).attr('stroke-dashoffset', len)
       .transition().duration(900).ease(d3.easeCubicOut).attr('stroke-dashoffset', 0);
@@ -925,10 +925,10 @@ function renderCh3(careerData) {
     g.selectAll(`.dot-${safeName}`).data(fc).join('circle')
       .attr('class', `dot-${safeName}`)
       .attr('cx', d => x(d.year)).attr('cy', d => y(d.relative_ppr))
-      .attr('r', 4.5)
+      .attr('r', 5.5)
       .attr('fill', d => d.relative_ppr < 0 ? '#e8001a' : color)
       .attr('stroke', d => d.relative_ppr < 0 ? '#ff4444' : '#0a0a08')
-      .attr('stroke-width', d => d.relative_ppr < 0 ? 2 : 1.5)
+      .attr('stroke-width', d => d.relative_ppr < 0 ? 2.2 : 1.8)
       .style('cursor', 'pointer')
       .on('mouseover', function (event, d) {
         d3.select(this)
@@ -946,7 +946,7 @@ function renderCh3(careerData) {
       })
       .on('mouseleave', function (event, d) {
         d3.select(this)
-          .attr('r', 4.5)
+          .attr('r', 5.5)
           .style('filter', 'none');
         hideTip();
       });

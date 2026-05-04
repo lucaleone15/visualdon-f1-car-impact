@@ -707,7 +707,7 @@ function animateDrama() {
    CH3 — CAREER TRAJECTORIES (interactive)
 ═══════════════════════════════════════════════ */
 const FEATURED_DRIVERS = [
-  { name: 'Lewis Hamilton', color: '#00d2be', story: '<strong>Hamilton</strong> : positif dans <em>15 saisons sur 18</em>. Chez McLaren comme chez Mercedes, il domine systématiquement. Le talent traverse les équipes.' },
+  { name: 'Lewis Hamilton', color: '#00d2be', story: '<strong>Hamilton</strong> : positif dans <em>14 saisons sur 18</em>. Chez McLaren comme chez Mercedes, il domine systématiquement. Le talent traverse les équipes.' },
   { name: 'Fernando Alonso', color: '#ff8000', story: '<strong>Alonso</strong> : <em>18 saisons positives sur 20</em>. Peu importe la voiture — Ferrari, McLaren-Honda, Renault, Alpine — il est presque toujours au-dessus de son équipe. Le cas le plus pur de talent brut.' },
   { name: 'Sebastian Vettel', color: '#dc0000', story: '<strong>Vettel</strong> : dominant avec Red Bull (2010-2013), puis plus fragile. Sa trajectoire interroge : était-ce lui ou la RB de Newey ?' },
   { name: 'Max Verstappen', color: '#3671c6', story: '<strong>Verstappen</strong> : depuis 2019, il domine <em>massivement</em> ses coéquipiers. Son écart à Pérez (+12 pts/course en 2023) reste sans équivalent.' },
